@@ -30,6 +30,8 @@ public class GridManager : Singleton<GridManager>
 	private int _currentCenterLevel;
 	private int _currentOpenedBuildingLevel;
 	[ShowInInspector] private int _selectedBuildingLevel;
+
+	private bool _hasInit = false;
 	#endregion
 
 	#region PublicMethod
@@ -48,6 +50,8 @@ public class GridManager : Singleton<GridManager>
 		targetPos.y = (_currentCenterLevel - 1) * _centerBlockHeight;
 		centerBlock.Init(_currentCenterLevel, targetPos);
 		_centerBlocks.Add(centerBlock);
+
+		CheckCanOpenLevel();
 	}
 
 	public void ShowGridSelector(int level, Vector2Int _gridPos) {
@@ -72,7 +76,7 @@ public class GridManager : Singleton<GridManager>
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
 		_buildingLevels[level].InstallBlock(gridPos);
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
-			OpenNewLevel();
+			CheckCanOpenLevel();
 		}
 	}
 
@@ -82,6 +86,24 @@ public class GridManager : Singleton<GridManager>
 	#endregion
     
 	#region PrivateMethod
+	private void Update() {
+		if (_hasInit == false) {
+			return;
+		}
+
+		if (Input.GetAxis("Mouse ScrollWheel") > 0) {
+			if (_selectedBuildingLevel < _currentOpenedBuildingLevel - 1) {
+				_selectedBuildingLevel++;
+				SelectLevel();
+			}
+		} else if (Input.GetAxis("Mouse ScrollWheel") < 0) {
+			if (_selectedBuildingLevel > 0) {
+				_selectedBuildingLevel--;
+				SelectLevel();
+			}
+		}
+	}
+
 	protected override void Init() {
 		HideGridSelector();
 
@@ -95,7 +117,18 @@ public class GridManager : Singleton<GridManager>
 
 		_buildingLevels = new List<BuildingLevel>();
 		_selectedBuildingLevel = 0;
-		OpenNewLevel();
+
+		BuildNewCenterBlock();
+
+		_hasInit = true;
+	}
+
+	private void CheckCanOpenLevel() {
+		if (_currentOpenedBuildingLevel < _currentCenterLevel) {
+			if (_currentOpenedBuildingLevel == 0 || _buildingLevels[_currentOpenedBuildingLevel - 1].HasBlockInstalled == true) {
+				OpenNewLevel();
+			}
+		}
 	}
 
 	private void OpenNewLevel() {
