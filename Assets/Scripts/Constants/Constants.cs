@@ -25,6 +25,12 @@ namespace TH.Core {
 				public const string SIDE_BLOCK_PARENT_NAME = "=========== SideBlockParent ===========";
 			}
 		}
+
+		namespace Colors {
+			public static class BlockLinking {
+				public readonly static Color LINE_COLOR = Color.red; 
+			}
+		}
 	}
 
 }

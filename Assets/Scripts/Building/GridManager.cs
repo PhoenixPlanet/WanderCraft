@@ -7,8 +7,15 @@ namespace TH.Core {
 
 public class GridManager : Singleton<GridManager>
 {
+	public enum BuildingState {
+		Normal,
+		Building,
+		BlockLinking,
+	}
+
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
+	public BuildingState State => _buildingState;
 	#endregion
 
 	#region PrivateVariables
@@ -30,8 +37,10 @@ public class GridManager : Singleton<GridManager>
 	private int _currentCenterLevel;
 	private int _currentOpenedBuildingLevel;
 	[ShowInInspector] private int _selectedBuildingLevel;
+	[ShowInInspector] private ESourceType _selectedSourceType;
 
 	private bool _hasInit = false;
+	private BuildingState _buildingState = BuildingState.Normal;
 	#endregion
 
 	#region PublicMethod
@@ -74,7 +83,7 @@ public class GridManager : Singleton<GridManager>
 
 	public void InstallNewBlock(int level, Vector2Int gridPos) {
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
-		_buildingLevels[level].InstallBlock(gridPos);
+		_buildingLevels[level].InstallBlock(gridPos, _selectedSourceType);
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
 			CheckCanOpenLevel();
 		}
@@ -87,6 +96,18 @@ public class GridManager : Singleton<GridManager>
 	public void ChangeState(BuildingState state) {
 		_buildingState = state;
 		ApplyState();
+	}
+
+	public void CancelLinking() {
+		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].CancelLinking();
+		}
+	}
+
+	public void FinishLinking() {
+		if (_buildingState == BuildingState.BlockLinking) {
+			_buildingLevels[_selectedBuildingLevel].FinishBlockLinking();
+		}
 	}
 	#endregion
     
