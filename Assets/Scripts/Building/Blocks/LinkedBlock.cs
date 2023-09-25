@@ -12,8 +12,9 @@ public class LinkedBlock
     public List<FactoryAbility> factoryAbilities;
     public List<KitchenAbility> kitchenAbilities;
     public List<StorageAbility> storageAbilities;
+
     //GO or individual scripts?
-    public LinkedBlock(ESourceType sourceType, List<DiningAbility> diningAbilities, List<FactoryAbility> factoryAbilities, List<KitchenAbility> kitchenAbilities, List<StorageAbility> storageAbilities)
+    public LinkedBlock(ESourceType sourceType, List<List<BlockAbility>> blockAbilities)
     {
     }
     #endregion

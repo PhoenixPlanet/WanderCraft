@@ -70,7 +70,6 @@ public class BlockMouseSensor : MonoBehaviour
 	#region PrivateMethod
 	private void OnMouseOver() {
 		_onMouseOver?.Invoke(GridPosOffset(_direction));
-		Debug.Log(_direction);
 	}
 
 	private void OnMouseExit() {

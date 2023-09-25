@@ -7,8 +7,15 @@ namespace TH.Core {
 
 public class GridManager : Singleton<GridManager>
 {
+	public enum BuildingState {
+		Normal,
+		Building,
+		BlockLinking,
+	}
+
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
+	public BuildingState State => _buildingState;
 	#endregion
 
 	#region PrivateVariables
@@ -30,8 +37,10 @@ public class GridManager : Singleton<GridManager>
 	private int _currentCenterLevel;
 	private int _currentOpenedBuildingLevel;
 	[ShowInInspector] private int _selectedBuildingLevel;
+	[ShowInInspector] private ESourceType _selectedSourceType;
 
 	private bool _hasInit = false;
+	private BuildingState _buildingState = BuildingState.Normal;
 	#endregion
 
 	#region PublicMethod
@@ -74,7 +83,7 @@ public class GridManager : Singleton<GridManager>
 
 	public void InstallNewBlock(int level, Vector2Int gridPos) {
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
-		_buildingLevels[level].InstallBlock(gridPos);
+		_buildingLevels[level].InstallBlock(gridPos, _selectedSourceType);
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
 			CheckCanOpenLevel();
 		}
@@ -82,6 +91,23 @@ public class GridManager : Singleton<GridManager>
 
 	public Vector2Int GetListIndex(Vector2Int gridPos) {
 		return new Vector2Int(gridPos.x + _gridSize.x / 2, gridPos.y + _gridSize.y / 2);
+	}
+
+	public void ChangeState(BuildingState state) {
+		_buildingState = state;
+		ApplyState();
+	}
+
+	public void CancelLinking() {
+		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].CancelLinking();
+		}
+	}
+
+	public void FinishLinking() {
+		if (_buildingState == BuildingState.BlockLinking) {
+			_buildingLevels[_selectedBuildingLevel].FinishBlockLinking();
+		}
 	}
 	#endregion
     
@@ -92,15 +118,9 @@ public class GridManager : Singleton<GridManager>
 		}
 
 		if (Input.GetAxis("Mouse ScrollWheel") > 0) {
-			if (_selectedBuildingLevel < _currentOpenedBuildingLevel - 1) {
-				_selectedBuildingLevel++;
-				SelectLevel();
-			}
+			SelectNextLevel();
 		} else if (Input.GetAxis("Mouse ScrollWheel") < 0) {
-			if (_selectedBuildingLevel > 0) {
-				_selectedBuildingLevel--;
-				SelectLevel();
-			}
+			SelectPrevLevel();
 		}
 	}
 
@@ -120,7 +140,26 @@ public class GridManager : Singleton<GridManager>
 
 		BuildNewCenterBlock();
 
+		_buildingState = BuildingState.Normal;
+		ApplyState();
+
 		_hasInit = true;
+	}
+
+	private void ApplyState() {
+		switch (_buildingState) {
+			case BuildingState.Normal:
+				DeactivateBuildingUI();
+				break;
+			case BuildingState.Building:
+				SelectLevel();
+				break;
+			case BuildingState.BlockLinking:
+				SelectLevel();
+				break;
+			default:
+				break;
+		}
 	}
 
 	private void CheckCanOpenLevel() {
@@ -152,12 +191,54 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void SelectLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+		
 		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].DeactivateBlocks();
 			if (i == _selectedBuildingLevel) {
-				_buildingLevels[i].ActivateLevel();
+				if (_buildingState == BuildingState.Building) {
+					_buildingLevels[i].ActivateLevelBuildingUI();
+				} else if (_buildingState == BuildingState.BlockLinking) {
+					_buildingLevels[i].ActivateBlocks();
+				}
 			} else {
-				_buildingLevels[i].DeactivateLevel();
+				if (_buildingState == BuildingState.Building) {
+					_buildingLevels[i].DeactivateLevelBuildingUI();
+				} else if (_buildingState == BuildingState.BlockLinking) {
+					_buildingLevels[i].DeactivateBlocks();
+				}
 			}
+		}
+	}
+
+	private void SelectNextLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+
+		if (_selectedBuildingLevel < _currentOpenedBuildingLevel - 1) {
+			_selectedBuildingLevel++;
+			SelectLevel();
+		}
+	}
+
+	private void SelectPrevLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+
+		if (_selectedBuildingLevel > 0) {
+			_selectedBuildingLevel--;
+			SelectLevel();
+		}
+	}
+
+	private void DeactivateBuildingUI() {
+		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].DeactivateLevelBuildingUI();
+			_buildingLevels[i].ActivateBlocks();
 		}
 	}
 	#endregion
