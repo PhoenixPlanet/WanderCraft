@@ -7,6 +7,12 @@ namespace TH.Core {
 
 public class GridManager : Singleton<GridManager>
 {
+	public enum BuildingState {
+		Normal,
+		Building,
+		BlockLinking,
+	}
+
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
 	#endregion
@@ -32,6 +38,7 @@ public class GridManager : Singleton<GridManager>
 	[ShowInInspector] private int _selectedBuildingLevel;
 
 	private bool _hasInit = false;
+	private BuildingState _buildingState = BuildingState.Normal;
 	#endregion
 
 	#region PublicMethod
