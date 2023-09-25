@@ -5,12 +5,22 @@ using UnityEngine;
 
 public abstract class BlockAbility : MonoBehaviour
 {
-    public enum EBuildingType
+
+    public EBuildingType m_BuidlingType;
+    public ESourceType m_SourceType;
+
+    protected abstract void Start();
+
+
+
+}    
+
+public enum EBuildingType
     {
         Factory,
         Storage,
         Kitchen,
-        Dining,
+        Dining
     }
 
     public enum ESourceType
@@ -19,13 +29,3 @@ public abstract class BlockAbility : MonoBehaviour
         Meat,
         Plant
     }
-
-    public EBuildingType m_BuidlingType;
-    public ESourceType m_SourceType;
-
-    protected abstract void Start();
-    protected abstract void Update();
-
-
-
-}

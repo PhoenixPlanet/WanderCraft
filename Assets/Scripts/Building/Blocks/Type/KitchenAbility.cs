@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FactoryAbility : BlockAbility
+public class KitchenAbility : BlockAbility
 {
     #region PublicVariables
     #endregion
@@ -19,12 +19,7 @@ public class FactoryAbility : BlockAbility
     #endregion
     protected override void Start()
     {
-        m_BuidlingType = EBuildingType.Factory;
-
+        m_BuidlingType = EBuildingType.Kitchen;
     }
 
-    protected override void Update()
-    {
-        throw new System.NotImplementedException();
-    }
 }
