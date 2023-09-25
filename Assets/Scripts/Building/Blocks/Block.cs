@@ -48,10 +48,6 @@ public class Block : MonoBehaviour
 
 	public virtual void ActivateBlock() {
 		_meshRenderer.Get(gameObject).material = _normal;
-
-		for (int i = 0; i < 4; i++) {
-			_blockMouseSensors[i].gameObject.SetActive(true);
-		}
 	}
 
 	public virtual void DeactivateBlock() {
@@ -60,6 +56,18 @@ public class Block : MonoBehaviour
 		for (int i = 0; i < 4; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(false);
 		}
+	}
+
+	public virtual void ActivateBlockBuildingUI() {
+		ActivateBlock();
+
+		for (int i = 0; i < 4; i++) {
+			_blockMouseSensors[i].gameObject.SetActive(true);
+		}
+	}
+
+	public virtual void DeactivateBlockBuildingUI() {
+		DeactivateBlock();
 	}
 	#endregion
     

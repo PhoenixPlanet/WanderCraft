@@ -90,6 +90,11 @@ public class GridManager : Singleton<GridManager>
 	public Vector2Int GetListIndex(Vector2Int gridPos) {
 		return new Vector2Int(gridPos.x + _gridSize.x / 2, gridPos.y + _gridSize.y / 2);
 	}
+
+	public void ChangeState(BuildingState state) {
+		_buildingState = state;
+		ApplyState();
+	}
 	#endregion
     
 	#region PrivateMethod
@@ -99,15 +104,9 @@ public class GridManager : Singleton<GridManager>
 		}
 
 		if (Input.GetAxis("Mouse ScrollWheel") > 0) {
-			if (_selectedBuildingLevel < _currentOpenedBuildingLevel - 1) {
-				_selectedBuildingLevel++;
-				SelectLevel();
-			}
+			SelectNextLevel();
 		} else if (Input.GetAxis("Mouse ScrollWheel") < 0) {
-			if (_selectedBuildingLevel > 0) {
-				_selectedBuildingLevel--;
-				SelectLevel();
-			}
+			SelectPrevLevel();
 		}
 	}
 
@@ -127,7 +126,26 @@ public class GridManager : Singleton<GridManager>
 
 		BuildNewCenterBlock();
 
+		_buildingState = BuildingState.Normal;
+		ApplyState();
+
 		_hasInit = true;
+	}
+
+	private void ApplyState() {
+		switch (_buildingState) {
+			case BuildingState.Normal:
+				DeactivateBuildingUI();
+				break;
+			case BuildingState.Building:
+				SelectLevel();
+				break;
+			case BuildingState.BlockLinking:
+				SelectLevel();
+				break;
+			default:
+				break;
+		}
 	}
 
 	private void CheckCanOpenLevel() {
@@ -159,12 +177,54 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void SelectLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+		
 		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].DeactivateBlocks();
 			if (i == _selectedBuildingLevel) {
-				_buildingLevels[i].ActivateLevel();
+				if (_buildingState == BuildingState.Building) {
+					_buildingLevels[i].ActivateLevelBuildingUI();
+				} else if (_buildingState == BuildingState.BlockLinking) {
+					_buildingLevels[i].ActivateBlocks();
+				}
 			} else {
-				_buildingLevels[i].DeactivateLevel();
+				if (_buildingState == BuildingState.Building) {
+					_buildingLevels[i].DeactivateLevelBuildingUI();
+				} else if (_buildingState == BuildingState.BlockLinking) {
+					_buildingLevels[i].DeactivateBlocks();
+				}
 			}
+		}
+	}
+
+	private void SelectNextLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+
+		if (_selectedBuildingLevel < _currentOpenedBuildingLevel - 1) {
+			_selectedBuildingLevel++;
+			SelectLevel();
+		}
+	}
+
+	private void SelectPrevLevel() {
+		if (_buildingState == BuildingState.Normal) {
+			return;
+		}
+
+		if (_selectedBuildingLevel > 0) {
+			_selectedBuildingLevel--;
+			SelectLevel();
+		}
+	}
+
+	private void DeactivateBuildingUI() {
+		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].DeactivateLevelBuildingUI();
+			_buildingLevels[i].ActivateBlocks();
 		}
 	}
 	#endregion

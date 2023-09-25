@@ -69,21 +69,19 @@ public class BuildingLevel : MonoBehaviour
 		_installedBlockNum++;
 	}
 
-	public void ActivateLevel() {
-		ActivateBlocks();
+	public void ActivateLevelBuildingUI() {
+		ActivateBlocksBuildingUI();
 
-		_gridStart.Get(gameObject).ActivateBlock();
+		_gridStart.Get(gameObject).ActivateBlockBuildingUI();
 	}
 
-	public void DeactivateLevel() {
-		DeactivateBlocks();
+	public void DeactivateLevelBuildingUI() {
+		DeactivateBlocksBuildingUI();
 
-		_gridStart.Get(gameObject).DeactivateBlock();
+		_gridStart.Get(gameObject).DeactivateBlockBuildingUI();
 	}
-	#endregion
-    
-	#region PrivateMethod
-	private void ActivateBlocks() {
+
+	public void ActivateBlocks() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
 				if (_grid[i][j] != null) {
@@ -91,13 +89,40 @@ public class BuildingLevel : MonoBehaviour
 				}
 			}
 		}
+
+		_gridStart.Get(gameObject).ActivateBlock();
 	}
 
-	private void DeactivateBlocks() {
+	public void DeactivateBlocks() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
 				if (_grid[i][j] != null) {
 					_grid[i][j].DeactivateBlock();
+				}
+			}
+		}
+
+		_gridStart.Get(gameObject).DeactivateBlock();
+	}
+	
+	#endregion
+    
+	#region PrivateMethod
+	private void ActivateBlocksBuildingUI() {
+		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
+			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
+				if (_grid[i][j] != null) {
+					_grid[i][j].ActivateBlockBuildingUI();
+				}
+			}
+		}
+	}
+
+	private void DeactivateBlocksBuildingUI() {
+		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
+			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
+				if (_grid[i][j] != null) {
+					_grid[i][j].DeactivateBlockBuildingUI();
 				}
 			}
 		}
