@@ -24,6 +24,7 @@ namespace TH.Core
         private bool _isFlying = false;
         private bool _isDestroying = false;
         private float _yPos;
+        private float _destroyYpos = -30f;
         
         private float _flyingSpeed = 5;
         #endregion
@@ -66,6 +67,14 @@ namespace TH.Core
                     _isMoving = false;
                     StartFlying();
                 }
+            }
+        }
+
+        private void Update()
+        {
+            if(transform.position.y < _destroyYpos)
+            {
+                StartCoroutine(nameof(destroyObject));
             }
         }
 
