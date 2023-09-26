@@ -70,7 +70,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9d896f288bbf41a204908c29e3dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isMoving: 1
+  _floatingDirection: {x: 20, y: 0, z: 20}
+  _floatingSpeed: 0.1
+  _flyingSpeed: 3
   _blockData: {fileID: 0}
+  _yPos: 10
+  _rb: {fileID: 0}
 --- !u!54 &-8975452105430613267
 Rigidbody:
   m_ObjectHideFlags: 0
