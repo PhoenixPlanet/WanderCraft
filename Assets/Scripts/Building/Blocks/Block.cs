@@ -8,6 +8,8 @@ namespace TH.Core {
 public class Block : MonoBehaviour
 {
     #region PublicVariables
+	public BlockData Data => _blockData;
+	public BlockAbility Ability => _blockAbility.Get(gameObject);
 	#endregion
 
 	#region PrivateVariables

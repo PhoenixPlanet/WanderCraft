@@ -6,30 +6,40 @@ using UnityEngine;
 public class BlockCluster
 {
     #region PublicVariables
+    public int level;
+    public EBuildingType buildingType;
     public ESourceType sourceType;
-    public Dictionary<EBuildingType, List<BlockAbility>> blockAbilities;
+    public List<BlockAbility> blockAbilities;
 
     //GO or individual scripts?
-    public BlockCluster(ESourceType sourceType, List<List<BlockAbility>> blockAbilities)
+    public BlockCluster(int level, EBuildingType buildingType, ESourceType sourceType)
     {
+        this.level = level;
+        this.buildingType = buildingType;
         this.sourceType = sourceType;
-        this.blockAbilities = new Dictionary<EBuildingType, List<BlockAbility>>();
-        for (int i = 0; i < blockAbilities.Count; i++)
-        {
-            this.blockAbilities.Add((EBuildingType)i, blockAbilities[i]);
-        }
+
+        blockAbilities = new List<BlockAbility>();
     }
     #endregion
+
     #region PrivateVariables
     #endregion
 
     #region PublicMethod
+    public void AddBlock(BlockAbility blockAbility)
+    {
+        blockAbilities.Add(blockAbility);
+    }
+
+    public int BlockNum() {
+        return blockAbilities.Count;
+    }
+
+    public void ApplyCluster() {
+        
+    }
     #endregion
 
     #region PrivateMethod
-    private void Update()
-    {
-
-    }
     #endregion
 }
