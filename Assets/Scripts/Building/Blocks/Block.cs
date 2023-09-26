@@ -27,12 +27,12 @@ public class Block : MonoBehaviour
 	protected List<BlockMouseSensor> _blockMouseSensors;
 
 	private int _level;
-	private ESourceType _sourceType;
+	private BlockData _blockData;
 	private Action<int, Vector2Int> _onClick;
 	#endregion
 
 	#region PublicMethod
-	public void Init(int level, Vector2Int gridPos, ESourceType sourceType, Action<int, Vector2Int> onClick) {
+	public void Init(int level, Vector2Int gridPos, BlockData blockData, Action<int, Vector2Int> onClick) {
 		if (_normal == null || _transparent == null) {
 			LoadMaterials();
 		}
@@ -50,8 +50,13 @@ public class Block : MonoBehaviour
 
 		_level = level;
 		_gridPos = gridPos;
-		_sourceType = sourceType;
+		_blockData = blockData;
 		_onClick = onClick;
+		
+		if (_blockData != null) {
+			_blockAbility.Get(gameObject).Init(_blockData);
+		}
+
 		InitPosition();
 	}
 

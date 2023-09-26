@@ -32,7 +32,7 @@ public class BuildingLevel : MonoBehaviour
 
 	#region PublicMethod
 	public void Init(int level) {
-		_gridStart.Get(gameObject).Init(level, Vector2Int.zero, ESourceType.Meat, (_, _) => {});
+		_gridStart.Get(gameObject).Init(level, Vector2Int.zero, null, (_, _) => {});
 
 		_grid = new List<List<Block>>();
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
@@ -61,7 +61,7 @@ public class BuildingLevel : MonoBehaviour
 		}
 	}
 
-	public void InstallBlock(Vector2Int gridPos, ESourceType sourceType) {
+	public void InstallBlock(Vector2Int gridPos, BlockData blockData) {
 		if (_hasInit == false) {
 			return;
 		}
@@ -70,10 +70,10 @@ public class BuildingLevel : MonoBehaviour
 
 		if (_grid[listIndex.x][listIndex.y] == null) {
 			GameObject blockObject 
-				= Instantiate(Resources.Load<GameObject>(Constants.ResourcesPath.Prefabs.SIDE_BLOCK_PREFAB_PATH), _gridStart.Get().transform.parent);
+				= Instantiate(blockData.RealPrefab, _gridStart.Get().transform.parent);
 			Block block = blockObject.GetComponent<Block>();
 			block.transform.localPosition = GridManager.Instance.GetLocalPosition(gridPos);
-			block.Init(_level, gridPos, sourceType, OnBlockClick);
+			block.Init(_level, gridPos, blockData, OnBlockClick);
 			_grid[listIndex.x][listIndex.y] = block;
 		}
 		_installedBlockNum++;
