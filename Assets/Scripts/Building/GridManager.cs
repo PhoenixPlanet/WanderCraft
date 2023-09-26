@@ -136,6 +136,19 @@ public class GridManager : Singleton<GridManager>
 
 		return true;
 	}
+
+	public Block GetBlock(int level, Vector2Int gridPos) {
+		if (_hasInit == false) {
+			return null;
+		}
+
+		Vector2Int listIndex = GetListIndex(gridPos);
+		if (IsListPosInGrid(listIndex) == false) {
+			return null;
+		}
+
+		return _buildingLevels[level].GetBlock(listIndex);
+	}
 	#endregion
     
 	#region PrivateMethod

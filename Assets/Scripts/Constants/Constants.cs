@@ -32,6 +32,33 @@ namespace TH.Core {
 					public const string BLOCK_PLANT_1 = "Materials/BlockIntensity/Plant/Plant1";
 					public const string BLOCK_PLANT_2 = "Materials/BlockIntensity/Plant/Plant2";
 					public const string BLOCK_PLANT_3 = "Materials/BlockIntensity/Plant/Plant3";
+
+					public static readonly string[] MEAT = {
+                        BLOCK_MEAT_0,
+						BLOCK_MEAT_1,
+						BLOCK_MEAT_2,
+						BLOCK_MEAT_3,
+					};
+
+					public static readonly string[] FISH = {
+						BLOCK_FISH_0,
+						BLOCK_FISH_1,
+						BLOCK_FISH_2,
+						BLOCK_FISH_3,
+					};
+
+					public static readonly string[] PLANT = {
+						BLOCK_PLANT_0,
+						BLOCK_PLANT_1,
+						BLOCK_PLANT_2,
+						BLOCK_PLANT_3,
+					};
+
+					public static readonly Dictionary<ESourceType, string[]> INTENSITY = new Dictionary<ESourceType, string[]>() {
+						{ESourceType.Meat, MEAT},
+						{ESourceType.Fish, FISH},
+						{ESourceType.Plant, PLANT},
+					};
 				}
 			}
 		}
