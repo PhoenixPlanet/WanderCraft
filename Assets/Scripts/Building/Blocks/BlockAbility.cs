@@ -10,6 +10,10 @@ public class BlockAbility : MonoBehaviour
     public ESourceType m_SourceType;
     public Block block => _block.Get(gameObject);
 
+    public bool IsActivated => _isActivated;
+
+    private bool _isActivated = true;
+
     private ComponentGetter<Block> _block =
         new ComponentGetter<Block>(TypeOfGetter.This);
 
@@ -37,7 +41,23 @@ public class BlockAbility : MonoBehaviour
     }
 
     protected void Start() {
+        _isActivated = true;
+    }
 
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("OnTriggerEnter Water");
+        if (other.gameObject.CompareTag("Water")) {
+            _isActivated = false;
+            GridManager.Instance.CalculateAgain();
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        Debug.Log("OnTriggerExit Water");
+        if (other.gameObject.CompareTag("Water")) {
+            _isActivated = true;
+            GridManager.Instance.CalculateAgain();
+        }
     }
 }    
 

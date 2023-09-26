@@ -31,7 +31,7 @@ public class InfoSelectButton : MonoBehaviour
 		_titleText.Get(gameObject).text = title;
 		_threadText.Get(gameObject).text = "활성 쓰레드: " + threadNum.ToString();
 		_averageText.Get(gameObject).text = "평균 생산량: " + average.ToString();
-		_TotalText.Get(gameObject).text = "전체 생산량: " + total.ToString();
+		_TotalText.Get(gameObject).text = "전체 생산량: " + total.ToString() + (total == 0 ? " (잠김)" : "");
 
 		_blockLink = blockLink;
 

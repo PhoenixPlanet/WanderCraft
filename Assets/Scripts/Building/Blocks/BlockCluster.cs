@@ -123,6 +123,12 @@ public class BlockCluster
     }
 
     public int GetProductionScore() {
+        foreach (var blockAbility in blockAbilities) {
+            if (blockAbility.IsActivated == false) {
+                return 0;
+            }
+        }
+
         return 
             blockAbilities.Count == 0 ? 
             0 :
