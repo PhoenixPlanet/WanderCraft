@@ -149,9 +149,11 @@ public class GridManager : Singleton<GridManager>
 	private void ApplyState() {
 		switch (_buildingState) {
 			case BuildingState.Normal:
+				CancelLinking();
 				DeactivateBuildingUI();
 				break;
 			case BuildingState.Building:
+				CancelLinking();
 				SelectLevel();
 				break;
 			case BuildingState.BlockLinking:
