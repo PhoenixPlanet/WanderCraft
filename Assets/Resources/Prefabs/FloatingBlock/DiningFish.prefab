@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 836044172351173065}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7993635305947194678}
   - {fileID: 7418511305528156145}
@@ -66,7 +66,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9d896f288bbf41a204908c29e3dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isMoving: 1
+  _floatingDirection: {x: 20, y: 0, z: 20}
+  _floatingSpeed: 0.1
+  _flyingSpeed: 3
   _blockData: {fileID: 0}
+  _yPos: 10
+  _rb: {fileID: 0}
 --- !u!54 &-8466527024234015734
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,14 +102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloating: 0
-  WaterVolumeHelper: {fileID: 0}
   maxBuyoncyPower: 3
   underWaterDrag: 3
   underWaterAngularDrag: 1
   airDrag: 0
   airAngularDrag: 0.05
   floatingPower: 50
-  rigidbody: {fileID: -8466527024234015734}
 --- !u!1 &5299648856908720930
 GameObject:
   m_ObjectHideFlags: 0
