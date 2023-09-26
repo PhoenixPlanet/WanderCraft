@@ -28,7 +28,16 @@ public class ForecastPanel : MonoBehaviour
             {
                 GameObject forecastPanel = Instantiate(forecastPanelPrefab, scrollViewContent);
                 TextMeshProUGUI textMeshPro = forecastPanel.GetComponentInChildren<TextMeshProUGUI>();
-                textMeshPro.text = waveStatus.ToString();
+                string target = "";
+                switch (waveStatus)
+                {
+                    case WaveStatus.Idle: target = "파도 없음\n" + (int)waterController._IdleWaveTime +"초"; break;
+                    case WaveStatus.Low: target = "잔잔한 파도\n" + (int)waterController._LowWaveTime + "초"; break;
+                    case WaveStatus.Middle: target = "강한 파도\n" + (int)waterController._MiddleWaveTime + "초"; break;
+                    case WaveStatus.High: target = "쓰나미\n" + waterController._HighWaveTime + "초"; break;
+                }
+
+                textMeshPro.text = target;
             }
         }
     }
