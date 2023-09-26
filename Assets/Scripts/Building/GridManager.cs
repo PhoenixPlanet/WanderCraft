@@ -11,7 +11,6 @@ public class GridManager : Singleton<GridManager>
 	public enum BuildingState {
 		Normal,
 		Building,
-		BlockLinking,
 	}
 
     #region PublicVariables
@@ -44,7 +43,7 @@ public class GridManager : Singleton<GridManager>
 
 	private bool _hasInit = false;
 	private BuildingState _buildingState = BuildingState.Normal;
-	private BlockData _selectedFloatingBlockData;
+	private FloatingBlock _selectedFloatingBlock;
 	#endregion
 
 	#region PublicMethod
@@ -86,13 +85,18 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void InstallNewBlock(int level, Vector2Int gridPos) {
-		if (_selectedFloatingBlockData == null) {
+		if (_selectedFloatingBlock == null) {
 			Debug.LogError("No selected floating block data");
 			return;
 		} 
 
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
-		_buildingLevels[level].InstallBlock(gridPos, _selectedFloatingBlockData);
+		if (_buildingLevels[level].InstallBlock(gridPos, _selectedFloatingBlock.Data) == true) {
+			Destroy(_selectedFloatingBlock.gameObject);
+			_selectedFloatingBlock = null;
+			SelectLevel();
+		}
+
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
 			CheckCanOpenLevel();
 		}
@@ -107,20 +111,8 @@ public class GridManager : Singleton<GridManager>
 		ApplyState();
 	}
 
-	public void CancelLinking() {
-		for (int i = 0; i < _buildingLevels.Count; i++) {
-			_buildingLevels[i].CancelLinking();
-		}
-	}
-
-	public void FinishLinking() {
-		if (_buildingState == BuildingState.BlockLinking) {
-			_buildingLevels[_selectedBuildingLevel].FinishBlockLinking();
-		}
-	}
-
-	public void SelectFloatingBlock(BlockData blockData) {
-		_selectedFloatingBlockData = blockData;
+	public void SelectFloatingBlock(FloatingBlock block) {
+		_selectedFloatingBlock = block;
 		SelectLevel();
 	}
 	#endregion
@@ -169,14 +161,10 @@ public class GridManager : Singleton<GridManager>
 	private void ApplyState() {
 		switch (_buildingState) {
 			case BuildingState.Normal:
-				CancelLinking();
+				CancelFloatingBlockSelect();
 				DeactivateBuildingUI();
 				break;
 			case BuildingState.Building:
-				CancelLinking();
-				SelectLevel();
-				break;
-			case BuildingState.BlockLinking:
 				SelectLevel();
 				break;
 			default:
@@ -185,10 +173,13 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void CancelFloatingBlockSelect() {
-		if (_selectedFloatingBlockData != null) {
-			_selectedFloatingBlockData = null;
+		if (_selectedFloatingBlock != null) {
+			_selectedFloatingBlock = null;
 		}
-		SelectLevel();
+
+		if (_buildingState == BuildingState.Building) {
+			SelectLevel();
+		}
 	}
 
 	private void CheckCanOpenLevel() {
@@ -228,19 +219,15 @@ public class GridManager : Singleton<GridManager>
 			_buildingLevels[i].DeactivateBlocks();
 			if (i == _selectedBuildingLevel) {
 				if (_buildingState == BuildingState.Building) {
-					if (_selectedFloatingBlockData != null) {
+					if (_selectedFloatingBlock != null) {
 						_buildingLevels[i].ActivateLevelBuildingUI();
 					} else {
 						_buildingLevels[i].ActivateBlocks();
 					}
-				} else if (_buildingState == BuildingState.BlockLinking) {
-					_buildingLevels[i].ActivateBlocks();
 				}
 			} else {
 				if (_buildingState == BuildingState.Building) {
 					_buildingLevels[i].DeactivateLevelBuildingUI();
-				} else if (_buildingState == BuildingState.BlockLinking) {
-					_buildingLevels[i].DeactivateBlocks();
 				}
 			}
 		}
