@@ -8,7 +8,7 @@ namespace TH.Core
     public class CameraController : MonoBehaviour
     {
         public Transform cameraTransform;
-
+        public GameObject waterGroup;
         [SerializeField] private float rotationSpeed = 10f; // Speed of camera rotation
         [SerializeField] private float zoomSpeed = 5f; // Speed of camera zoom
         [SerializeField] private float minZoomDistance = 1f; // Minimum distance for zoom
@@ -34,6 +34,12 @@ namespace TH.Core
         {
             HandleKeyboardInput();
             LerpCameraYPosition();
+            ClampWithWaterHeight();
+        }
+
+        private void ClampWithWaterHeight()
+        {
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, waterGroup.transform.position.y, 1000));
         }
 
         void HandleKeyboardInput()
