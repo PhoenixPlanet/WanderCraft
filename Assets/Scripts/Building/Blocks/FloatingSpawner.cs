@@ -80,7 +80,7 @@ namespace TH.Core
                 }
                 GameObject fb = Instantiate(blockData.FloatingPrefab, spawnPos, Quaternion.identity, _floatingBlockParentTransform);
                 fb.GetComponent<FloatingBlock>().Init(blockData, OnFloatingBlockClicked);
-                fb.GetComponent<FloatingBlock>().myDirection = spawnDir;
+                fb.GetComponent<BuyoancyController>().myDirection = spawnDir;
                 i++;
                 if (i >= _blockDataDict[ESourceType.Meat].Count)
                 {
