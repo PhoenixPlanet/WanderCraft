@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6255496993519461453}
   - component: {fileID: 7894246254716141351}
   m_Layer: 0
-  m_Name: SideBlockMeat
+  m_Name: MeatModule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
