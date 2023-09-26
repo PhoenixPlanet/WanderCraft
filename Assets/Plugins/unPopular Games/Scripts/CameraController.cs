@@ -4,192 +4,91 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    /* To turn off the visibility 
-     * of the float inputs in the editor 
-     * just delete [SerializeField] 
-     * from the beginning of each float line */
-
     public Transform cameraTransform;
 
-    [SerializeField] private float _camSpeed = 1f; //Speed of the camera
-    [SerializeField] private float _camSpeedFast = 5f; //Speed of the camera while holding "Fast camera movement button"
+    [SerializeField] private float rotationSpeed = 10f; // Speed of camera rotation
+    [SerializeField] private float zoomSpeed = 5f; // Speed of camera zoom
+    [SerializeField] private float minZoomDistance = 1f; // Minimum distance for zoom
+    [SerializeField] private float maxZoomDistance = 20f; // Maximum distance for zoom
 
-    [SerializeField] private float _camMovementSpeed = 1f;
-    [SerializeField] private float _camSmoothness = 10f;
+    [SerializeField] private float centerBlockCount = 0;
 
-    [SerializeField] private float _camRotationAmount = 1f;
-    [SerializeField] private float _camBorderMovement = 5f;
-
-    [SerializeField] private float _maxCamZoom = 30f;
-    [SerializeField] private float _minCamZoom = 100f;
-
-    [SerializeField] private float _minZCamMovement = 100f;
-    [SerializeField] private float _maxZCamMovement = 900f;
-    [SerializeField] private float _minXCamMovement = 100f;
-    [SerializeField] private float _maxXCamMovement = 900f;
-
-    [SerializeField] private bool cursorVisible = true;
-
-    public Vector3 zoomAmount;
-
-    public Vector3 newPosition;
-    public Quaternion newRotation;
-    public Vector3 newZoom;
+    private float currentZoomDistance = 10f; // Initial zoom distance
 
     //MouseMovement
-    public Vector3 rotateStartPosition;
-    public Vector3 rotateCurrentPosition;
+    private Vector3 rotateStartPosition;
+    private Quaternion originalRotation;
 
-    Vector2 pos1;
-    Vector2 pos2;
+    // Lerp settings
+    [SerializeField] private float lerpSpeed = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        newPosition = transform.position;
-        newRotation = transform.rotation;
-        newZoom = cameraTransform.localPosition;
+        originalRotation = transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleMovementInput();
         HandleMouseInput();
+        HandleKeyboardInput();
+        LerpCameraYPosition(); // Call the method to lerp the camera's Y position
     }
 
     void HandleMouseInput()
     {
-        //Scroll zooming
-        if (Input.mouseScrollDelta.y != 0)
-        {
-
-            newZoom += Input.mouseScrollDelta.y * zoomAmount;
-
-            if (newZoom.y <= _maxCamZoom) //Max zoom limit
-            {
-               newZoom = new Vector3(0, _maxCamZoom, -_maxCamZoom);
-
-            } else if (newZoom.y >= _minCamZoom) //Min zoom limit
-            {
-                newZoom = new Vector3(0, _minCamZoom, -_minCamZoom);
-            }
-
-        }
-
-        //Camera rotating on mouse scroll button hold
-
-
         if (Input.GetMouseButtonDown(2))
         {
             rotateStartPosition = Input.mousePosition;
-        } 
-        else {
+        }
+        else
+        {
             Cursor.lockState = CursorLockMode.None;
         }
         if (Input.GetMouseButton(2))
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = cursorVisible;
-
-            newRotation *= Quaternion.Euler(Vector3.up * Input.GetAxis("Mouse X"));
+            RotateCamera(Input.mousePosition);
         }
-
     }
 
-    void HandleMovementInput()
-
-        //Fast camera movement
+    void HandleKeyboardInput()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _camMovementSpeed = _camSpeedFast;
-        }
-        else
-        {
-            _camMovementSpeed = _camSpeed;
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || Input.mousePosition.y >= Screen.height - _camBorderMovement)
-        {
-            newPosition += (transform.forward * _camMovementSpeed);
-        }
-
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) || Input.mousePosition.y <= _camBorderMovement)
-        {
-            newPosition += (transform.forward * -_camMovementSpeed);
-        }
-
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.mousePosition.x >= Screen.width - _camBorderMovement)
-        {
-            newPosition += (transform.right * _camMovementSpeed);
-        }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.mousePosition.x <= _camBorderMovement)
-        {
-            newPosition += (transform.right * -_camMovementSpeed);
-        }
-
-        //Keyboard setup for camera rotate
-        if (Input.GetKey(KeyCode.Q))
-        {
-            newRotation *= Quaternion.Euler(Vector3.up * _camRotationAmount);
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            newRotation *= Quaternion.Euler(Vector3.up * -_camRotationAmount);
-        }
-
-        //Keyboard setup for camera zoom
-        if (Input.GetKey(KeyCode.R))
-        {
-            newZoom += zoomAmount;
-
-            //Max zoom limit
-            if (newZoom.y <= 30)
-            {
-                newZoom = new Vector3(0, 30, -30);
-
-            }
-            
-        }
-
-        //Min zoom limit
-        if (Input.GetKey(KeyCode.F))
-        {
-            newZoom -= zoomAmount;
-            if (newZoom.y >= 120)
-            {
-                newZoom = new Vector3(0, 120, -120);
-            }
-        }
-
-        //Setting Borders
-        if (newPosition.x < _minXCamMovement)
-        {
-            newPosition = new Vector3(_minXCamMovement, transform.position.y, transform.position.z);
-
-        } else if(newPosition.x > _maxXCamMovement)
-        {
-            newPosition = new Vector3(_maxXCamMovement, transform.position.y, transform.position.z);
-        }
-
-        if (newPosition.z < _minZCamMovement)
-        {
-            newPosition = new Vector3(transform.position.x, transform.position.y, _minZCamMovement);
-
-        }
-        else if (newPosition.z > _maxZCamMovement)
-        {
-            newPosition = new Vector3(transform.position.x, transform.position.y, _maxZCamMovement);
-        }
-
-
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * _camSmoothness);
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * _camSmoothness);
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * _camSmoothness);
+        RotateCameraByInput(horizontalInput);
+        ZoomCamera(verticalInput);
     }
 
-   
+    void RotateCamera(Vector3 currentPosition)
+    {
+        Vector3 difference = currentPosition - rotateStartPosition;
+        float rotationX = -difference.y / Screen.height * rotationSpeed;
+        float rotationY = difference.x / Screen.width * rotationSpeed;
+
+        transform.rotation = originalRotation * Quaternion.Euler(rotationX, rotationY, 0);
+    }
+
+    void RotateCameraByInput(float horizontalInput)
+    {
+        float rotationY = horizontalInput * rotationSpeed * Time.deltaTime;
+        transform.Rotate(0, rotationY, 0);
+    }
+
+    void ZoomCamera(float verticalInput)
+    {
+        currentZoomDistance -= verticalInput * zoomSpeed;
+        currentZoomDistance = Mathf.Clamp(currentZoomDistance, minZoomDistance, maxZoomDistance);
+        cameraTransform.localPosition = new Vector3(0, 0, -currentZoomDistance);
+    }
+
+    void LerpCameraYPosition()
+    {
+        // Calculate the target position
+        Vector3 targetPosition = new Vector3(transform.position.x, centerBlockCount * 0.5f, transform.position.z);
+        // Lerp the camera's position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
+    }
 }
