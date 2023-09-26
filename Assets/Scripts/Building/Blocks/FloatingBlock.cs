@@ -4,39 +4,104 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace TH.Core {
-
-public class FloatingBlock : MonoBehaviour
+namespace TH.Core
 {
-    #region PublicVariables
-	public BlockData Data => _blockData;
-	#endregion
 
-	#region PrivateVariables
-	[SerializeField] private BlockData _blockData;
+    public class FloatingBlock : MonoBehaviour
+    {
+        #region PublicVariables
+        public BlockData Data => _blockData;
+        #endregion
 
-	private Action<FloatingBlock> _onFloatingBlockClicked;
-	private bool _hasInit = false;
-	#endregion
+        #region PrivateVariables
+        [SerializeField] private BlockData _blockData;
 
-	#region PublicMethod
-	public void Init(BlockData blockData, Action<FloatingBlock> onFloatingBlockClicked) {
-		_blockData = blockData;
-		_onFloatingBlockClicked = onFloatingBlockClicked;
+        private Action<FloatingBlock> _onFloatingBlockClicked;
+        private bool _hasInit = false;
+        
+        public Rigidbody _rb;
+        private bool _isMoving;
+        private bool _isFlying = false;
+        private bool _isDestroying = false;
+        private float _yPos;
+        
+        private float _flyingSpeed = 5;
+        #endregion
 
-		_hasInit = true;
-	}
-	#endregion
+        #region PublicMethod
+        public void Init(BlockData blockData, Action<FloatingBlock> onFloatingBlockClicked)
+        {
+            _blockData = blockData;
+            _onFloatingBlockClicked = onFloatingBlockClicked;
+            _yPos = GridManager.Instance.CurrentCenterLevel + 1;
+            _hasInit = true;
+        
+            _rb = GetComponent<Rigidbody>();
+        }
+        #endregion
+
+        #region PrivateMethod
+
+
+        private void OnMouseOver()
+        {
+           
+            if (_hasInit == false)
+            {
+                return;
+            }
+            if (GridManager.Instance.State == GridManager.BuildingState.Building && _isDestroying == false)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _onFloatingBlockClicked?.Invoke(this);
+                }
+                else if (Input.GetMouseButtonDown(1)) // Right mouse button is button 1
+                {
+                    _rb.mass = 100;
+                    StartCoroutine(nameof(destroyObject));
+                }
+                else if (Input.GetMouseButtonDown(2)) // Middle mouse button is button 2
+                {
+                    _isMoving = false;
+                    StartFlying();
+                }
+            }
+        }
+
+        private void StartFlying()
+        {
+            if (_isFlying) return; 
+
+            _isFlying = true;
+            _rb.useGravity = false; // Disable gravity
+
+            StartCoroutine(FlyToHeight());
+        }
+
+        private IEnumerator FlyToHeight()
+        {
+            Vector3 targetPosition = new Vector3(transform.position.x, _yPos, transform.position.z);
+
+            while (transform.position.y < _yPos)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _flyingSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            _isFlying = false;
+            _rb.useGravity = false; 
+        }
+
+        private IEnumerator destroyObject()
+        {
+            _isDestroying = true;
+            yield return new WaitForSeconds(20f);
+            Destroy(gameObject);
+        }
+        #endregion
+    }
+
     
-	#region PrivateMethod
-	private void OnMouseDown() {
-		if (_hasInit == false) {
-			return;
-		}
-
-		_onFloatingBlockClicked?.Invoke(this);
-	}
-	#endregion
-}
 
 }

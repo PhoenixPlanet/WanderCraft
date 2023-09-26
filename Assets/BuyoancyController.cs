@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TH.Core;
+using System;
 
 public class BuyoancyController : MonoBehaviour
 {
+    public Vector3 myDirection;
     public bool isFloating = false;
     public ComponentGetter<WaterVolumeHelper> WaterVolumeHelper = new ComponentGetter<WaterVolumeHelper>(TypeOfGetter.Global);
-    //====================
+    //========moving======
+    private float _randomSpeed;
+    //=======buyonacy==========
     public float maxBuyoncyPower = 3f;
     public float underWaterDrag = 3f;
     public float underWaterAngularDrag = 1f;
@@ -20,14 +24,19 @@ public class BuyoancyController : MonoBehaviour
 
     private void Awake()
     {
+        _randomSpeed = UnityEngine.Random.Range(1f, 1.5f);
     }
 
     void FixedUpdate()
     {
-
+        moveDirection();
         buyoancy();
         SwitchState();
+    }
 
+    private void moveDirection()
+    {
+        _rigidbody.Get(gameObject).AddForce(myDirection * _randomSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,7 +61,6 @@ public class BuyoancyController : MonoBehaviour
         {
             return;
         }
-
         if (WaterVolumeHelper.Get().GetHeight(transform.position) != null)
         {
             float difference = transform.position.y - (float)WaterVolumeHelper.Get().GetHeight(transform.position);
