@@ -28,6 +28,8 @@ public class Block : MonoBehaviour
 		= new ComponentGetter<BlockAbility>(TypeOfGetter.This);
 	private ObjectGetter _pillar
 		= new ObjectGetter(TypeOfGetter.ChildByName, "Pillar");
+	private ObjectGetter _iconObj
+		= new ObjectGetter(TypeOfGetter.ChildByName, "Icon");
 
 	protected List<BlockMouseSensor> _blockMouseSensors;
 
