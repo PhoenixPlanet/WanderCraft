@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using System.Threading;
+using UnityEditor;
 
 public class WaterController : MonoBehaviour
 {
     #region PublicVariables
+
+    public TextMeshProUGUI _currentTimeUI;
+    
     public enum WaveStatus
     {
        Idle,
@@ -31,19 +36,20 @@ public class WaterController : MonoBehaviour
     private GameObject _waterGroup;
     [Header("IdleState")]
     [SerializeField] private float _IdleWaveHeight;
-    [SerializeField] private float _IdleWaveTime;
+    public float _IdleWaveTime;
     [Header("LowState")]
     [SerializeField] float _LowWaveHeight;
-    [SerializeField] private float _LowWaveTime;
+    public float _LowWaveTime;
     [Header("MiddleState")]
     [SerializeField] private float _MiddleWaveHeight;
-    [SerializeField] private float _MiddleWaveTime;
+    public float _MiddleWaveTime;
     [Header("HighState")]
     [SerializeField] private float _HighWaveHeight;
-    [SerializeField] private float _HighWaveTime;
+    public float _HighWaveTime;
     private int CycleCount = 0;
     private bool _isExecutingCycle = false;
 
+    private float _timer = 0;
     #endregion
 
     #region PrivateMethod
@@ -73,6 +79,7 @@ public class WaterController : MonoBehaviour
 
     private IEnumerator IdleWaveCoroutine()
     {
+        
         yield return new WaitForSeconds(_IdleWaveTime);
         _isExecutingCycle = false;
     }
@@ -142,6 +149,12 @@ public class WaterController : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+        _currentTimeUI.text = ((int)_timer).ToString();
+    }
+
     private void nextState()
     {
         _isExecutingCycle = true;
@@ -159,16 +172,20 @@ public class WaterController : MonoBehaviour
         switch (nextWaveStatus)
         {
             case WaveStatus.Idle:
+                _timer = 0f;
                 StartCoroutine(IdleWaveCoroutine());
                 break;
             case WaveStatus.Low:
+                _timer = 0f;
                 StartCoroutine(LowWaveCoroutine());
                 break;
             case WaveStatus.Middle:
+                _timer = 0f;
                 StartCoroutine(MiddleWaveCoroutine());
 
                 break;
             case WaveStatus.High:
+                _timer = 0f;
                 StartCoroutine(HighWaveCoroutine());
 
                 break;
