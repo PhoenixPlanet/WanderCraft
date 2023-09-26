@@ -16,6 +16,9 @@ public class GridManager : Singleton<GridManager>
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
 	public BuildingState State => _buildingState;
+
+		public int CurrentCenterLevel => _currentCenterLevel;
+
 	#endregion
 
 	#region PrivateVariables

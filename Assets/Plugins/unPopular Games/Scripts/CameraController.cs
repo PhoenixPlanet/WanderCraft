@@ -31,11 +31,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleMouseInput();
+        //HandleMouseInput();
         HandleKeyboardInput();
         LerpCameraYPosition(); // Call the method to lerp the camera's Y position
     }
-
+    /*
     void HandleMouseInput()
     {
         if (Input.GetMouseButtonDown(2))
@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
             RotateCamera(Input.mousePosition);
         }
     }
-
+    */
     void HandleKeyboardInput()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
