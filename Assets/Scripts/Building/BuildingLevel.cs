@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TH.Core.Constants.Colors;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class BuildingLevel : MonoBehaviour
 	private bool _hasInit = false;
 	private int _installedBlockNum = 0;
 
-	private List<BlockCluster> _blockClusterList;
+	[ShowInInspector] private List<BlockCluster> _blockClusterList;
 	#endregion
 
 	#region PublicMethod
@@ -73,6 +74,7 @@ public class BuildingLevel : MonoBehaviour
 			_grid[listIndex.x][listIndex.y].Block = block;
 
 			_installedBlockNum++;
+			ScanLevel();
 
 			return true;
 		}
@@ -116,6 +118,19 @@ public class BuildingLevel : MonoBehaviour
 		_gridStart.Get(gameObject).DeactivateBlock();
 	}
 
+	public Block GetBlock(Vector2Int gridPos) {
+		if (_hasInit == false) {
+			return null;
+		}
+
+		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
+		if (GridManager.Instance.IsListPosInGrid(listIndex) == false) {
+			return null;
+		}
+
+		return _grid[listIndex.x][listIndex.y].Block;
+	}
+
 	public void ScanLevel() {
 		_blockClusterList = FindAllClusters();
 		if (_blockClusterList == null) {
@@ -123,7 +138,7 @@ public class BuildingLevel : MonoBehaviour
 		}
 
 		foreach (BlockCluster blockCluster in _blockClusterList) {
-			
+			blockCluster.ApplyCluster();
 		}
 	}
 	#endregion
@@ -196,7 +211,7 @@ public class BuildingLevel : MonoBehaviour
 	}
 
 	private void DFS(Vector2Int listPos, BlockCluster blockCluster) {
-		if (GridManager.Instance.IsListPosInGrid(listPos)) {
+		if (GridManager.Instance.IsListPosInGrid(listPos) == false) {
 			return;
 		}
 
