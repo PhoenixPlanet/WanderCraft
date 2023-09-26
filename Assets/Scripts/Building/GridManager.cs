@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TH.Core {
@@ -25,6 +26,9 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<Building> _building
 		= new ComponentGetter<Building>(TypeOfGetter.GlobalByName, "Building");
 
+	private ComponentGetter<FloatingSpawner> _floatingSpawner
+		= new ComponentGetter<FloatingSpawner>(TypeOfGetter.This);
+
 	[SerializeField] private float _centerBlockHeight;
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
@@ -37,10 +41,10 @@ public class GridManager : Singleton<GridManager>
 	private int _currentCenterLevel;
 	private int _currentOpenedBuildingLevel;
 	[ShowInInspector] private int _selectedBuildingLevel;
-	[ShowInInspector] private ESourceType _selectedSourceType;
 
 	private bool _hasInit = false;
 	private BuildingState _buildingState = BuildingState.Normal;
+	private BlockData _selectedFloatingBlockData;
 	#endregion
 
 	#region PublicMethod
@@ -82,8 +86,13 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void InstallNewBlock(int level, Vector2Int gridPos) {
+		if (_selectedFloatingBlockData == null) {
+			Debug.LogError("No selected floating block data");
+			return;
+		} 
+
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
-		_buildingLevels[level].InstallBlock(gridPos, _selectedSourceType);
+		_buildingLevels[level].InstallBlock(gridPos, _selectedFloatingBlockData);
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
 			CheckCanOpenLevel();
 		}
@@ -109,6 +118,11 @@ public class GridManager : Singleton<GridManager>
 			_buildingLevels[_selectedBuildingLevel].FinishBlockLinking();
 		}
 	}
+
+	public void SelectFloatingBlock(BlockData blockData) {
+		_selectedFloatingBlockData = blockData;
+		SelectLevel();
+	}
 	#endregion
     
 	#region PrivateMethod
@@ -121,6 +135,10 @@ public class GridManager : Singleton<GridManager>
 			SelectNextLevel();
 		} else if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 			SelectPrevLevel();
+		}
+
+		if (Input.GetMouseButtonDown(2)) {
+			CancelFloatingBlockSelect();
 		}
 	}
 
@@ -143,15 +161,19 @@ public class GridManager : Singleton<GridManager>
 		_buildingState = BuildingState.Normal;
 		ApplyState();
 
+		_floatingSpawner.Get(gameObject).Init();
+
 		_hasInit = true;
 	}
 
 	private void ApplyState() {
 		switch (_buildingState) {
 			case BuildingState.Normal:
+				CancelLinking();
 				DeactivateBuildingUI();
 				break;
 			case BuildingState.Building:
+				CancelLinking();
 				SelectLevel();
 				break;
 			case BuildingState.BlockLinking:
@@ -160,6 +182,13 @@ public class GridManager : Singleton<GridManager>
 			default:
 				break;
 		}
+	}
+
+	private void CancelFloatingBlockSelect() {
+		if (_selectedFloatingBlockData != null) {
+			_selectedFloatingBlockData = null;
+		}
+		SelectLevel();
 	}
 
 	private void CheckCanOpenLevel() {
@@ -199,7 +228,11 @@ public class GridManager : Singleton<GridManager>
 			_buildingLevels[i].DeactivateBlocks();
 			if (i == _selectedBuildingLevel) {
 				if (_buildingState == BuildingState.Building) {
-					_buildingLevels[i].ActivateLevelBuildingUI();
+					if (_selectedFloatingBlockData != null) {
+						_buildingLevels[i].ActivateLevelBuildingUI();
+					} else {
+						_buildingLevels[i].ActivateBlocks();
+					}
 				} else if (_buildingState == BuildingState.BlockLinking) {
 					_buildingLevels[i].ActivateBlocks();
 				}

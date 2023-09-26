@@ -7,15 +7,17 @@ public class LinkedBlock
 {
     #region PublicVariables
     public ESourceType sourceType;
-    public List<GameObject> objects;
-    public List<DiningAbility> diningAbilities;
-    public List<FactoryAbility> factoryAbilities;
-    public List<KitchenAbility> kitchenAbilities;
-    public List<StorageAbility> storageAbilities;
+    public Dictionary<EBuildingType, List<BlockAbility>> blockAbilities;
 
     //GO or individual scripts?
     public LinkedBlock(ESourceType sourceType, List<List<BlockAbility>> blockAbilities)
     {
+        this.sourceType = sourceType;
+        this.blockAbilities = new Dictionary<EBuildingType, List<BlockAbility>>();
+        for (int i = 0; i < blockAbilities.Count; i++)
+        {
+            this.blockAbilities.Add((EBuildingType)i, blockAbilities[i]);
+        }
     }
     #endregion
     #region PrivateVariables
