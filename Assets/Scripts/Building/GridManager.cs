@@ -115,6 +115,24 @@ public class GridManager : Singleton<GridManager>
 		_selectedFloatingBlock = block;
 		SelectLevel();
 	}
+
+	public bool IsGridPosInGrid(Vector2Int gridPos) {
+		Vector2Int listPos = GetListIndex(gridPos);
+		
+		return IsListPosInGrid(listPos);
+	}
+
+	public bool IsListPosInGrid(Vector2Int listPos) {
+		if (listPos.x < 0 || listPos.x >= _gridSize.x) {
+			return false;
+		}
+
+		if (listPos.y < 0 || listPos.y >= _gridSize.y) {
+			return false;
+		}
+
+		return true;
+	}
 	#endregion
     
 	#region PrivateMethod
