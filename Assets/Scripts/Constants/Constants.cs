@@ -8,7 +8,7 @@ namespace TH.Core {
 		namespace ResourcesPath {
 			public static class Prefabs {
 				public const string CENTER_BLOCK_PREFAB_PATH = "Prefabs/CenterBlock";
-				public const string SIDE_BLOCK_PREFAB_PATH = "Prefabs/SideBlock";
+				public const string SIDE_BLOCK_PREFAB_PATH = "Prefabs/SideBlockVarient/SideBlockM";
 				public const string BLOCK_MOUSE_SENSOR_PREFAB_PATH = "Prefabs/BlockMouseSensor";
 				public const string BUILDING_LEVEL_PREFAB_PATH = "Prefabs/BuildingLevel";
 			}

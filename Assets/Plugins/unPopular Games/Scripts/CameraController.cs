@@ -6,24 +6,34 @@ public class CameraController : MonoBehaviour
 {
     public Transform cameraTransform;
 
-    [SerializeField] private float _camSpeed = 1f;
-    [SerializeField] private float _camRotationAmount = 1f;
-    [SerializeField] private bool cursorVisible = true;
+    [SerializeField] private float rotationSpeed = 10f; // Speed of camera rotation
+    [SerializeField] private float zoomSpeed = 5f; // Speed of camera zoom
+    [SerializeField] private float minZoomDistance = 1f; // Minimum distance for zoom
+    [SerializeField] private float maxZoomDistance = 20f; // Maximum distance for zoom
 
-    public Vector3 newZoom;
-    public Vector3 rotateStartPosition;
+    [SerializeField] private float centerBlockCount = 0;
 
-    [SerializeField] private float pointDistanceOffset = 10f; // Offset for circling around Vector3.zero
+    private float currentZoomDistance = 10f; // Initial zoom distance
 
+    //MouseMovement
+    private Vector3 rotateStartPosition;
+    private Quaternion originalRotation;
+
+    // Lerp settings
+    [SerializeField] private float lerpSpeed = 5f;
+
+    // Start is called before the first frame update
     void Start()
     {
-        newZoom = cameraTransform.localPosition;
+        originalRotation = transform.rotation;
     }
 
+    // Update is called once per frame
     void Update()
     {
         HandleMouseInput();
-        HandleMovementInput();
+        HandleKeyboardInput();
+        LerpCameraYPosition(); // Call the method to lerp the camera's Y position
     }
 
     void HandleMouseInput()
@@ -39,32 +49,46 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButton(2))
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = cursorVisible;
-
-            // Rotate the camera around Vector3.zero
-            cameraTransform.RotateAround(Vector3.zero, Vector3.up, Input.GetAxis("Mouse X") * _camRotationAmount);
+            RotateCamera(Input.mousePosition);
         }
     }
 
-    void HandleMovementInput()
+    void HandleKeyboardInput()
     {
-        if (Input.GetKey(KeyCode.Q))
-        {
-            // Rotate the camera around Vector3.zero
-            cameraTransform.RotateAround(Vector3.zero, Vector3.up, -_camRotationAmount);
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            // Rotate the camera around Vector3.zero
-            cameraTransform.RotateAround(Vector3.zero, Vector3.up, _camRotationAmount);
-        }
+        RotateCameraByInput(horizontalInput);
+        ZoomCamera(verticalInput);
+    }
 
-        // Calculate the new position based on the pointDistanceOffset and rotation
-        Vector3 offset = cameraTransform.localRotation * Vector3.forward * pointDistanceOffset;
-        Vector3 newPosition = Vector3.zero + offset;
+    void RotateCamera(Vector3 currentPosition)
+    {
+        Vector3 difference = currentPosition - rotateStartPosition;
+        float rotationX = -difference.y / Screen.height * rotationSpeed;
+        float rotationY = difference.x / Screen.width * rotationSpeed;
 
-        // Update camera position
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * _camSpeed);
+        transform.rotation = originalRotation * Quaternion.Euler(rotationX, rotationY, 0);
+    }
+
+    void RotateCameraByInput(float horizontalInput)
+    {
+        float rotationY = horizontalInput * rotationSpeed * Time.deltaTime;
+        transform.Rotate(0, rotationY, 0);
+    }
+
+    void ZoomCamera(float verticalInput)
+    {
+        currentZoomDistance -= verticalInput * zoomSpeed;
+        currentZoomDistance = Mathf.Clamp(currentZoomDistance, minZoomDistance, maxZoomDistance);
+        cameraTransform.localPosition = new Vector3(0, 0, -currentZoomDistance);
+    }
+
+    void LerpCameraYPosition()
+    {
+        // Calculate the target position
+        Vector3 targetPosition = new Vector3(transform.position.x, centerBlockCount * 0.5f, transform.position.z);
+        // Lerp the camera's position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
     }
 }
