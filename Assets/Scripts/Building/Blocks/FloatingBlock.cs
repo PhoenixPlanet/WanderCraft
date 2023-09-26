@@ -17,10 +17,8 @@ namespace TH.Core
 
         #region PrivateVariables
         [SerializeField] private BlockData _blockData;
-
         private Action<FloatingBlock> _onFloatingBlockClicked;
         private bool _hasInit = false;
-        
         public Rigidbody _rb;
         private bool _isMoving;
         private bool _isFlying = false;
@@ -31,6 +29,9 @@ namespace TH.Core
         private float _flyingSpeed = 5;
         private float _randomSpeed;
         public Vector3 myDirection;
+
+        public ObjectGetter _bigUI = new ObjectGetter(TypeOfGetter.ChildByName, "Canvas/Big");
+        public ObjectGetter _smallUI = new ObjectGetter(TypeOfGetter.ChildByName, "Canvas/Small");
         #endregion
 
         #region PublicMethod
@@ -50,7 +51,8 @@ namespace TH.Core
 
         private void OnMouseOver()
         {
-           
+            _smallUI.Get(gameObject).SetActive(false);
+            _bigUI.Get(gameObject).SetActive(true);
             if (_hasInit == false)
             {
                 return;
@@ -72,6 +74,12 @@ namespace TH.Core
                     StartFlying();
                 }
             }
+        }
+
+        private void OnMouseExit()
+        {
+            _smallUI.Get(gameObject).SetActive(true);
+            _bigUI.Get(gameObject).SetActive(false);
         }
 
         private void Awake()
