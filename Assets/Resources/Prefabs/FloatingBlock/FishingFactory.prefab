@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8699144424452043819}
   - component: {fileID: -6748447037760602109}
   - component: {fileID: -3369539986790435622}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FishingFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,12 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9d896f288bbf41a204908c29e3dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMoving: 1
-  _floatingDirection: {x: 20, y: 0, z: 20}
-  _floatingSpeed: 0.1
-  _flyingSpeed: 3
   _blockData: {fileID: 0}
-  _yPos: 10
   _rb: {fileID: 0}
 --- !u!54 &-6748447037760602109
 Rigidbody:
@@ -116,7 +111,7 @@ GameObject:
   - component: {fileID: 7993635305947194678}
   - component: {fileID: 2985093974424377518}
   - component: {fileID: 8545956362127922131}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +194,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VillagerFishingRod
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871937558990206618, guid: 422c6cc9382646440b6c952fd1da4bb2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1871937558990367418, guid: 422c6cc9382646440b6c952fd1da4bb2,
         type: 3}
@@ -289,6 +289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Salmon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151594660703261423, guid: 3a245daa6cb83334d8a55a5e90125b88,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7526713275803502677, guid: 3a245daa6cb83334d8a55a5e90125b88,
         type: 3}

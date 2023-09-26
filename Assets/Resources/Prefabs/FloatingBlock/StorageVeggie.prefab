@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2358521402728128246}
   - component: {fileID: 3285778453723988961}
   - component: {fileID: 8876645649781097271}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StorageVeggie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,12 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9d896f288bbf41a204908c29e3dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMoving: 1
-  _floatingDirection: {x: 20, y: 0, z: 20}
-  _floatingSpeed: 0.1
-  _flyingSpeed: 3
   _blockData: {fileID: 0}
-  _yPos: 10
   _rb: {fileID: 0}
 --- !u!54 &3285778453723988961
 Rigidbody:
@@ -116,7 +111,7 @@ GameObject:
   - component: {fileID: 7993635305947194678}
   - component: {fileID: 2985093974424377518}
   - component: {fileID: 8545956362127922131}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,6 +265,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato
       objectReference: {fileID: 0}
+    - target: {fileID: 3388152910422019967, guid: e46a842bf3694a84cadd43bb62ba0348,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e46a842bf3694a84cadd43bb62ba0348, type: 3}
 --- !u!4 &7302381607115741956 stripped
@@ -359,6 +359,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Carrot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333536560383591219, guid: ac3960763d9ed134b93e9bf2315734f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac3960763d9ed134b93e9bf2315734f3, type: 3}

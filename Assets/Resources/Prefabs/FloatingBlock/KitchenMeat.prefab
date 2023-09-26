@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3648607494380715361}
   - component: {fileID: 6588908621737848096}
   - component: {fileID: -2296041161712944415}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KitchenMeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,12 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9d896f288bbf41a204908c29e3dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMoving: 1
-  _floatingDirection: {x: 20, y: 0, z: 20}
-  _floatingSpeed: 0.1
-  _flyingSpeed: 3
   _blockData: {fileID: 0}
-  _yPos: 10
   _rb: {fileID: 0}
 --- !u!54 &6588908621737848096
 Rigidbody:
@@ -117,7 +112,7 @@ GameObject:
   - component: {fileID: 7993635305947194678}
   - component: {fileID: 2985093974424377518}
   - component: {fileID: 8545956362127922131}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,6 +251,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knife
       objectReference: {fileID: 0}
+    - target: {fileID: 5489145493786919654, guid: c331d4509e2a94446b4dedf64fcae8dd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c331d4509e2a94446b4dedf64fcae8dd, type: 3}
 --- !u!4 &1471304246098360604 stripped
@@ -346,6 +346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: KitchenProps_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6457725450409641694, guid: 49631361040b46f4889e95efdb1b1a3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49631361040b46f4889e95efdb1b1a3c, type: 3}
 --- !u!4 &1129978612933762245 stripped
@@ -365,6 +370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Steak
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202614754564459210, guid: 10ab30527b9bc8a4995e798ac0706a37,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8835598493943926896, guid: 10ab30527b9bc8a4995e798ac0706a37,
         type: 3}
