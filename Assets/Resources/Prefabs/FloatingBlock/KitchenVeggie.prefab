@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 836044172351173065}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7993635305947194678}
   - {fileID: 1129978612933762245}
@@ -98,15 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloating: 0
-  WaterVolumeHelper: {fileID: 0}
   maxBuyoncyPower: 3
   underWaterDrag: 3
   underWaterAngularDrag: 1
   airDrag: 0
   airAngularDrag: 0.05
   floatingPower: 50
-  rigidbody: {fileID: -8466527024234015734, guid: 00480e0bb1dc90643b2f0a1644e742f7,
-    type: 3}
 --- !u!1 &5299648856908720930
 GameObject:
   m_ObjectHideFlags: 0
