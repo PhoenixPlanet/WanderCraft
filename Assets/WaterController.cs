@@ -104,12 +104,12 @@ public class WaterController : MonoBehaviour
 
     void riseSeaLevel (float level)
     {
-        _waterGroup.transform.DOMoveY(level, 1).SetEase(Ease.InSine);
+        _waterGroup.transform.DOMoveY(level, 5).SetEase(Ease.OutCubic);
     }
 
     void lowerSeaLevel(float level)
     {
-        _waterGroup.transform.DOMoveY(level, 1).SetEase(Ease.InSine);
+        _waterGroup.transform.DOMoveY(level, 5).SetEase(Ease.OutCubic);
     }
 
     private void setRandomStatusOrder()
