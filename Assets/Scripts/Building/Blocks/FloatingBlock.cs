@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TH.Core {
@@ -8,17 +9,18 @@ namespace TH.Core {
 public class FloatingBlock : MonoBehaviour
 {
     #region PublicVariables
+	public BlockData Data => _blockData;
 	#endregion
 
 	#region PrivateVariables
 	[SerializeField] private BlockData _blockData;
 
-	private Action<BlockData> _onFloatingBlockClicked;
+	private Action<FloatingBlock> _onFloatingBlockClicked;
 	private bool _hasInit = false;
 	#endregion
 
 	#region PublicMethod
-	public void Init(BlockData blockData, Action<BlockData> onFloatingBlockClicked) {
+	public void Init(BlockData blockData, Action<FloatingBlock> onFloatingBlockClicked) {
 		_blockData = blockData;
 		_onFloatingBlockClicked = onFloatingBlockClicked;
 
@@ -32,7 +34,7 @@ public class FloatingBlock : MonoBehaviour
 			return;
 		}
 
-		_onFloatingBlockClicked?.Invoke(_blockData);
+		_onFloatingBlockClicked?.Invoke(this);
 	}
 	#endregion
 }

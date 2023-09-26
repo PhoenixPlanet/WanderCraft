@@ -120,4 +120,14 @@ public class Block : MonoBehaviour
 	#endregion
 }
 
+public class BlockWrapperForDFS {
+	public Block Block;
+	public bool IsVisited;
+
+	public BlockWrapperForDFS(Block block) {
+		Block = block;
+		IsVisited = false;
+	}
+}
+
 }

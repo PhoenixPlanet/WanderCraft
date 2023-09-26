@@ -62,9 +62,9 @@ public class FloatingSpawner : MonoBehaviour
 		}
 	}
 
-	private void OnFloatingBlockClicked(BlockData _blockData) {
+	private void OnFloatingBlockClicked(FloatingBlock floatingBlock) {
 		if (GridManager.Instance.State == GridManager.BuildingState.Building) {
-			GridManager.Instance.SelectFloatingBlock(_blockData);
+			GridManager.Instance.SelectFloatingBlock(floatingBlock);
 		}
 	}
 	#endregion

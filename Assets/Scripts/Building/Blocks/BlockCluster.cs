@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LinkedBlock
+public class BlockCluster
 {
     #region PublicVariables
     public ESourceType sourceType;
     public Dictionary<EBuildingType, List<BlockAbility>> blockAbilities;
 
     //GO or individual scripts?
-    public LinkedBlock(ESourceType sourceType, List<List<BlockAbility>> blockAbilities)
+    public BlockCluster(ESourceType sourceType, List<List<BlockAbility>> blockAbilities)
     {
         this.sourceType = sourceType;
         this.blockAbilities = new Dictionary<EBuildingType, List<BlockAbility>>();
