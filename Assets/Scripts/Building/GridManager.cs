@@ -94,6 +94,7 @@ public class GridManager : Singleton<GridManager>
 	public BuildingState State => _buildingState;
 	public int Money => _money;
 
+	public int SelectedBuildingLevel => _selectedBuildingLevel;
 	public int CurrentCenterLevel => _currentCenterLevel;
 	public int CurrentOpenedBuildingLevel => _currentOpenedBuildingLevel;
 

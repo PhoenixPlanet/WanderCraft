@@ -23,6 +23,10 @@ namespace TH.Core
         [SerializeField] private float minSpawnOffset;
         [SerializeField] private float maxSpawnOffset;
         [SerializeField] float _upperSpawnProbability;
+
+        [SerializeField] float _meatProbability = 0.6f;
+        [SerializeField] float _fishProbability = 0.3f;
+        [SerializeField] float _veggieProbability = 0.1f;
         #endregion
 
         #region PublicMethod
@@ -68,7 +72,7 @@ namespace TH.Core
                 yield return new WaitForSeconds(_spawnInterval);
                 Vector3 spawnPos;
                 Vector3 spawnDir;
-                BlockData blockData = _blockDataDict[ESourceType.Meat][i];
+                BlockData blockData = _blockDataDict[getSpawnTarget()][i];
                 if(Random.Range(0f, 1f) < _upperSpawnProbability)
                 {
                     spawnPos = _upperTransform.position;
@@ -87,6 +91,25 @@ namespace TH.Core
                     i = 0;
                 }
             }
+        }
+
+        ESourceType getSpawnTarget ()
+        {
+            float RandomValue = Random.Range(0f, 1f);
+            if(RandomValue < _veggieProbability)
+            {
+                return ESourceType.Plant;
+            } else if (RandomValue >= _veggieProbability && RandomValue < _fishProbability )  {
+                return ESourceType.Fish;
+
+            } else if (RandomValue >= _meatProbability)
+            {
+                return ESourceType.Meat;
+            } else
+            {
+                return ESourceType.Meat;
+            }
+        
         }
 
         private void OnFloatingBlockClicked(FloatingBlock floatingBlock)
