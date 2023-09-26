@@ -92,7 +92,7 @@ namespace TH.Core
 
         private void Awake()
         {
-            _randomSpeed = UnityEngine.Random.Range(1f, 1.5f);
+            _randomSpeed = UnityEngine.Random.Range(.5f, .8f);
         }
         private void moveDirection()
         {

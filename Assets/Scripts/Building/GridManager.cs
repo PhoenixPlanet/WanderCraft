@@ -408,7 +408,7 @@ public class GridManager : Singleton<GridManager>
 			production += sd == null ? 0 : sd.totalScore;
 		}
 
-		Debug.Log("Production: " + production);
+		//Debug.Log("Production: " + production);
 		return production;
 	}
 

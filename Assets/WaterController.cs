@@ -11,7 +11,8 @@ public class WaterController : MonoBehaviour
 {
     #region PublicVariables
 
-    public TextMeshProUGUI _currentTimeUI;
+    public TextMeshProUGUI _currentStatusUI;
+
     
     public enum WaveStatus
     {
@@ -152,7 +153,23 @@ public class WaterController : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
-        _currentTimeUI.text = ((int)_timer).ToString();
+        
+        switch (_currentWaveStatus)
+        {
+            case WaveStatus.Idle:
+                _currentStatusUI.text = "파도 없음\n" +  ((int)_timer).ToString() + "/" + _IdleWaveTime +"초";
+                break;
+            case WaveStatus.Low:
+                _currentStatusUI.text = "잔잔한 파도\n" +  ((int)_timer).ToString() + "/" + _LowWaveTime + "초";
+                break;
+            case WaveStatus.Middle:
+                _currentStatusUI.text = "높은 파도\n" + ((int)_timer).ToString() + "/" +  _MiddleWaveTime + "초";
+                break;
+            case WaveStatus.High:
+                _currentStatusUI.text = "쓰나미\n" + ((int)_timer).ToString() + "/" +  _HighWaveTime + "초";
+                break;
+        }
+        
     }
 
     private void nextState()

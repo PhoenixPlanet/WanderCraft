@@ -14,8 +14,8 @@ public class EndPanel : MonoBehaviour
 
 	#region PublicMethod
 	public void ReloadScene() {
-		Destroy(GridManager.Instance.gameObject);
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+		// Quit Game
+		Application.Quit();
 	}
 	#endregion
     
