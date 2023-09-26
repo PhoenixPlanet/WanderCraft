@@ -117,7 +117,16 @@ public class WaterController : MonoBehaviour
 
     private void setRandomStatusOrder()
     {
-        for(int i = 0; i<7; i++)
+        for(int i = 0; i<3; i++)
+        {
+            WaveStatus waveStatus;
+            int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
+            int randomIndex = Random.Range(1, numValues);
+            waveStatus = (WaveStatus)randomIndex;
+            _waveStatusForecast.Push(waveStatus);
+        }
+        _waveStatusForecast.Push(WaveStatus.Idle);
+        for(int i = 0; i<3; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
@@ -128,6 +137,7 @@ public class WaterController : MonoBehaviour
 
         _waveStatusForecast.Push(WaveStatus.Middle);
         _waveStatusForecast.Push(WaveStatus.Low);
+        _waveStatusForecast.Push(WaveStatus.Idle);
         _waveStatusForecast.Push(WaveStatus.Idle);
 
     }

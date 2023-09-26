@@ -61,11 +61,18 @@ public class GridManager : Singleton<GridManager>
 
 			int[] threadNum = new int[link.Count];
 
+			bool isSink = false;
 			for (int i = 0; i < link.Count; i++) {
 				int s = 0;
 				int t = 0;
 				foreach (var bc in link[i]) {
-					s += bc.GetProductionScore();
+					int ps = bc.GetProductionScore();
+					
+					if (ps == 0) {
+						isSink = true;
+					}
+
+					s += ps;
 					t++;
 				}
 				sd.levelScores[i] = s / link[i].Count;
@@ -75,8 +82,10 @@ public class GridManager : Singleton<GridManager>
 			sd.thread = threadNum.Min();
 
 			sd.totalScore = 0;
-			for (int i = 0; i < link.Count; i++) {
-				sd.totalScore += sd.levelScores[i] * sd.thread;
+			if (isSink == false) {
+				for (int i = 0; i < link.Count; i++) {
+					sd.totalScore += sd.levelScores[i] * sd.thread;
+				}
 			}
 
 			scoreData = sd;
@@ -267,6 +276,14 @@ public class GridManager : Singleton<GridManager>
 				}
 			}
 		}
+	}
+
+	public void CalculateAgain() {
+		foreach (var bl in _blockLinks) {
+			bl.CalculateScore();
+		}
+		
+		_infoPanel.Get().SetInfoPanel(_blockLinks);
 	}
 	#endregion
     

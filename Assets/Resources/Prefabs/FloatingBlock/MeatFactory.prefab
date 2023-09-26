@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 9031359150201046083}
   - component: {fileID: -3001132899366789422}
   - component: {fileID: 2188470923711921453}
+  - component: {fileID: -2736085879799573417}
   m_Layer: 0
   m_Name: MeatFactory
   m_TagString: Untagged
@@ -154,8 +155,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6, z: 1}
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &9031359150201046083
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -200,12 +201,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloating: 0
-  maxBuyoncyPower: 3
+  maxBuyoncyPower: 4
   underWaterDrag: 3
   underWaterAngularDrag: 1
   airDrag: 0
   airAngularDrag: 0.05
-  floatingPower: 15
+  floatingPower: 20
+--- !u!114 &-2736085879799573417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836044172351173065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca90038beeea37429812baa07bbc374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1192728568937887070
 GameObject:
   m_ObjectHideFlags: 0
