@@ -151,13 +151,34 @@ public class BuildingLevel : MonoBehaviour
 		}
 	}
 
-	public void CheckLink() {
+	public List<GridManager.BlockLink> CheckLink() {
 		if (_blockClusterList == null) {
-			return;
+			return null;
 		}
 
+		List<GridManager.BlockLink> blockLinks = new List<GridManager.BlockLink>();
 		foreach (BlockCluster blockCluster in _blockClusterList) {
-			blockCluster.CheckLink();
+			List<HashSet<BlockCluster>> t = blockCluster.CheckLink();
+			if (t == null) {
+				continue;
+			}
+			GridManager.BlockLink link = new GridManager.BlockLink(t);
+			bool isUnique = true;
+			foreach (var bl in blockLinks) {
+				if (bl.Contains(link)) {
+					isUnique = false;
+					break;
+				}
+			}
+			if (isUnique) {
+				blockLinks.Add(link);
+			}
+		}
+
+		if (blockLinks.Count > 0) {
+			return blockLinks;
+		} else {
+			return null;
 		}
 	}
 	#endregion

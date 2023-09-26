@@ -18,7 +18,7 @@ public class BlockAbility : MonoBehaviour
     }
 
     public void SetClusterNumberSynergy(int step) {
-        Debug.Log($"SetClusterNumberSynergy {step}, {m_SourceType}");
+        //Debug.Log($"SetClusterNumberSynergy {step}, {m_SourceType}");
         _block.Get(gameObject).SetNormalMaterial(
             Resources.Load<Material>(TH.Core.Constants.ResourcesPath.Materials.BlockColor.INTENSITY[m_SourceType][step])
         );

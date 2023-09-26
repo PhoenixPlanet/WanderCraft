@@ -63,9 +63,9 @@ public class BlockCluster
         }
     }
 
-    public void CheckLink() {
+    public List<HashSet<BlockCluster>> CheckLink() {
         if (buildingType != EBuildingType.Dining) {
-            return;
+            return null;
         }
 
         List<HashSet<BlockCluster>> linkedBlockClusters = new List<HashSet<BlockCluster>>();
@@ -87,7 +87,13 @@ public class BlockCluster
             }  
         }
 
-        _linkedBlockClusters = linkedBlockClusters;
+        if (linkedBlockClusters[0].Count > 0) {
+            _linkedBlockClusters = linkedBlockClusters;
+        } else {
+            _linkedBlockClusters = null;
+        }
+
+        return _linkedBlockClusters;
     }
 
     public HashSet<BlockCluster> GetAllBelowClusters(EBuildingType targetBuildingType) {
@@ -110,6 +116,18 @@ public class BlockCluster
             }
         }
         return aboveClusters;
+    }
+
+    public bool Contains(BlockAbility blockAbility) {
+        return blockAbilities.Contains(blockAbility);
+    }
+
+    public int GetProductionScore() {
+        return 
+            blockAbilities.Count == 0 ? 
+            0 :
+            TH.Core.Constants.GameSetting.SourceProduction.SOURCE_PRODUCTION[sourceType]
+            * (int)Mathf.Ceil(Mathf.Log(blockAbilities.Count, 2) + 1);
     }
     #endregion
 
