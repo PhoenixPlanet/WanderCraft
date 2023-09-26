@@ -116,6 +116,12 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<Building> _building
 		= new ComponentGetter<Building>(TypeOfGetter.GlobalByName, "Building");
 
+	private ObjectGetter _waterObj
+		= new ObjectGetter(TypeOfGetter.GlobalByName, "WaterGroup");
+
+	private ObjectGetter _endGameUI
+		= new ObjectGetter(TypeOfGetter.GlobalByName, "Canvas/MainUI/EndPanel");
+
 	private ComponentGetter<FloatingSpawner> _floatingSpawner
 		= new ComponentGetter<FloatingSpawner>(TypeOfGetter.This);
 
@@ -307,6 +313,10 @@ public class GridManager : Singleton<GridManager>
 		if (_moneyIncreaseTimer >= _moneyIncreaseInterval) {
 			_moneyIncreaseTimer = 0f;
 			_money += CalculateProduction();
+		}
+
+		if (_currentCenterLevel * 0.6 < _waterObj.Get().transform.position.y) {
+			_endGameUI.Get().SetActive(true);
 		}
 	}
 
