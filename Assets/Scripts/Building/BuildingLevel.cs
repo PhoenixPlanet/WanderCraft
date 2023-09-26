@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TH.Core.Constants.Colors;
 using UnityEngine;
 
 namespace TH.Core {
@@ -17,24 +18,24 @@ public class BuildingLevel : MonoBehaviour
 	private ComponentGetter<LineRenderer> _lineRenderer
 		= new ComponentGetter<LineRenderer>(TypeOfGetter.This);
 	
-	private List<List<Block>> _grid;
+	private List<List<BlockWrapperForDFS>> _grid;
 	private int _level;
 
 	private bool _hasInit = false;
 	private int _installedBlockNum = 0;
 
-	private List<BlockCluster> _BlockClusterList;
+	private List<BlockCluster> _blockClusterList;
 	#endregion
 
 	#region PublicMethod
 	public void Init(int level) {
 		_gridStart.Get(gameObject).Init(level, Vector2Int.zero, null, (_, _) => {});
 
-		_grid = new List<List<Block>>();
+		_grid = new List<List<BlockWrapperForDFS>>();
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
-			_grid.Add(new List<Block>());
+			_grid.Add(new List<BlockWrapperForDFS>());
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
-				_grid[i].Add(null);
+				_grid[i].Add(new BlockWrapperForDFS(null));
 			}
 		}
 
@@ -49,7 +50,7 @@ public class BuildingLevel : MonoBehaviour
 		}
 
 		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
-		if (_grid[listIndex.x][listIndex.y] == null) {
+		if (_grid[listIndex.x][listIndex.y].Block == null) {
 			return true;
 		} else {
 			return false;
@@ -63,13 +64,13 @@ public class BuildingLevel : MonoBehaviour
 
 		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
 
-		if (_grid[listIndex.x][listIndex.y] == null) {
+		if (_grid[listIndex.x][listIndex.y].Block == null) {
 			GameObject blockObject 
 				= Instantiate(blockData.RealPrefab, _gridStart.Get().transform.parent);
 			Block block = blockObject.GetComponent<Block>();
 			block.transform.localPosition = GridManager.Instance.GetLocalPosition(gridPos);
 			block.Init(_level, gridPos, blockData, OnBlockClick);
-			_grid[listIndex.x][listIndex.y] = block;
+			_grid[listIndex.x][listIndex.y].Block = block;
 
 			_installedBlockNum++;
 
@@ -94,8 +95,8 @@ public class BuildingLevel : MonoBehaviour
 	public void ActivateBlocks() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
-				if (_grid[i][j] != null) {
-					_grid[i][j].ActivateBlock();
+				if (_grid[i][j].Block != null) {
+					_grid[i][j].Block.ActivateBlock();
 				}
 			}
 		}
@@ -106,13 +107,24 @@ public class BuildingLevel : MonoBehaviour
 	public void DeactivateBlocks() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
-				if (_grid[i][j] != null) {
-					_grid[i][j].DeactivateBlock();
+				if (_grid[i][j].Block != null) {
+					_grid[i][j].Block.DeactivateBlock();
 				}
 			}
 		}
 
 		_gridStart.Get(gameObject).DeactivateBlock();
+	}
+
+	public void ScanLevel() {
+		_blockClusterList = FindAllClusters();
+		if (_blockClusterList == null) {
+			return;
+		}
+
+		foreach (BlockCluster blockCluster in _blockClusterList) {
+			
+		}
 	}
 	#endregion
     
@@ -126,8 +138,8 @@ public class BuildingLevel : MonoBehaviour
 	private void ActivateBlocksBuildingUI() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
-				if (_grid[i][j] != null) {
-					_grid[i][j].ActivateBlockBuildingUI();
+				if (_grid[i][j].Block != null) {
+					_grid[i][j].Block.ActivateBlockBuildingUI();
 				}
 			}
 		}
@@ -136,8 +148,8 @@ public class BuildingLevel : MonoBehaviour
 	private void DeactivateBlocksBuildingUI() {
 		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
 			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
-				if (_grid[i][j] != null) {
-					_grid[i][j].DeactivateBlockBuildingUI();
+				if (_grid[i][j].Block != null) {
+					_grid[i][j].Block.DeactivateBlockBuildingUI();
 				}
 			}
 		}
@@ -146,6 +158,95 @@ public class BuildingLevel : MonoBehaviour
 	private void OnBlockClick(int level, Vector2Int gridPos) {
 		if (level != _level) {
 			return;
+		}
+	}
+
+	/*
+	DFS algorithm for finding block cluster
+	*/
+	private void InitDFS() {
+		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
+			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
+				_grid[i][j].IsVisited = false;
+			}
+		}
+	}
+
+	public List<BlockCluster> FindClusters(EBuildingType buildingType, ESourceType sourceType) {
+		InitDFS();
+
+		_blockClusterList = new List<BlockCluster>();
+
+		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
+			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
+				if (_grid[i][j].Block != null 
+					&& _grid[i][j].IsVisited == false 
+					&& _grid[i][j].Block.Data.BuildingType == buildingType 
+					&& _grid[i][j].Block.Data.SourceType == sourceType) {
+					BlockCluster blockCluster = new BlockCluster(_level, buildingType, sourceType);
+					DFS(new Vector2Int(i, j), blockCluster);
+					if (blockCluster.BlockNum() > 0) {
+						_blockClusterList.Add(blockCluster);
+					}
+				}
+			}
+		}
+
+		return _blockClusterList;
+	}
+
+	private void DFS(Vector2Int listPos, BlockCluster blockCluster) {
+		if (GridManager.Instance.IsListPosInGrid(listPos)) {
+			return;
+		}
+
+		if (_grid[listPos.x][listPos.y].Block == null) {
+			return;
+		}
+
+		if (_grid[listPos.x][listPos.y].IsVisited == true) {
+			return;
+		}
+
+		if (_grid[listPos.x][listPos.y].Block.Data.BuildingType != blockCluster.buildingType 
+			|| _grid[listPos.x][listPos.y].Block.Data.SourceType != blockCluster.sourceType) {
+			return;
+		}
+
+		_grid[listPos.x][listPos.y].IsVisited = true;
+		blockCluster.AddBlock(_grid[listPos.x][listPos.y].Block.Ability);
+
+		Vector2Int[] directions = new Vector2Int[] {
+			new Vector2Int(1, 0),
+			new Vector2Int(-1, 0),
+			new Vector2Int(0, 1),
+			new Vector2Int(0, -1)
+		};
+
+		for (int i = 0; i < directions.Length; i++) {
+			Vector2Int nextListPos = listPos + directions[i];
+			if (GridManager.Instance.IsListPosInGrid(nextListPos) == true) {
+				DFS(nextListPos, blockCluster);
+			}
+		}
+	}
+
+	private List<BlockCluster> FindAllClusters() {
+		List<BlockCluster> blockClusterList = new List<BlockCluster>();
+
+		for (int i = 0; i < Enum.GetNames(typeof(EBuildingType)).Length; i++) {
+			for (int j = 0; j < Enum.GetNames(typeof(ESourceType)).Length; j++) {
+				List<BlockCluster> clusters = FindClusters((EBuildingType)i, (ESourceType)j);
+				if (clusters.Count > 0) {
+					blockClusterList.AddRange(clusters);
+				}
+			}
+		}
+
+		if (blockClusterList.Count > 0) {
+			return blockClusterList;
+		} else {
+			return null;
 		}
 	}
 	#endregion

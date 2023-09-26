@@ -16,6 +16,23 @@ namespace TH.Core {
 			public static class Materials {
 				public const string BLOCK_NORMAL_MATERIAL_PATH = "Materials/BlockNormal";
 				public const string BLOCK_TRANSPARENT_MATERIAL_PATH = "Materials/BlockTransparent";
+
+				public static class BlockColor {
+					public const string BLOCK_MEAT_0 = "Materials/BlockIntensity/Meat/Meat0";
+					public const string BLOCK_MEAT_1 = "Materials/BlockIntensity/Meat/Meat1";
+					public const string BLOCK_MEAT_2 = "Materials/BlockIntensity/Meat/Meat2";
+					public const string BLOCK_MEAT_3 = "Materials/BlockIntensity/Meat/Meat3";
+
+					public const string BLOCK_FISH_0 = "Materials/BlockIntensity/Fish/Fish0";
+					public const string BLOCK_FISH_1 = "Materials/BlockIntensity/Fish/Fish1";
+					public const string BLOCK_FISH_2 = "Materials/BlockIntensity/Fish/Fish2";
+					public const string BLOCK_FISH_3 = "Materials/BlockIntensity/Fish/Fish3";
+
+					public const string BLOCK_PLANT_0 = "Materials/BlockIntensity/Plant/Plant0";
+					public const string BLOCK_PLANT_1 = "Materials/BlockIntensity/Plant/Plant1";
+					public const string BLOCK_PLANT_2 = "Materials/BlockIntensity/Plant/Plant2";
+					public const string BLOCK_PLANT_3 = "Materials/BlockIntensity/Plant/Plant3";
+				}
 			}
 		}
 
