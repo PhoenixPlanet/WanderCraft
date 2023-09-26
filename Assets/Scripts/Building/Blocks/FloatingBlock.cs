@@ -18,14 +18,16 @@ namespace TH.Core
 
         private Action<FloatingBlock> _onFloatingBlockClicked;
         private bool _hasInit = false;
-        
+        public Vector3 myDirection;
+
         public Rigidbody _rb;
         private bool _isMoving;
         private bool _isFlying = false;
         private bool _isDestroying = false;
         private float _yPos;
         private float _destroyYpos = -30f;
-        
+        private float _randomSpeed;
+
         private float _flyingSpeed = 5;
         #endregion
 
@@ -36,12 +38,17 @@ namespace TH.Core
             _onFloatingBlockClicked = onFloatingBlockClicked;
             _yPos = GridManager.Instance.CurrentCenterLevel + 1;
             _hasInit = true;
-        
+            _randomSpeed = UnityEngine.Random.Range(1f, 1.5f);
             _rb = GetComponent<Rigidbody>();
         }
         #endregion
 
         #region PrivateMethod
+
+        private void moveDirection()
+        {
+            _rb.AddForce(myDirection * _randomSpeed);
+        }
 
 
         private void OnMouseOver()
@@ -76,6 +83,7 @@ namespace TH.Core
             {
                 StartCoroutine(nameof(destroyObject));
             }
+            
         }
 
         private void StartFlying()

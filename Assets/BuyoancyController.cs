@@ -7,11 +7,9 @@ using System;
 
 public class BuyoancyController : MonoBehaviour
 {
-    public Vector3 myDirection;
     public bool isFloating = false;
     public ComponentGetter<WaterVolumeHelper> WaterVolumeHelper = new ComponentGetter<WaterVolumeHelper>(TypeOfGetter.Global);
     //========moving======
-    private float _randomSpeed;
     //=======buyonacy==========
     public float maxBuyoncyPower = 3f;
     public float underWaterDrag = 3f;
@@ -22,23 +20,15 @@ public class BuyoancyController : MonoBehaviour
     public ComponentGetter<Rigidbody> _rigidbody = new ComponentGetter<Rigidbody>(TypeOfGetter.This);
     //=======================
 
-    private void Awake()
-    {
-        _randomSpeed = UnityEngine.Random.Range(1f, 1.5f);
-    }
+
 
     void FixedUpdate()
     {
-        moveDirection();
         buyoancy();
         SwitchState();
     }
 
-    private void moveDirection()
-    {
-        _rigidbody.Get(gameObject).AddForce(myDirection * _randomSpeed);
-    }
-
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))

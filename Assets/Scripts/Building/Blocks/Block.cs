@@ -40,7 +40,7 @@ namespace TH.Core
         #region PublicMethod
         public void Init(int level, Vector2Int gridPos, BlockData blockData, Action<int, Vector2Int> onClick)
 		{
-			_rigidbody.Get(gameObject).isKinematic = true;
+			//_rigidbody.Get(gameObject).isKinematic = true;
 			if (_normal == null || _transparent == null)
 			{
 				LoadMaterials();
