@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using TMPro;
 
 public class WaterController : MonoBehaviour
 {
     #region PublicVariables
-    
     public enum WaveStatus
     {
        Idle,
@@ -20,6 +19,8 @@ public class WaterController : MonoBehaviour
     public float _Speed = 0.1f;
     public Stack<WaveStatus> _waveStatusForecast;
     public WaveStatus _currentWaveStatus;
+    public ForecastPanel forecastPanel;
+
     #endregion
 
     #region PrivateVariables
@@ -42,6 +43,7 @@ public class WaterController : MonoBehaviour
     [SerializeField] private float _HighWaveTime;
     private int CycleCount = 0;
     private bool _isExecutingCycle = false;
+
     #endregion
 
     #region PrivateMethod
@@ -51,8 +53,9 @@ public class WaterController : MonoBehaviour
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
         _waveStatusForecast = new Stack <WaveStatus>();
         setRandomStatusOrder();
+        forecastPanel.InstantiateForecastUI(_waveStatusForecast);
         StartCoroutine(IE_totalCycle());
-    
+        
     }
 
     IEnumerator IE_totalCycle()
@@ -114,8 +117,7 @@ public class WaterController : MonoBehaviour
 
     private void setRandomStatusOrder()
     {
-        _waveStatusForecast.Push(WaveStatus.Idle);
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<7; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
@@ -123,6 +125,11 @@ public class WaterController : MonoBehaviour
             waveStatus = (WaveStatus)randomIndex;
             _waveStatusForecast.Push(waveStatus);
         }
+
+        _waveStatusForecast.Push(WaveStatus.Middle);
+        _waveStatusForecast.Push(WaveStatus.Low);
+        _waveStatusForecast.Push(WaveStatus.Idle);
+
     }
 
     private void nextState()
@@ -132,8 +139,10 @@ public class WaterController : MonoBehaviour
         {
             CycleCount++;
             setRandomStatusOrder();
+            forecastPanel.UpdateForecastUI(_waveStatusForecast);
         }
         WaveStatus nextWaveStatus = _waveStatusForecast.Pop();
+        forecastPanel.UpdateForecastUI(_waveStatusForecast);
         _currentWaveStatus = nextWaveStatus;
         print(_currentWaveStatus);
 
