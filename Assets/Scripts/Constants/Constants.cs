@@ -75,6 +75,16 @@ namespace TH.Core {
 				public readonly static Color LINE_COLOR = Color.red; 
 			}
 		}
+
+		namespace GameSetting {
+			public static class SourceProduction {
+				public readonly static Dictionary<ESourceType, int> SOURCE_PRODUCTION = new Dictionary<ESourceType, int>() {
+					{ESourceType.Meat, 1},
+					{ESourceType.Fish, 2},
+					{ESourceType.Plant, 4},
+				};
+			}
+		}
 	}
 
 }

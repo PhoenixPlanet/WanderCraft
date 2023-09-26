@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,80 @@ namespace TH.Core {
 
 public class GridManager : Singleton<GridManager>
 {
+	[Serializable]
+	public class BlockLink {
+		[Serializable]
+		public class ScoreData {
+			public ESourceType sourceType;
+			public int[] levelScores;
+			public int thread;
+			public int totalScore;
+		}
+
+		public List<HashSet<BlockCluster>> link;
+		public ScoreData scoreData = new ScoreData();
+
+		public BlockLink(List<HashSet<BlockCluster>> link) {
+			this.link = link;
+		}
+
+		public bool Contains(BlockAbility blockAbility) {
+			List<BlockCluster> diningClusterList = link[link.Count - 1].ToList(); 
+			foreach (var bc in diningClusterList) {
+				if (bc.Contains(blockAbility)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public bool Contains(BlockLink blockLink) {
+			List<HashSet<BlockCluster>> targetLink = blockLink.link;
+			BlockAbility dining = targetLink[targetLink.Count - 1].ToList()[0].blockAbilities[0];
+
+			return Contains(dining);
+		}
+
+		public ScoreData CalculateScore() {
+			if (link == null || link.Count == 0) {
+				scoreData = null;
+				return null;
+			}
+
+			ScoreData sd = new ScoreData
+			{
+				sourceType = link[link.Count - 1].ToList()[0].sourceType,
+				levelScores = new int[link.Count],
+				thread = 0,
+				totalScore = 0
+			};
+
+			int[] threadNum = new int[link.Count];
+
+			for (int i = 0; i < link.Count; i++) {
+				int s = 0;
+				int t = 0;
+				foreach (var bc in link[i]) {
+					s += bc.GetProductionScore();
+					t++;
+				}
+				sd.levelScores[i] = s / link[i].Count;
+				threadNum[i] = t;
+			}
+
+			sd.thread = threadNum.Min();
+
+			sd.totalScore = 0;
+			for (int i = 0; i < link.Count; i++) {
+				sd.totalScore += sd.levelScores[i] * sd.thread;
+			}
+
+			scoreData = sd;
+			return sd;
+		}
+	}
+
 	public enum BuildingState {
 		Normal,
 		Building,
@@ -17,6 +92,7 @@ public class GridManager : Singleton<GridManager>
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
 	public BuildingState State => _buildingState;
+	public int Money => _money;
 
 	public int CurrentCenterLevel => _currentCenterLevel;
 	public int CurrentOpenedBuildingLevel => _currentOpenedBuildingLevel;
@@ -49,6 +125,11 @@ public class GridManager : Singleton<GridManager>
 	private bool _hasInit = false;
 	private BuildingState _buildingState = BuildingState.Normal;
 	private FloatingBlock _selectedFloatingBlock;
+
+	[ShowInInspector] private List<BlockLink> _blockLinks;
+	private int _money;
+	private float _moneyIncreaseInterval = 1f;
+	private float _moneyIncreaseTimer = 0f;
 	#endregion
 
 	#region PublicMethod
@@ -170,6 +251,12 @@ public class GridManager : Singleton<GridManager>
 		if (Input.GetMouseButtonDown(2)) {
 			CancelFloatingBlockSelect();
 		}
+
+		_moneyIncreaseTimer += Time.deltaTime;
+		if (_moneyIncreaseTimer >= _moneyIncreaseInterval) {
+			_moneyIncreaseTimer = 0f;
+			_money += CalculateProduction();
+		}
 	}
 
 	protected override void Init() {
@@ -193,6 +280,8 @@ public class GridManager : Singleton<GridManager>
 
 		_floatingSpawner.Get(gameObject).Init();
 
+		_money = 0;
+
 		_hasInit = true;
 	}
 
@@ -211,9 +300,41 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void CheckLink() {
+		_blockLinks = new List<BlockLink>();
+
 		for (int i = _currentOpenedBuildingLevel - 1; i >= 0; i--) {
-			_buildingLevels[i].CheckLink();
+			List<BlockLink> links = _buildingLevels[i].CheckLink();
+			if (links != null) {
+				foreach (var bl in links) {
+					bool isUnique = true;
+					foreach(var worldBl in _blockLinks) {
+						if (worldBl.Contains(bl)) {
+							isUnique = false;
+							break;
+						}
+					}
+					if (isUnique) {
+						_blockLinks.Add(bl);
+					}
+				}
+			}
 		}
+	}
+
+	private int CalculateProduction() {
+		int production = 0;
+
+		if (_blockLinks == null) {
+			return production;
+		}
+
+		foreach (var bl in _blockLinks) {
+			BlockLink.ScoreData sd = bl.CalculateScore();
+			production += sd == null ? 0 : sd.totalScore;
+		}
+
+		Debug.Log("Production: " + production);
+		return production;
 	}
 
 	private void CancelFloatingBlockSelect() {
