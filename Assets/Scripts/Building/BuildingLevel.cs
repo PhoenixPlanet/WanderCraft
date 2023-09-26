@@ -76,6 +76,7 @@ public class BuildingLevel : MonoBehaviour
 			_installedBlockNum++;
 			ScanLevel();
 
+
 			return true;
 		}
 
@@ -132,6 +133,14 @@ public class BuildingLevel : MonoBehaviour
 	}
 
 	public void ScanLevel() {
+		for (int i = 0; i < GridManager.Instance.GridSize.x; i++) {
+			for (int j = 0; j < GridManager.Instance.GridSize.y; j++) {
+				if (_grid[i][j].Block != null) {
+					_grid[i][j].Block.TurnOffPillar();
+				}
+			}
+		}
+
 		_blockClusterList = FindAllClusters();
 		if (_blockClusterList == null) {
 			return;
@@ -139,6 +148,16 @@ public class BuildingLevel : MonoBehaviour
 
 		foreach (BlockCluster blockCluster in _blockClusterList) {
 			blockCluster.ApplyCluster();
+		}
+	}
+
+	public void CheckLink() {
+		if (_blockClusterList == null) {
+			return;
+		}
+
+		foreach (BlockCluster blockCluster in _blockClusterList) {
+			blockCluster.CheckLink();
 		}
 	}
 	#endregion
