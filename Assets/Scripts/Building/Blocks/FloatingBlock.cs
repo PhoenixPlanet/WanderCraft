@@ -1,8 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 namespace TH.Core
 {
@@ -27,6 +29,8 @@ namespace TH.Core
         private float _destroyYpos = -30f;
         
         private float _flyingSpeed = 5;
+        private float _randomSpeed;
+        public Vector3 myDirection;
         #endregion
 
         #region PublicMethod
@@ -70,14 +74,29 @@ namespace TH.Core
             }
         }
 
+        private void Awake()
+        {
+            _randomSpeed = UnityEngine.Random.Range(1f, 1.5f);
+        }
+        private void moveDirection()
+        {
+            _rb.AddForce(myDirection * _randomSpeed);
+        }
         private void Update()
         {
-            if(transform.position.y < _destroyYpos)
+            if (transform.position.y < _destroyYpos)
             {
                 StartCoroutine(nameof(destroyObject));
             }
+            else if (_isFlying)
+            {
+      
+            }
+            else
+            {
+                moveDirection();
+            }
         }
-
         private void StartFlying()
         {
             if (_isFlying) return; 
@@ -98,12 +117,13 @@ namespace TH.Core
                 yield return null;
             }
 
-            _isFlying = false;
+            _isFlying = true;
             _rb.useGravity = false; 
         }
 
         private IEnumerator destroyObject()
         {
+            _rb.useGravity = true;
             _isDestroying = true;
             yield return new WaitForSeconds(20f);
             Destroy(gameObject);
