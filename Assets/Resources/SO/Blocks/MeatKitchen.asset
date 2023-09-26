@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: MeatKitchen
   m_EditorClassIdentifier: 
-  BuildingType: 2
+  BuildingType: 1
   SourceType: 1
   FloatingPrefab: {fileID: 836044172351173065, guid: a3eb711defd23514488185658cae3d75,
     type: 3}

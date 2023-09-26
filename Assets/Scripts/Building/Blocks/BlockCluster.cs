@@ -27,6 +27,7 @@ public class BlockCluster
     #endregion
 
     #region PrivateVariables
+    private List<HashSet<BlockCluster>> _linkedBlockClusters;
     #endregion
 
     #region PublicMethod
@@ -68,7 +69,7 @@ public class BlockCluster
         }
 
         List<HashSet<BlockCluster>> linkedBlockClusters = new List<HashSet<BlockCluster>>();
-        for (int i = 0; i < Enum.GetNames(typeof(EBuildingType)).Length - 1; i++) {
+        for (int i = 0; i < Enum.GetNames(typeof(EBuildingType)).Length; i++) {
             linkedBlockClusters.Add(new HashSet<BlockCluster>());
         }
 
@@ -79,17 +80,36 @@ public class BlockCluster
                 linkedBlockClusters[i - 1].UnionWith(c.GetAllBelowClusters((EBuildingType)(i - 1)));
             }    
         }
+
+        for (int i = 0; i < Enum.GetNames(typeof(EBuildingType)).Length - 1; i++) {
+            foreach (var c in linkedBlockClusters[i]) {
+                linkedBlockClusters[i + 1].UnionWith(c.GetAllAboveClusters((EBuildingType)(i + 1)));
+            }  
+        }
+
+        _linkedBlockClusters = linkedBlockClusters;
     }
 
     public HashSet<BlockCluster> GetAllBelowClusters(EBuildingType targetBuildingType) {
         HashSet<BlockCluster> belowClusters = new HashSet<BlockCluster>();
         foreach (var blockAbility in blockAbilities) {
-            BlockCluster bc = blockAbility.CheckLinkBelow(targetBuildingType);
+            BlockCluster bc = blockAbility.CheckLinkBelow(targetBuildingType, sourceType);
             if (bc != null) {
                 belowClusters.Add(bc);
             }
         }
         return belowClusters;
+    }
+
+    public HashSet<BlockCluster> GetAllAboveClusters(EBuildingType targetBuildingType) {
+        HashSet<BlockCluster> aboveClusters = new HashSet<BlockCluster>();
+        foreach (var blockAbility in blockAbilities) {
+            BlockCluster bc = blockAbility.CheckLinkAbove(targetBuildingType, sourceType);
+            if (bc != null) {
+                aboveClusters.Add(bc);
+            }
+        }
+        return aboveClusters;
     }
     #endregion
 

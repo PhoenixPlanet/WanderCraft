@@ -26,6 +26,8 @@ public class Block : MonoBehaviour
 		= new ComponentGetter<Collider>(TypeOfGetter.This);
 	private ComponentGetter<BlockAbility> _blockAbility
 		= new ComponentGetter<BlockAbility>(TypeOfGetter.This);
+	private ObjectGetter _pillar
+		= new ObjectGetter(TypeOfGetter.ChildByName, "Pillar");
 
 	protected List<BlockMouseSensor> _blockMouseSensors;
 
@@ -115,19 +117,39 @@ public class Block : MonoBehaviour
 		_cluster = cluster;
 	}
 
-	public BlockCluster CheckLinkBelow(EBuildingType targetBuildingType) {
+	public BlockCluster CheckLinkBelow(EBuildingType targetBuildingType, ESourceType sourceType) {
 		if (_level == 0) {
 			return null;
 		}
 
 		Block belowBlock = GridManager.Instance.GetBlock(_level - 1, _gridPos);
 		if (belowBlock != null) {
-			if (belowBlock.Data.BuildingType == targetBuildingType) {
+			if (belowBlock.Data.BuildingType == targetBuildingType && belowBlock.Data.SourceType == sourceType) {
 				return belowBlock.Cluster;
 			}
 		}
 
 		return null;
+	}
+
+	public BlockCluster CheckLinkAbove(EBuildingType targetBuildingType, ESourceType sourceType) {
+		if (_level == GridManager.Instance.CurrentOpenedBuildingLevel - 1) {
+			return null;
+		}
+
+		Block aboveBlock = GridManager.Instance.GetBlock(_level + 1, _gridPos);
+		if (aboveBlock != null) {
+			if (aboveBlock.Data.BuildingType == targetBuildingType && aboveBlock.Data.SourceType == sourceType) {
+				_pillar.Get(gameObject).SetActive(true);
+				return aboveBlock.Cluster;
+			}
+		}
+
+		return null;
+	}
+
+	public void TurnOffPillar() {
+		_pillar.Get(gameObject).SetActive(false);
 	}
 	#endregion
     

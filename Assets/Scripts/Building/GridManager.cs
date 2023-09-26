@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -17,7 +18,8 @@ public class GridManager : Singleton<GridManager>
 	public Vector2Int GridSize => _gridSize;
 	public BuildingState State => _buildingState;
 
-		public int CurrentCenterLevel => _currentCenterLevel;
+	public int CurrentCenterLevel => _currentCenterLevel;
+	public int CurrentOpenedBuildingLevel => _currentOpenedBuildingLevel;
 
 	#endregion
 
@@ -95,6 +97,8 @@ public class GridManager : Singleton<GridManager>
 
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
 		if (_buildingLevels[level].InstallBlock(gridPos, _selectedFloatingBlock.Data) == true) {
+			CheckLink();
+
 			Destroy(_selectedFloatingBlock.gameObject);
 			_selectedFloatingBlock = null;
 			SelectLevel();
@@ -147,7 +151,7 @@ public class GridManager : Singleton<GridManager>
 			return null;
 		}
 
-		return _buildingLevels[level].GetBlock(listIndex);
+		return _buildingLevels[level].GetBlock(gridPos);
 	}
 	#endregion
     
@@ -203,6 +207,12 @@ public class GridManager : Singleton<GridManager>
 				break;
 			default:
 				break;
+		}
+	}
+
+	private void CheckLink() {
+		for (int i = _currentOpenedBuildingLevel - 1; i >= 0; i--) {
+			_buildingLevels[i].CheckLink();
 		}
 	}
 

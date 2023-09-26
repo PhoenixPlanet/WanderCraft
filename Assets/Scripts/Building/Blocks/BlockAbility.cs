@@ -28,8 +28,11 @@ public class BlockAbility : MonoBehaviour
         _block.Get(gameObject).SetCluster(blockCluster);
     }
 
-    public BlockCluster CheckLinkBelow(EBuildingType buildingType) {
-        return _block.Get(gameObject).CheckLinkBelow(buildingType);
+    public BlockCluster CheckLinkBelow(EBuildingType buildingType, ESourceType sourceType) {
+        return _block.Get(gameObject).CheckLinkBelow(buildingType, sourceType);
+    }
+    public BlockCluster CheckLinkAbove(EBuildingType buildingType, ESourceType sourceType) {
+        return _block.Get(gameObject).CheckLinkAbove(buildingType, sourceType);
     }
 
     protected void Start() {
