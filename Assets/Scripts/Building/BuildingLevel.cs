@@ -83,6 +83,27 @@ public class BuildingLevel : MonoBehaviour
 		return false;
 	}
 
+	public void DeleteBlock(int level, Vector2Int gridPos) {
+		if (_hasInit == false) {
+			return;
+		}
+
+		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
+		if (GridManager.Instance.IsListPosInGrid(listIndex) == false) {
+			return;
+		}
+
+		if (_grid[listIndex.x][listIndex.y].Block == null) {
+			return;
+		}
+
+		Destroy(_grid[listIndex.x][listIndex.y].Block.gameObject);
+		_grid[listIndex.x][listIndex.y].Block = null;
+		ScanLevel();
+
+		_installedBlockNum--;
+	}
+
 	public void ActivateLevelBuildingUI() {
 		ActivateBlocksBuildingUI();
 

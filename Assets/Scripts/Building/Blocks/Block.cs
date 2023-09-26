@@ -28,6 +28,8 @@ public class Block : MonoBehaviour
 		= new ComponentGetter<BlockAbility>(TypeOfGetter.This);
 	private ObjectGetter _pillar
 		= new ObjectGetter(TypeOfGetter.ChildByName, "Pillar");
+	private ObjectGetter _iconObj
+		= new ObjectGetter(TypeOfGetter.ChildByName, "Icon");
 
 	protected List<BlockMouseSensor> _blockMouseSensors;
 
@@ -73,6 +75,9 @@ public class Block : MonoBehaviour
 		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			meshRenderer.material = _normal;
+			Color color = meshRenderer.material.GetColor("_Color");
+			color.a = 1f;
+			meshRenderer.material.SetColor("_Color", color);
 		}
 
 		_collider.Get(gameObject).enabled = true;
@@ -82,7 +87,10 @@ public class Block : MonoBehaviour
 		//_meshRenderer.Get(gameObject).material = _transparent;
 		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
-			meshRenderer.material = _transparent;
+			//meshRenderer.material = _transparent;
+			Color color = meshRenderer.material.GetColor("_BaseColor");
+			color.a = 0.2f;
+			meshRenderer.material.SetColor("_BaseColor", color);
 		}
 
 		_collider.Get(gameObject).enabled = false;
@@ -174,8 +182,16 @@ public class Block : MonoBehaviour
 		GridManager.Instance.InstallNewBlock(_level, _gridPos + direction);
 	}
 
-	private void OnMouseDown() {
-		_onClick?.Invoke(_level, _gridPos);
+	private void OnMouseOver() {
+		if (GridManager.Instance.State == GridManager.BuildingState.Building) {
+			if (Input.GetMouseButtonDown(0)) {
+				_onClick?.Invoke(_level, _gridPos);
+			}
+
+			if (Input.GetMouseButtonDown(1)) {
+				GridManager.Instance.DeleteBlock(_level, _gridPos);
+			}
+		}
 	}
 	#endregion
 }
