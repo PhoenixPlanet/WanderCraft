@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 59084535248628595}
-  - component: {fileID: 6255496993519461453}
   - component: {fileID: 7894246254716141351}
+  - component: {fileID: 2830843407613763815}
+  - component: {fileID: -2644712952308950945}
   m_Layer: 0
   m_Name: KitchenMeat
   m_TagString: Untagged
@@ -37,20 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6255496993519461453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836044172351173065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23879a08203320049b521fc67f739753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridPos: {x: 0, y: 0}
-  _height: 0
 --- !u!65 &7894246254716141351
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64,6 +51,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.6, z: 1}
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &2830843407613763815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836044172351173065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23879a08203320049b521fc67f739753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridPos: {x: 0, y: 0}
+  _height: 0
+--- !u!114 &-2644712952308950945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836044172351173065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26440c1efc52f44449789df9602e458a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BuidlingType: 0
+  m_SourceType: 0
 --- !u!1 &5299648856908720930
 GameObject:
   m_ObjectHideFlags: 0

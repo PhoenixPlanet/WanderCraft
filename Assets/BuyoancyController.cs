@@ -2,11 +2,12 @@ using Bitgem.VFX.StylisedWater;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TH.Core;
 
 public class BuyoancyController : MonoBehaviour
 {
     public bool isFloating = false;
-    public WaterVolumeHelper WaterVolumeHelper = null;
+    public ComponentGetter<WaterVolumeHelper> WaterVolumeHelper = new ComponentGetter<WaterVolumeHelper>(TypeOfGetter.Global);
     //====================
     public float maxBuyoncyPower = 3f;
     public float underWaterDrag = 3f;
@@ -14,12 +15,11 @@ public class BuyoancyController : MonoBehaviour
     public float airDrag = 0f;
     public float airAngularDrag = 0.05f;
     public float floatingPower = 15f;
-    public Rigidbody rigidbody;
+    public ComponentGetter<Rigidbody> _rigidbody = new ComponentGetter<Rigidbody>(TypeOfGetter.This);
     //=======================
 
     private void Awake()
     {
-        WaterVolumeHelper = FindObjectOfType<WaterVolumeHelper>();
     }
 
     void FixedUpdate()
@@ -48,17 +48,17 @@ public class BuyoancyController : MonoBehaviour
 
     private void buyoancy()
     {
-        if (!WaterVolumeHelper)
+        if (!WaterVolumeHelper.Get(gameObject))
         {
             return;
         }
 
-        if (WaterVolumeHelper.GetHeight(transform.position) != null)
+        if (WaterVolumeHelper.Get().GetHeight(transform.position) != null)
         {
-            float difference = transform.position.y - (float)WaterVolumeHelper.GetHeight(transform.position);
+            float difference = transform.position.y - (float)WaterVolumeHelper.Get().GetHeight(transform.position);
             if (difference < 0)
             {
-                rigidbody.AddForce(Vector3.up * floatingPower * (Mathf.Clamp(Mathf.Abs(difference), 0, maxBuyoncyPower)), ForceMode.Force);
+                _rigidbody.Get(gameObject).AddForce(Vector3.up * floatingPower * (Mathf.Clamp(Mathf.Abs(difference), 0, maxBuyoncyPower)), ForceMode.Force);
                 if (!isFloating)
                 {
                     isFloating = true;
@@ -71,13 +71,13 @@ public class BuyoancyController : MonoBehaviour
     {
         if (isFloating)
         {
-            rigidbody.drag = underWaterDrag;
-            rigidbody.angularDrag = underWaterAngularDrag;
+            _rigidbody.Get(gameObject).drag = underWaterDrag;
+            _rigidbody.Get(gameObject).angularDrag = underWaterAngularDrag;
         }
         else
         {
-            rigidbody.drag = airDrag;
-            rigidbody.angularDrag = airAngularDrag;
+            _rigidbody.Get(gameObject).drag = airDrag;
+            _rigidbody.Get(gameObject).angularDrag = airAngularDrag;
         }
     }
 

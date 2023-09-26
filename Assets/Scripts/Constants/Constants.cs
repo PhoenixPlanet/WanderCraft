@@ -8,7 +8,7 @@ namespace TH.Core {
 		namespace ResourcesPath {
 			public static class Prefabs {
 				public const string CENTER_BLOCK_PREFAB_PATH = "Prefabs/CenterBlock";
-				public const string SIDE_BLOCK_PREFAB_PATH = "Prefabs/SideBlockVarient/SideBlockM";
+				public const string SIDE_BLOCK_PREFAB_PATH = "Prefabs/SideBlockVarient/DiningFish";
 				public const string BLOCK_MOUSE_SENSOR_PREFAB_PATH = "Prefabs/BlockMouseSensor";
 				public const string BUILDING_LEVEL_PREFAB_PATH = "Prefabs/BuildingLevel";
 			}
@@ -22,7 +22,7 @@ namespace TH.Core {
 		namespace Helper {
 			public static class Organizer {
 				public const string CENTER_BLOCK_PARENT_NAME = "=========== CenterBlockParent ===========";
-				public const string SIDE_BLOCK_PARENT_NAME = "=========== SideBlockParent ===========";
+				public const string FLOATING_BLOCK_PARENT_NAME = "=========== FloatingBlockParent ===========";
 			}
 		}
 
