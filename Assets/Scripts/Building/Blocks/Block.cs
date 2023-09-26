@@ -10,10 +10,11 @@ public class Block : MonoBehaviour
     #region PublicVariables
 	public BlockData Data => _blockData;
 	public BlockAbility Ability => _blockAbility.Get(gameObject);
+	public BlockCluster Cluster => _cluster;
 	#endregion
 
 	#region PrivateVariables
-	private static Material _normal;
+	private Material _normal;
 	private static Material _transparent;
 
 	[SerializeField] private Vector2Int _gridPos;
@@ -29,15 +30,18 @@ public class Block : MonoBehaviour
 	protected List<BlockMouseSensor> _blockMouseSensors;
 
 	private int _level;
+	private BlockCluster _cluster;
 	private BlockData _blockData;
 	private Action<int, Vector2Int> _onClick;
 	#endregion
 
 	#region PublicMethod
 	public void Init(int level, Vector2Int gridPos, BlockData blockData, Action<int, Vector2Int> onClick) {
-		if (_normal == null || _transparent == null) {
+		if (_transparent == null) {
 			LoadMaterials();
 		}
+
+		_normal = Resources.Load<Material>(Constants.ResourcesPath.Materials.BLOCK_NORMAL_MATERIAL_PATH);
 		
 		_blockMouseSensors = new List<BlockMouseSensor>();
 
@@ -92,11 +96,33 @@ public class Block : MonoBehaviour
 	public BlockAbility GetAbility() {
 		return _blockAbility.Get(gameObject);
 	}
+
+	public void SetNormalMaterial(Material material) {
+		_normal = material;
+	}
+
+	public void SetCluster(BlockCluster cluster) {
+		_cluster = cluster;
+	}
+
+	public BlockCluster CheckLinkBelow(EBuildingType targetBuildingType) {
+		if (_level == 0) {
+			return null;
+		}
+
+		Block belowBlock = GridManager.Instance.GetBlock(_level - 1, _gridPos);
+		if (belowBlock != null) {
+			if (belowBlock.Data.BuildingType == targetBuildingType) {
+				return belowBlock.Cluster;
+			}
+		}
+
+		return null;
+	}
 	#endregion
     
 	#region PrivateMethod
 	private void LoadMaterials() {
-		_normal = Resources.Load<Material>(Constants.ResourcesPath.Materials.BLOCK_NORMAL_MATERIAL_PATH);
 		_transparent = Resources.Load<Material>(Constants.ResourcesPath.Materials.BLOCK_TRANSPARENT_MATERIAL_PATH);
 	}
 
