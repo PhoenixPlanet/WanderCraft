@@ -40,7 +40,6 @@ public class BlockAbility : MonoBehaviour
 public enum EBuildingType
 {
     Factory,
-    Storage,
     Kitchen,
     Dining
 }

@@ -67,12 +67,22 @@ public class Block : MonoBehaviour
 	}
 
 	public virtual void ActivateBlock() {
-		_meshRenderer.Get(gameObject).material = _normal;
+		//_meshRenderer.Get(gameObject).material = _normal;
+		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		foreach (MeshRenderer meshRenderer in meshRenderers) {
+			meshRenderer.material = _normal;
+		}
+
 		_collider.Get(gameObject).enabled = true;
 	}
 
 	public virtual void DeactivateBlock() {
-		_meshRenderer.Get(gameObject).material = _transparent;
+		//_meshRenderer.Get(gameObject).material = _transparent;
+		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		foreach (MeshRenderer meshRenderer in meshRenderers) {
+			meshRenderer.material = _transparent;
+		}
+
 		_collider.Get(gameObject).enabled = false;
 
 		for (int i = 0; i < 4; i++) {

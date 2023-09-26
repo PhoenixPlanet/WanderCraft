@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -66,23 +67,29 @@ public class BlockCluster
             return;
         }
 
+        List<HashSet<BlockCluster>> linkedBlockClusters = new List<HashSet<BlockCluster>>();
+        for (int i = 0; i < Enum.GetNames(typeof(EBuildingType)).Length - 1; i++) {
+            linkedBlockClusters.Add(new HashSet<BlockCluster>());
+        }
+
+        linkedBlockClusters[Enum.GetNames(typeof(EBuildingType)).Length - 1].Add(this);
+
+        for (int i = Enum.GetNames(typeof(EBuildingType)).Length - 1; i >= 1; i--) {
+            foreach (var c in linkedBlockClusters[i]) {
+                linkedBlockClusters[i - 1].UnionWith(c.GetAllBelowClusters((EBuildingType)(i - 1)));
+            }    
+        }
+    }
+
+    public HashSet<BlockCluster> GetAllBelowClusters(EBuildingType targetBuildingType) {
         HashSet<BlockCluster> belowClusters = new HashSet<BlockCluster>();
         foreach (var blockAbility in blockAbilities) {
-            BlockCluster bc = blockAbility.CheckLinkBelow((EBuildingType)((int)EBuildingType.Dining - 1));
+            BlockCluster bc = blockAbility.CheckLinkBelow(targetBuildingType);
             if (bc != null) {
                 belowClusters.Add(bc);
             }
         }
-    }
-
-    public void CheckLinkBelow(EBuildingType targetBuildingType) {
-        if (buildingType == EBuildingType.Dining) {
-            return;
-        }
-
-        foreach (var blockAbility in blockAbilities) {
-            //blockAbility.CheckLinkBelow();
-        }
+        return belowClusters;
     }
     #endregion
 
