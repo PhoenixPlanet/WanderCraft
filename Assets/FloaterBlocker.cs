@@ -11,6 +11,7 @@ public class FloaterBlocker : MonoBehaviour
     #region PrivateVariables
     private float _sphereRadius;
     private SphereCollider _sphereCollider;
+    
     #endregion
 
     #region PublicMethod
