@@ -110,6 +110,9 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<FloatingSpawner> _floatingSpawner
 		= new ComponentGetter<FloatingSpawner>(TypeOfGetter.This);
 
+	private ComponentGetter<InfoPanel> _infoPanel
+		= new ComponentGetter<InfoPanel>(TypeOfGetter.Global);
+
 	[SerializeField] private float _centerBlockHeight;
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
@@ -183,12 +186,21 @@ public class GridManager : Singleton<GridManager>
 
 			Destroy(_selectedFloatingBlock.gameObject);
 			_selectedFloatingBlock = null;
+
 			SelectLevel();
 		}
 
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
 			CheckCanOpenLevel();
 		}
+
+		HideGridSelector();
+	}
+
+	public void DeleteBlock(int level, Vector2Int gridPos) {
+		_buildingLevels[level].DeleteBlock(level, gridPos);
+		CheckLink();
+		SelectLevel();
 	}
 
 	public Vector2Int GetListIndex(Vector2Int gridPos) {
@@ -234,6 +246,27 @@ public class GridManager : Singleton<GridManager>
 		}
 
 		return _buildingLevels[level].GetBlock(gridPos);
+	}
+
+	public void BuyCenterBlock() {
+		if (_money < Constants.GameSetting.Price.BLOCK_PRICE) {
+			return;
+		}
+
+		_money -= Constants.GameSetting.Price.BLOCK_PRICE;
+		BuildNewCenterBlock();
+	}
+
+	public void ActivateLinkBlocks(List<HashSet<BlockCluster>> blockClusters) {
+		DeactivateAllBlocks();
+
+		foreach (var bc in blockClusters) {
+			foreach (var blockCluster in bc) {
+				foreach (var blockAbility in blockCluster.blockAbilities) {
+					blockAbility.block.ActivateBlock();
+				}
+			}
+		}
 	}
 	#endregion
     
@@ -283,6 +316,10 @@ public class GridManager : Singleton<GridManager>
 
 		_money = 0;
 
+		for (int i = 0; i < 3; i++) {
+			BuildNewCenterBlock();
+		}
+
 		_hasInit = true;
 	}
 
@@ -320,6 +357,16 @@ public class GridManager : Singleton<GridManager>
 				}
 			}
 		}
+
+		if (_blockLinks == null) {
+			return;
+		}
+
+		foreach (var bl in _blockLinks) {
+			bl.CalculateScore();
+		}
+		
+		_infoPanel.Get().SetInfoPanel(_blockLinks);
 	}
 
 	private int CalculateProduction() {
@@ -425,6 +472,12 @@ public class GridManager : Singleton<GridManager>
 		for (int i = 0; i < _buildingLevels.Count; i++) {
 			_buildingLevels[i].DeactivateLevelBuildingUI();
 			_buildingLevels[i].ActivateBlocks();
+		}
+	}
+
+	private void DeactivateAllBlocks() {
+		for (int i = 0; i < _buildingLevels.Count; i++) {
+			_buildingLevels[i].DeactivateBlocks();
 		}
 	}
 	#endregion

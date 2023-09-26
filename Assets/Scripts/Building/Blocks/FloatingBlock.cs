@@ -57,6 +57,14 @@ namespace TH.Core
             {
                 return;
             }
+
+			if (GridManager.Instance.State == GridManager.BuildingState.Normal) {
+				if (Input.GetMouseButtonDown(0)) {
+					GridManager.Instance.ChangeState(GridManager.BuildingState.Building);
+					_onFloatingBlockClicked?.Invoke(this);
+				}
+			}
+
             if (GridManager.Instance.State == GridManager.BuildingState.Building && _isDestroying == false)
             {
                 if (Input.GetMouseButtonDown(0))

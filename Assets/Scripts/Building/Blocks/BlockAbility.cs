@@ -8,6 +8,7 @@ public class BlockAbility : MonoBehaviour
 {
     public EBuildingType m_BuidlingType;
     public ESourceType m_SourceType;
+    public Block block => _block.Get(gameObject);
 
     private ComponentGetter<Block> _block =
         new ComponentGetter<Block>(TypeOfGetter.This);

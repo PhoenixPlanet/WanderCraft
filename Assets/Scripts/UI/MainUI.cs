@@ -15,6 +15,8 @@ public class MainUI : MonoBehaviour
 		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "NormalButton");
 	private ComponentGetter<Button> _buildingButton =
 		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BuildingButton");
+	private ComponentGetter<Button> _buyButton = 
+		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BuyButton");
 	#endregion
 
 	#region PublicMethod
@@ -33,6 +35,10 @@ public class MainUI : MonoBehaviour
 			_buildingButton.Get(gameObject).interactable = false;
 
 			GridManager.Instance.ChangeState(GridManager.BuildingState.Building);
+		});
+
+		_buyButton.Get(gameObject).onClick.AddListener(() => {
+			GridManager.Instance.BuyCenterBlock();
 		});
 	}
 	#endregion

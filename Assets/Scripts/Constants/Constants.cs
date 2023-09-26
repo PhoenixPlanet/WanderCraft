@@ -84,6 +84,18 @@ namespace TH.Core {
 					{ESourceType.Plant, 4},
 				};
 			}
+
+			public static class Price {
+				public const int BLOCK_PRICE = 10;
+			}
+
+			public static class SourceName {
+				public static readonly Dictionary<ESourceType, string> name = new Dictionary<ESourceType, string>() {
+					{ESourceType.Meat, "고기"},
+					{ESourceType.Fish, "생선"},
+					{ESourceType.Plant, "야채"},
+				};
+			}
 		}
 	}
 
