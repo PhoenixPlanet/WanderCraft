@@ -72,7 +72,7 @@ public class Block : MonoBehaviour
 
 	public virtual void ActivateBlock() {
 		//_meshRenderer.Get(gameObject).material = _normal;
-		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		MeshRenderer[] meshRenderers = transform.Find("Renderer").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			meshRenderer.material = _normal;
 			Color color = meshRenderer.material.GetColor("_Color");
@@ -85,12 +85,12 @@ public class Block : MonoBehaviour
 
 	public virtual void DeactivateBlock() {
 		//_meshRenderer.Get(gameObject).material = _transparent;
-		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		MeshRenderer[] meshRenderers = transform.Find("Renderer").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			//meshRenderer.material = _transparent;
-			Color color = meshRenderer.material.GetColor("_BaseColor");
+			Color color = meshRenderer.material.GetColor("_Color");
 			color.a = 0.2f;
-			meshRenderer.material.SetColor("_BaseColor", color);
+			meshRenderer.material.SetColor("_Color", color);
 		}
 
 		_collider.Get(gameObject).enabled = false;
@@ -148,7 +148,7 @@ public class Block : MonoBehaviour
 		Block aboveBlock = GridManager.Instance.GetBlock(_level + 1, _gridPos);
 		if (aboveBlock != null) {
 			if (aboveBlock.Data.BuildingType == targetBuildingType && aboveBlock.Data.SourceType == sourceType) {
-				_pillar.Get(gameObject).SetActive(true);
+				//_pillar.Get(gameObject).SetActive(true);
 				return aboveBlock.Cluster;
 			}
 		}
@@ -157,7 +157,7 @@ public class Block : MonoBehaviour
 	}
 
 	public void TurnOffPillar() {
-		_pillar.Get(gameObject).SetActive(false);
+		//_pillar.Get(gameObject).SetActive(false);
 	}
 	#endregion
     

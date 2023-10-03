@@ -12,11 +12,11 @@ public class MainUI : MonoBehaviour
 
 	#region PrivateVariables
 	private ComponentGetter<Button> _normalButton =
-		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "NormalButton");
+		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BottomPanel/GameModePanel/NormalButton");
 	private ComponentGetter<Button> _buildingButton =
-		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BuildingButton");
+		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BottomPanel/GameModePanel/BuildingButton");
 	private ComponentGetter<Button> _buyButton = 
-		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BuyButton");
+		new ComponentGetter<Button>(TypeOfGetter.ChildByName, "BottomPanel/BuyButton");
 	#endregion
 
 	#region PublicMethod

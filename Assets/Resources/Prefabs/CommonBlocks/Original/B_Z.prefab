@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4473066349715243371}
   - component: {fileID: 7955683872298121852}
   - component: {fileID: 1957195218287411088}
+  - component: {fileID: -8544978590745492852}
   m_Layer: 0
   m_Name: B_Z
   m_TagString: Untagged
@@ -90,6 +91,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridPos: {x: 0, y: 0}
   _height: 0
+--- !u!65 &-8544978590745492852
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4380878343248448873}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &302482763724352853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 2670124689919929868, guid: 81cf3a9692a40b644bf49499ee67b1fa,
         type: 3}
       propertyPath: m_Name
-      value: B_Z
+      value: Renderer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81cf3a9692a40b644bf49499ee67b1fa, type: 3}

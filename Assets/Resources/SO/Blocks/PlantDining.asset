@@ -20,6 +20,7 @@ MonoBehaviour:
     type: 3}
   RealPrefab: {fileID: 3294041736429594471, guid: 3b18e2cb76eda334f9e4282aa6698692,
     type: 3}
+  uiSprite: {fileID: 21300000, guid: 965a3258d33982e41a60fa96344c5ffc, type: 3}
   blockPrice:
     red: 0
     blue: 0

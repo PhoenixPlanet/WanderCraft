@@ -11,6 +11,8 @@ namespace TH.Core {
 				public const string SIDE_BLOCK_PREFAB_PATH = "Prefabs/SideBlockVarient/DiningFish";
 				public const string BLOCK_MOUSE_SENSOR_PREFAB_PATH = "Prefabs/BlockMouseSensor";
 				public const string BUILDING_LEVEL_PREFAB_PATH = "Prefabs/BuildingLevel";
+
+				public const string BLOCK_SELECT_BUTTON_PREFAB_PATH = "Prefabs/UI/BlockSelectButton";
 			}
 
 			public static class Materials {

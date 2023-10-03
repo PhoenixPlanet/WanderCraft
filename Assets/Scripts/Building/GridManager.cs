@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -108,6 +109,8 @@ public class GridManager : Singleton<GridManager>
 	}
 
     #region PublicVariables
+	public List<BlockDataSO> BlockDataList => _blockDataList;
+
 	public Vector2Int GridSize => _gridSize;
 	public BuildingState State => _buildingState;
 	public PropertyData CurrentProperty => _currentProperty;
@@ -139,6 +142,8 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<InfoPanel> _infoPanel
 		= new ComponentGetter<InfoPanel>(TypeOfGetter.Global);
 
+	[SerializeField] private List<BlockDataSO> _blockDataList;
+
 	[SerializeField] private float _centerBlockHeight;
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
@@ -156,7 +161,8 @@ public class GridManager : Singleton<GridManager>
 
 	private bool _hasInit = false;
 	private BuildingState _buildingState = BuildingState.Normal;
-	private FloatingBlock _selectedFloatingBlock;
+	private BlockDataSO _selectedBlockData;
+	private Action _onBlockSelect;
 
 	[ShowInInspector] private List<BlockLink> _blockLinks;
 	private PropertyData _currentProperty;
@@ -202,20 +208,23 @@ public class GridManager : Singleton<GridManager>
 		_gridSelector.Get().gameObject.SetActive(false);
 	}
 
-	public void InstallNewBlock(int level, Vector2Int gridPos) {
-		if (_selectedFloatingBlock == null) {
+	public bool InstallNewBlock(int level, Vector2Int gridPos) {
+		if (_selectedBlockData == null) {
 			Debug.LogError("No selected floating block data");
-			return;
+			return false;
 		} 
 
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
-		if (_buildingLevels[level].InstallBlock(gridPos, _selectedFloatingBlock.Data) == true) {
+		bool installSuccess = false;
+		if (_buildingLevels[level].InstallBlock(gridPos, _selectedBlockData) == true) {
 			CheckLink();
 
-			Destroy(_selectedFloatingBlock.gameObject);
-			_selectedFloatingBlock = null;
+			_onBlockSelect?.Invoke();
+			_selectedBlockData = null;
 
 			SelectLevel();
+
+			installSuccess = true;
 		}
 
 		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
@@ -223,6 +232,8 @@ public class GridManager : Singleton<GridManager>
 		}
 
 		HideGridSelector();
+
+		return installSuccess;
 	}
 
 	public void DeleteBlock(int level, Vector2Int gridPos) {
@@ -241,7 +252,18 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void SelectFloatingBlock(FloatingBlock block) {
-		_selectedFloatingBlock = block;
+		_selectedBlockData = block.Data;
+		_onBlockSelect = () => {
+			Destroy(block.gameObject);
+		};
+		SelectLevel();
+	}
+
+	public void SelectBlockData(BlockDataSO blockData) {
+		_selectedBlockData = blockData;
+		_onBlockSelect = () => {
+			_selectedBlockData = null;
+		};
 		SelectLevel();
 	}
 
@@ -426,8 +448,9 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void CancelFloatingBlockSelect() {
-		if (_selectedFloatingBlock != null) {
-			_selectedFloatingBlock = null;
+		if (_selectedBlockData != null) {
+			_selectedBlockData = null;
+			_onBlockSelect = null;
 		}
 
 		if (_buildingState == BuildingState.Building) {
@@ -472,7 +495,7 @@ public class GridManager : Singleton<GridManager>
 			_buildingLevels[i].DeactivateBlocks();
 			if (i == _selectedBuildingLevel) {
 				if (_buildingState == BuildingState.Building) {
-					if (_selectedFloatingBlock != null) {
+					if (_selectedBlockData != null) {
 						_buildingLevels[i].ActivateLevelBuildingUI();
 					} else {
 						_buildingLevels[i].ActivateBlocks();

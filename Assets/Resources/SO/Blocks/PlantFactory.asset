@@ -16,9 +16,9 @@ MonoBehaviour:
   description: 
   BuildingType: 0
   SourceType: 2
-  FloatingPrefab: {fileID: 223209526382606222, guid: c43afe7bfb9abe54fbfdd93492bb3c6f,
+  FloatingPrefab: {fileID: 223209526382606222, guid: 63ad90812c2d9a4429f8ac7886e84d93,
     type: 3}
-  RealPrefab: {fileID: 223209526382606222, guid: 63ad90812c2d9a4429f8ac7886e84d93,
+  RealPrefab: {fileID: 223209526382606222, guid: c43afe7bfb9abe54fbfdd93492bb3c6f,
     type: 3}
   blockPrice:
     red: 0

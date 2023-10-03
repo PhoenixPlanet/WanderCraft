@@ -11,7 +11,6 @@ namespace TH.Core
         #endregion
 
         #region PrivateVariables
-        [SerializeField] private List<BlockDataSO> _blockDataList;
         [SerializeField] private float _spawnInterval;
 
         private Dictionary<ESourceType, List<BlockDataSO>> _blockDataDict;
@@ -38,7 +37,7 @@ namespace TH.Core
             }
 
             _blockDataDict = new Dictionary<ESourceType, List<BlockDataSO>>();
-            foreach (BlockDataSO blockData in _blockDataList)
+            foreach (BlockDataSO blockData in GridManager.Instance.BlockDataList)
             {
                 if (_blockDataDict.ContainsKey(blockData.SourceType) == false)
                 {
