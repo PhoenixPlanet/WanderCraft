@@ -16,7 +16,7 @@ namespace TH.Core
         [SerializeField] private float yHeightOffset = 5f;
         [SerializeField] private float yMoveSpeed = 3f;
         [SerializeField] private float centerBlockCount = 0;
-
+        private bool isRotating = false;
         private float currentZoomDistance = 10f; // Initial zoom distance
 
         private float _originX;
@@ -55,8 +55,15 @@ namespace TH.Core
 
         void RotateCameraByInput(float horizontalInput)
         {
-            float rotationY = horizontalInput * rotationSpeed * Time.deltaTime;
-            transform.Rotate(0, rotationY, 0);
+            if (Input.GetButtonDown("Horizontal") && !isRotating)
+            {
+                Quaternion targetRotation;
+                isRotating = true; 
+                float targetRotationY = transform.eulerAngles.y + (horizontalInput > 0 ? 90 : -90);
+                targetRotation = Quaternion.Euler(25, targetRotationY, 0);
+                print(rotationSpeed);
+                transform.DORotateQuaternion(targetRotation, rotationSpeed).SetEase(Ease.InCubic).OnComplete(() => isRotating = false);
+            }
         }
 
         void ZoomCamera(float verticalInput)
