@@ -16,7 +16,7 @@ public class DataManager : OdinMenuEditorWindow
 
     private Type selectedType;
 
-    [MenuItem("Tools/Data Manager")]
+    [MenuItem("Tools/Data Manager(Legacy)")]
     private static void OpenEditor() => GetWindow<DataManager>();
 
     protected override void OnGUI()
