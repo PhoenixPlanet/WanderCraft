@@ -11,11 +11,11 @@ namespace TH.Core
     public class FloatingBlock : MonoBehaviour
     {
         #region PublicVariables
-        public BlockData Data => _blockData;
+        public BlockDataSO Data => _blockData;
         #endregion
 
         #region PrivateVariables
-        [SerializeField] private BlockData _blockData;
+        [SerializeField] private BlockDataSO _blockData;
         private Action<FloatingBlock> _onFloatingBlockClicked;
         private bool _hasInit = false;
         public Rigidbody _rb;
@@ -34,7 +34,7 @@ namespace TH.Core
         #endregion
 
         #region PublicMethod
-        public void Init(BlockData blockData, Action<FloatingBlock> onFloatingBlockClicked)
+        public void Init(BlockDataSO blockData, Action<FloatingBlock> onFloatingBlockClicked)
         {
             _blockData = blockData;
             _onFloatingBlockClicked = onFloatingBlockClicked;

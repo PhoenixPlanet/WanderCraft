@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: MeatKitchen
   m_EditorClassIdentifier: 
+  blockName: MeatKitchen
+  description: 
   BuildingType: 1
   SourceType: 1
   FloatingPrefab: {fileID: 1309383573847987909, guid: 678599d88f52efe43a5b3a639c69ce8c,

@@ -8,7 +8,7 @@ namespace TH.Core {
 public class Block : MonoBehaviour
 {
     #region PublicVariables
-	public BlockData Data => _blockData;
+	public BlockDataSO Data => _blockData;
 	public BlockAbility Ability => _blockAbility.Get(gameObject);
 	public BlockCluster Cluster => _cluster;
 	#endregion
@@ -35,12 +35,12 @@ public class Block : MonoBehaviour
 
 	private int _level;
 	private BlockCluster _cluster;
-	private BlockData _blockData;
+	private BlockDataSO _blockData;
 	private Action<int, Vector2Int> _onClick;
 	#endregion
 
 	#region PublicMethod
-	public void Init(int level, Vector2Int gridPos, BlockData blockData, Action<int, Vector2Int> onClick) {
+	public void Init(int level, Vector2Int gridPos, BlockDataSO blockData, Action<int, Vector2Int> onClick) {
 		if (_transparent == null) {
 			LoadMaterials();
 		}

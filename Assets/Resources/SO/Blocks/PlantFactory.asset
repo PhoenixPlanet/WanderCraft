@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: PlantFactory
   m_EditorClassIdentifier: 
+  blockName: PlantFactory
+  description: 
   BuildingType: 0
   SourceType: 2
   FloatingPrefab: {fileID: 223209526382606222, guid: c43afe7bfb9abe54fbfdd93492bb3c6f,
