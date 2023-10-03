@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18189587, g: 0.2275762, b: 0.30741814, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.0142338}
+  m_AnchoredPosition: {x: 0, y: 0.000114657974}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &137128347
@@ -450,7 +450,6 @@ GameObject:
   - component: {fileID: 141622093}
   - component: {fileID: 141622096}
   - component: {fileID: 141622095}
-  - component: {fileID: 141622094}
   m_Layer: 5
   m_Name: ForecastPanel (1)
   m_TagString: Untagged
@@ -479,23 +478,6 @@ RectTransform:
   m_AnchoredPosition: {x: 144.55, y: -50}
   m_SizeDelta: {x: 289.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &141622094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141622092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6889be5b9c9fa1e4aa80e26fd4e2d73b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollViewContent: {fileID: 0}
-  forecastPanelPrefab: {fileID: 1425961788832407962, guid: f8a4baa0041006b41a11e0b76d4d69af,
-    type: 3}
-  waterController: {fileID: 1931991796}
-  _currentTimeUI: {fileID: 0}
 --- !u!114 &141622095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1523,7 +1505,7 @@ MonoBehaviour:
   forecastPanelPrefab: {fileID: 1425961788832407962, guid: f8a4baa0041006b41a11e0b76d4d69af,
     type: 3}
   waterController: {fileID: 1931991796}
-  _currentTimeUI: {fileID: 0}
+  _currentTimeUI: {fileID: 1165173294}
 --- !u!1 &634405898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,7 +3630,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 867473653}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.997893
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4872,6 +4854,7 @@ MonoBehaviour:
   _centerBlockHeight: 0.6
   _cellSize: {x: 1, y: 1, z: 0.6}
   _gridSize: {x: 15, y: 15}
+  _priceData: {fileID: 0}
 --- !u!4 &1931991794
 Transform:
   m_ObjectHideFlags: 0
