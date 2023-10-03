@@ -29,8 +29,9 @@ public class InfoPanel : MonoBehaviour
 			infoSelectButton.Init(
 				Constants.GameSetting.SourceName.name[i.scoreData.sourceType], 
 				i.scoreData.thread, 
-				(int) i.scoreData.levelScores.Average(), 
+				(int) i.scoreData.GetLevelScores().Average(), 
 				i.scoreData.totalScore,
+				i.scoreData.sourceType,
 				i);
 			_infoSelectButtons.Add(infoSelectButton);
 		}
