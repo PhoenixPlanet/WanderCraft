@@ -100,7 +100,7 @@ namespace TH.Core
 
         private void lockOnYpos(int centerBlockCount)
         {
-            Vector3 targetPosition = new Vector3(transform.position.x, yHeightOffset + centerBlockCount * 0.6f, transform.position.z);
+            Vector3 targetPosition = new Vector3(transform.position.x, yHeightOffset + centerBlockCount * CenterBlock.HEIGHT, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
         }
 

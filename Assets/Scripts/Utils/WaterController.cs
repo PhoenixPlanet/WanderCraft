@@ -48,7 +48,7 @@ public class WaterController : MonoBehaviour
     private int CycleCount = 0;
     private bool _isExecutingCycle = false;
 
-    private float _timer = 0;
+    public float _timer = 0;
     #endregion
 
     #region PrivateMethod
