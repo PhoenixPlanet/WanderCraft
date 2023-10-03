@@ -145,7 +145,7 @@ public class WaterController : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
-        //_currentTimeUI.text = ((int)_timer).ToString();
+        _currentTimeUI.text = ((int)_timer).ToString();
     }
 
     private void nextState()
