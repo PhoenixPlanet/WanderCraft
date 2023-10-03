@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: FishDining
   m_EditorClassIdentifier: 
-  blockName: FishDining
+  blockName: "\uD30C\uB791\uBE14\uB85D"
   description: 
   BuildingType: 2
-  SourceType: 0
+  SourceType: 2
   FloatingPrefab: {fileID: 4380878343248448873, guid: 4f5e5e3e0c6c0d446a6b9613e5465236,
     type: 3}
   RealPrefab: {fileID: 4380878343248448873, guid: 5a21471179664d343b0540fd4ed320aa,
     type: 3}
+  uiSprite: {fileID: 21300000, guid: 1e662015b5521674bbf45d93786b2235, type: 3}
   blockPrice:
-    red: 0
+    red: 10
+    green: 20
     blue: 0
-    green: 0
     money: 0

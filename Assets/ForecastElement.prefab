@@ -145,8 +145,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD30C\uB3C4 \uB192\uC74C\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 752583a994cc0994383e002916a84309, type: 2}
-  m_sharedMaterial: {fileID: -3567982280445200264, guid: 752583a994cc0994383e002916a84309,
+  m_fontAsset: {fileID: 11400000, guid: af9dadddeb6a74522915a30d532cdbaa, type: 2}
+  m_sharedMaterial: {fileID: -2534768707715540006, guid: af9dadddeb6a74522915a30d532cdbaa,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

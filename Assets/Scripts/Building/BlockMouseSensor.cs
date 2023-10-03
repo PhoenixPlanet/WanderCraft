@@ -12,22 +12,25 @@ public class BlockMouseSensor : MonoBehaviour
 		Up,
 		Down,
 		Left,
-		Right
+		Right,
+		Above
 	}
 
     #region PublicVariables
 	public static readonly Dictionary<Direction, Vector3> COLLIDER_CENTER = new Dictionary<Direction, Vector3> {
-		{Direction.Up, new Vector3(0, .3f, .75f)},
-		{Direction.Down, new Vector3(0, .3f, -.75f)},
-		{Direction.Left, new Vector3(-.75f, .3f, 0)},
-		{Direction.Right, new Vector3(.75f, .3f, 0)}
+		{Direction.Up, new Vector3(0, .5f, .75f)},
+		{Direction.Down, new Vector3(0, .5f, -.75f)},
+		{Direction.Left, new Vector3(-.75f, .5f, 0)},
+		{Direction.Right, new Vector3(.75f, .5f, 0)},
+		{Direction.Above, new Vector3(0, .75f, 0)}
 	};
 	
 	public static readonly Dictionary<Direction, Vector3> COLLIDER_SIZE = new Dictionary<Direction, Vector3> {
-		{Direction.Up, new Vector3(1, .6f, .5f)},
-		{Direction.Down, new Vector3(1, .6f, .5f)},
-		{Direction.Left, new Vector3(.5f, .6f, 1)},
-		{Direction.Right, new Vector3(.5f, .6f, 1)}
+		{Direction.Up, new Vector3(1, 1f, .5f)},
+		{Direction.Down, new Vector3(1, 1f, .5f)},
+		{Direction.Left, new Vector3(.5f, 1f, 1)},
+		{Direction.Right, new Vector3(.5f, 1f, 1)},
+		{Direction.Above, new Vector3(1, .5f, 1)}
 	};
 	#endregion
 
@@ -51,6 +54,8 @@ public class BlockMouseSensor : MonoBehaviour
 				return Vector2Int.left;
 			case Direction.Right:
 				return Vector2Int.right;
+			case Direction.Above:
+				return Vector2Int.zero;
 			default:
 				return Vector2Int.zero;
 		}

@@ -58,8 +58,8 @@ namespace TH.Core {
 
 					public static readonly Dictionary<ESourceType, string[]> INTENSITY = new Dictionary<ESourceType, string[]>() {
 						{ESourceType.Red, MEAT},
-						{ESourceType.Green, FISH},
-						{ESourceType.Blue, PLANT},
+						{ESourceType.Green, PLANT},
+						{ESourceType.Blue, FISH},
 					};
 				}
 			}

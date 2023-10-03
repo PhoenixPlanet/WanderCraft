@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TH.Core {
@@ -49,7 +50,7 @@ public class Block : MonoBehaviour
 		
 		_blockMouseSensors = new List<BlockMouseSensor>();
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			GameObject blockMouseSensorObj = 
 				Instantiate(Resources.Load<GameObject>(Constants.ResourcesPath.Prefabs.BLOCK_MOUSE_SENSOR_PREFAB_PATH), transform);
 			BlockMouseSensor blockMouseSensor = blockMouseSensorObj.GetComponent<BlockMouseSensor>();
@@ -95,7 +96,7 @@ public class Block : MonoBehaviour
 
 		_collider.Get(gameObject).enabled = false;
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(false);
 		}
 	}
@@ -104,7 +105,7 @@ public class Block : MonoBehaviour
 		ActivateBlock();
 		_collider.Get(gameObject).enabled = false;
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(true);
 		}
 	}
@@ -171,7 +172,7 @@ public class Block : MonoBehaviour
 	}
 
 	private void SensorMouseOver(Vector2Int direction) {
-		GridManager.Instance.ShowGridSelector(_level, _gridPos + direction);
+		GridManager.Instance.ShowGridSelector(direction == Vector2Int.zero ? _level + 1 : _level, _gridPos + direction);
 	}
 
 	private void SensorMouseExit(Vector2Int direction) {
@@ -179,7 +180,7 @@ public class Block : MonoBehaviour
 	}
 
 	private void SensorMouseClick(Vector2Int direction) {
-		GridManager.Instance.InstallNewBlock(_level, _gridPos + direction);
+		GridManager.Instance.InstallNewBlock(direction == Vector2Int.zero ? _level + 1 : _level, _gridPos + direction);
 	}
 
 	private void OnMouseOver() {

@@ -81,7 +81,8 @@ namespace TH.Core
                     changeYPos();
                     break;
                 case GridManager.BuildingState.Building:
-                    lockOnYpos(GridManager.Instance.SelectedBuildingLevel);
+                    //lockOnYpos(GridManager.Instance.SelectedBuildingLevel);
+                    changeYPos();
                     break;
             }
            

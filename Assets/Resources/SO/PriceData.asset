@@ -13,7 +13,31 @@ MonoBehaviour:
   m_Name: PriceData
   m_EditorClassIdentifier: 
   _priceList:
-  - red: 0
-    blue: 0
-    green: 0
+  - red: 10
+    green: 20
+    blue: 30
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
+    money: 0
+  - red: 30
+    green: 40
+    blue: 50
     money: 0

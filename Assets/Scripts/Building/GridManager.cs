@@ -142,6 +142,9 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<InfoPanel> _infoPanel
 		= new ComponentGetter<InfoPanel>(TypeOfGetter.Global);
 
+	private ComponentGetter<BlockShopList> _blockShopList
+		= new ComponentGetter<BlockShopList>(TypeOfGetter.Global);
+
 	[SerializeField] private List<BlockDataSO> _blockDataList;
 
 	[SerializeField] private float _centerBlockHeight;
@@ -162,7 +165,8 @@ public class GridManager : Singleton<GridManager>
 	private bool _hasInit = false;
 	private BuildingState _buildingState = BuildingState.Normal;
 	private BlockDataSO _selectedBlockData;
-	private Action _onBlockSelect;
+	private PropertyData _selectedBlockPrice;
+	private Action _onBlockInstalled;
 
 	[ShowInInspector] private List<BlockLink> _blockLinks;
 	private PropertyData _currentProperty;
@@ -187,7 +191,7 @@ public class GridManager : Singleton<GridManager>
 		centerBlock.Init(_currentCenterLevel, targetPos);
 		_centerBlocks.Add(centerBlock);
 
-		CheckCanOpenLevel();
+		//CheckCanOpenLevel();
 	}
 
 	public void ShowGridSelector(int level, Vector2Int _gridPos) {
@@ -212,23 +216,33 @@ public class GridManager : Singleton<GridManager>
 		if (_selectedBlockData == null) {
 			Debug.LogError("No selected floating block data");
 			return false;
-		} 
+		}
+
+		if (gridPos == Vector2Int.zero) {
+			return false;
+		}
+
+		if (_currentProperty < _selectedBlockPrice) {
+			return false;
+		}
+
+		if (level >= _currentOpenedBuildingLevel) {
+			OpenNewLevel();
+		}
 
 		bool isBlockInstalled = _buildingLevels[level].HasBlockInstalled;
 		bool installSuccess = false;
 		if (_buildingLevels[level].InstallBlock(gridPos, _selectedBlockData) == true) {
 			CheckLink();
 
-			_onBlockSelect?.Invoke();
+			_onBlockInstalled?.Invoke();
 			_selectedBlockData = null;
 
 			SelectLevel();
 
 			installSuccess = true;
-		}
 
-		if (isBlockInstalled == false && _buildingLevels[level].HasBlockInstalled) {
-			CheckCanOpenLevel();
+			_currentProperty -= _selectedBlockPrice;
 		}
 
 		HideGridSelector();
@@ -253,7 +267,8 @@ public class GridManager : Singleton<GridManager>
 
 	public void SelectFloatingBlock(FloatingBlock block) {
 		_selectedBlockData = block.Data;
-		_onBlockSelect = () => {
+		_selectedBlockPrice = PropertyData.Zero;
+		_onBlockInstalled = () => {
 			Destroy(block.gameObject);
 		};
 		SelectLevel();
@@ -261,7 +276,8 @@ public class GridManager : Singleton<GridManager>
 
 	public void SelectBlockData(BlockDataSO blockData) {
 		_selectedBlockData = blockData;
-		_onBlockSelect = () => {
+		_selectedBlockPrice = blockData.blockPrice;
+		_onBlockInstalled = () => {
 			_selectedBlockData = null;
 		};
 		SelectLevel();
@@ -299,7 +315,7 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void BuyCenterBlock() {
-		if ((_currentProperty >= _priceDataSO._priceList[_currentCenterLevel]) == false) {
+		if ((_currentProperty < _priceDataSO._priceList[_currentCenterLevel]) == true) {
 			return;
 		}
 
@@ -382,6 +398,13 @@ public class GridManager : Singleton<GridManager>
 			BuildNewCenterBlock();
 		}
 
+		_blockShopList.Get().Init();
+
+		_selectedBlockData = _blockDataList[0];
+		_selectedBlockPrice = PropertyData.Zero;
+		InstallNewBlock(0, new Vector2Int(1, 0));
+		SelectLevel();
+
 		_hasInit = true;
 	}
 
@@ -450,7 +473,7 @@ public class GridManager : Singleton<GridManager>
 	private void CancelFloatingBlockSelect() {
 		if (_selectedBlockData != null) {
 			_selectedBlockData = null;
-			_onBlockSelect = null;
+			_onBlockInstalled = null;
 		}
 
 		if (_buildingState == BuildingState.Building) {
@@ -475,10 +498,20 @@ public class GridManager : Singleton<GridManager>
 
 		_currentOpenedBuildingLevel++;
 
-		SelectLevel();
+		//SelectLevel();
 	}
 
 	private bool IsBlockInstalable(int level, Vector2Int gridPos) {
+		if (level >= _currentOpenedBuildingLevel) {
+			if (level > _currentCenterLevel) {
+				return false;
+			}
+
+			if (gridPos.magnitude == 1) {
+				return true;
+			}
+			return false;
+		}
 		return _buildingLevels[level].IsBlockInstallable(gridPos);
 	}
 
@@ -491,20 +524,36 @@ public class GridManager : Singleton<GridManager>
 			return;
 		}
 		
+		// for (int i = 0; i < _buildingLevels.Count; i++) {
+		// 	_buildingLevels[i].DeactivateBlocks();
+		// 	if (i == _selectedBuildingLevel) {
+		// 		if (_buildingState == BuildingState.Building) {
+		// 			if (_selectedBlockData != null) {
+		// 				_buildingLevels[i].ActivateLevelBuildingUI();
+		// 			} else {
+		// 				_buildingLevels[i].ActivateBlocks();
+		// 			}
+		// 		}
+		// 	} else {
+		// 		if (_buildingState == BuildingState.Building) {
+		// 			_buildingLevels[i].DeactivateLevelBuildingUI();
+		// 		}
+		// 	}
+		// }
 		for (int i = 0; i < _buildingLevels.Count; i++) {
-			_buildingLevels[i].DeactivateBlocks();
-			if (i == _selectedBuildingLevel) {
-				if (_buildingState == BuildingState.Building) {
-					if (_selectedBlockData != null) {
-						_buildingLevels[i].ActivateLevelBuildingUI();
-					} else {
-						_buildingLevels[i].ActivateBlocks();
-					}
+			if (_buildingState == BuildingState.Building) {
+				_buildingLevels[i].DeactivateBlocks();
+				if (_selectedBlockData != null) {
+					_buildingLevels[i].ActivateLevelBuildingUI();
+					Debug.Log("ActivateLevelBuildingUI");
+				} else {
+					_buildingLevels[i].DeactivateLevelBuildingUI();
+					_buildingLevels[i].ActivateBlocks();
+					Debug.Log("DeactivateLevelBuildingUI");
 				}
 			} else {
-				if (_buildingState == BuildingState.Building) {
-					_buildingLevels[i].DeactivateLevelBuildingUI();
-				}
+				_buildingLevels[i].DeactivateBlocks();
+				Debug.Log("DeactivateBlocks");
 			}
 		}
 	}

@@ -50,6 +50,10 @@ public class BuildingLevel : MonoBehaviour
 			return false;
 		}
 
+		if (gridPos == Vector2Int.zero) {
+			return false;
+		}
+
 		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
 		if (_grid[listIndex.x][listIndex.y].Block == null) {
 			return true;

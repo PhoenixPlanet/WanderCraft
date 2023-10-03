@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: MeatFactory
   m_EditorClassIdentifier: 
-  blockName: MeatFactory
+  blockName: "\uBE68\uAC15\uC6D0\uC11D"
   description: 
   BuildingType: 0
-  SourceType: 1
+  SourceType: 0
   FloatingPrefab: {fileID: 8050162264790350146, guid: cd6f5622d33b1544e873afd7c3b225e8,
     type: 3}
   RealPrefab: {fileID: 8050162264790350146, guid: a0eccae7373055048911c3c26e36e0c1,
     type: 3}
+  uiSprite: {fileID: 21300000, guid: 225a0bd268af628468d61e34b6c9de58, type: 3}
   blockPrice:
     red: 0
     blue: 0

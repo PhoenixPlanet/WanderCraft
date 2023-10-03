@@ -27,8 +27,8 @@ public class PriceDataSO : ScriptableObject
 [System.Serializable]
 public class PropertyData {
 		public int red;
-		public int blue;
 		public int green;
+		public int blue;
 		
 		public int money;
 
