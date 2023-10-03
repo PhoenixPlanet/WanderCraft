@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6702055819777224145}
   - component: {fileID: 5104634950930584388}
   - component: {fileID: 6617721981668993012}
+  - component: {fileID: -7222304823221997350}
   m_Layer: 0
   m_Name: G_Y
   m_TagString: Untagged
@@ -115,6 +116,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridPos: {x: 0, y: 0}
   _height: 0
+--- !u!65 &-7222304823221997350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6907955255870212705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3552127761083572587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 2366247080143678478, guid: 626ae0d557bc3dc45b1d435222f9444f,
         type: 3}
       propertyPath: m_Name
-      value: G_Y
+      value: Renderer
       objectReference: {fileID: 0}
     - target: {fileID: 2367933931897284076, guid: 626ae0d557bc3dc45b1d435222f9444f,
         type: 3}

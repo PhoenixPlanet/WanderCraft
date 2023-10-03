@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7884595276232232542}
   - component: {fileID: 4819926308771253291}
   - component: {fileID: 8594120005899565376}
+  - component: {fileID: 1839666684303073729}
   m_Layer: 0
   m_Name: R_X
   m_TagString: Untagged
@@ -90,6 +91,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuidlingType: 0
   m_SourceType: 0
+--- !u!65 &1839666684303073729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050162264790350146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5263239155985540817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 7861497008159977551, guid: 0eb62109b1361fc40a0e9c6208911ae7,
         type: 3}
       propertyPath: m_Name
-      value: R_X
+      value: Renderer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb62109b1361fc40a0e9c6208911ae7, type: 3}

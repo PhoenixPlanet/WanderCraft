@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3416466827534284481}
   - component: {fileID: 8071272047298832700}
   - component: {fileID: 2970947033994609887}
+  - component: {fileID: 7166133815523643280}
   m_Layer: 0
   m_Name: G_Z
   m_TagString: Untagged
@@ -90,6 +91,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuidlingType: 2
   m_SourceType: 1
+--- !u!65 &7166133815523643280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294041736429594471}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5795679649277366042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 2807046431688063249, guid: 5ce90643290564c4d97be427025dac5f,
         type: 3}
       propertyPath: m_Name
-      value: G_Z
+      value: Renderer
       objectReference: {fileID: 0}
     - target: {fileID: 2809280952240657479, guid: 5ce90643290564c4d97be427025dac5f,
         type: 3}

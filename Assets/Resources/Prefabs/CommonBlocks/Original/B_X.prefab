@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2367645828128234962}
   - component: {fileID: -52726534345324426}
   - component: {fileID: -2451759542910004902}
+  - component: {fileID: 7530489536161769924}
   m_Layer: 0
   m_Name: B_X
   m_TagString: Untagged
@@ -90,6 +91,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuidlingType: 0
   m_SourceType: 2
+--- !u!65 &7530489536161769924
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451276522522716018}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &492683647865209159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 181704371522473394, guid: 74ca986e29921724692047f3c2191a72,
         type: 3}
       propertyPath: m_Name
-      value: B_X
+      value: Renderer
       objectReference: {fileID: 0}
     - target: {fileID: 184478257400604726, guid: 74ca986e29921724692047f3c2191a72,
         type: 3}

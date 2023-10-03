@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1221704317433950581}
   - component: {fileID: 451596916630331614}
   - component: {fileID: 1713170748143672608}
+  - component: {fileID: 6417319498582068776}
   m_Layer: 0
   m_Name: R_Y
   m_TagString: Untagged
@@ -115,6 +116,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuidlingType: 1
   m_SourceType: 0
+--- !u!65 &6417319498582068776
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309383573847987909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3973849540611804876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 7153126495687371537, guid: 4963c342fd6264746a86b22c8e3ce74d,
         type: 3}
       propertyPath: m_Name
-      value: R_Y
+      value: Renderer
       objectReference: {fileID: 0}
     - target: {fileID: 7155952445782319859, guid: 4963c342fd6264746a86b22c8e3ce74d,
         type: 3}

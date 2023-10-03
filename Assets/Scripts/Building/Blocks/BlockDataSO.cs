@@ -27,6 +27,10 @@ public class BlockDataSO : ScriptableObject
     public GameObject FloatingPrefab;
     [HorizontalGroup("Prefabs/Split"), VerticalGroup("Prefabs/Split/Right"), Required, PreviewField(100)]
     public GameObject RealPrefab;
+
+    [Title("Sprite")]
+    [Required, PreviewField(100)]
+    public Sprite uiSprite;
     
     [Title("Prices")]
     public PropertyData blockPrice;

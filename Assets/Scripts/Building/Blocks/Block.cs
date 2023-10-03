@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TH.Core {
@@ -49,7 +50,7 @@ public class Block : MonoBehaviour
 		
 		_blockMouseSensors = new List<BlockMouseSensor>();
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			GameObject blockMouseSensorObj = 
 				Instantiate(Resources.Load<GameObject>(Constants.ResourcesPath.Prefabs.BLOCK_MOUSE_SENSOR_PREFAB_PATH), transform);
 			BlockMouseSensor blockMouseSensor = blockMouseSensorObj.GetComponent<BlockMouseSensor>();
@@ -72,7 +73,7 @@ public class Block : MonoBehaviour
 
 	public virtual void ActivateBlock() {
 		//_meshRenderer.Get(gameObject).material = _normal;
-		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		MeshRenderer[] meshRenderers = transform.Find("Renderer").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			meshRenderer.material = _normal;
 			Color color = meshRenderer.material.GetColor("_Color");
@@ -85,17 +86,17 @@ public class Block : MonoBehaviour
 
 	public virtual void DeactivateBlock() {
 		//_meshRenderer.Get(gameObject).material = _transparent;
-		MeshRenderer[] meshRenderers = transform.Find("Renderer/Floor").GetComponentsInChildren<MeshRenderer>();
+		MeshRenderer[] meshRenderers = transform.Find("Renderer").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			//meshRenderer.material = _transparent;
-			Color color = meshRenderer.material.GetColor("_BaseColor");
+			Color color = meshRenderer.material.GetColor("_Color");
 			color.a = 0.2f;
-			meshRenderer.material.SetColor("_BaseColor", color);
+			meshRenderer.material.SetColor("_Color", color);
 		}
 
 		_collider.Get(gameObject).enabled = false;
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(false);
 		}
 	}
@@ -104,7 +105,7 @@ public class Block : MonoBehaviour
 		ActivateBlock();
 		_collider.Get(gameObject).enabled = false;
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(true);
 		}
 	}
@@ -148,7 +149,7 @@ public class Block : MonoBehaviour
 		Block aboveBlock = GridManager.Instance.GetBlock(_level + 1, _gridPos);
 		if (aboveBlock != null) {
 			if (aboveBlock.Data.BuildingType == targetBuildingType && aboveBlock.Data.SourceType == sourceType) {
-				_pillar.Get(gameObject).SetActive(true);
+				//_pillar.Get(gameObject).SetActive(true);
 				return aboveBlock.Cluster;
 			}
 		}
@@ -157,7 +158,7 @@ public class Block : MonoBehaviour
 	}
 
 	public void TurnOffPillar() {
-		_pillar.Get(gameObject).SetActive(false);
+		//_pillar.Get(gameObject).SetActive(false);
 	}
 	#endregion
     
@@ -171,7 +172,7 @@ public class Block : MonoBehaviour
 	}
 
 	private void SensorMouseOver(Vector2Int direction) {
-		GridManager.Instance.ShowGridSelector(_level, _gridPos + direction);
+		GridManager.Instance.ShowGridSelector(direction == Vector2Int.zero ? _level + 1 : _level, _gridPos + direction);
 	}
 
 	private void SensorMouseExit(Vector2Int direction) {
@@ -179,7 +180,7 @@ public class Block : MonoBehaviour
 	}
 
 	private void SensorMouseClick(Vector2Int direction) {
-		GridManager.Instance.InstallNewBlock(_level, _gridPos + direction);
+		GridManager.Instance.InstallNewBlock(direction == Vector2Int.zero ? _level + 1 : _level, _gridPos + direction);
 	}
 
 	private void OnMouseOver() {
