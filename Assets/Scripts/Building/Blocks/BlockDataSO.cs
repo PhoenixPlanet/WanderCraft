@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TH.Core;
 using UnityEngine;
 
+[ManageableData]
 [CreateAssetMenu(fileName = "Data", menuName = "SO/BlockDataSO", order = 1)]
 public class BlockDataSO : ScriptableObject
 {

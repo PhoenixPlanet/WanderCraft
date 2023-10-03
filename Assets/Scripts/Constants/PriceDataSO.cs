@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TH.Core {
 
+[ManageableData]
 [CreateAssetMenu(fileName = "PriceDataSO", menuName = "SO/PriceDataSO", order = 1)]
 public class PriceDataSO : ScriptableObject
 {
@@ -27,7 +29,7 @@ public class PropertyData {
 		public int red;
 		public int blue;
 		public int green;
-
+		
 		public int money;
 
 		public PropertyData(int red, int blue, int green, int money) {
