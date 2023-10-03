@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: MeatDining
   m_EditorClassIdentifier: 
+  blockName: MeatDining
+  description: 
   BuildingType: 2
   SourceType: 1
   FloatingPrefab: {fileID: 92713516089344948, guid: 5810275a9fc288f40b2b6e23dce1be44,

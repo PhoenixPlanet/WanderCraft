@@ -116,7 +116,7 @@ public class GridManager : Singleton<GridManager>
 	public int CurrentCenterLevel => _currentCenterLevel;
 	public int CurrentOpenedBuildingLevel => _currentOpenedBuildingLevel;
 
-	public PriceData PriceData => _priceData;
+	public PriceDataSO PriceData => _priceDataSO;
 
 	#endregion
 
@@ -143,7 +143,7 @@ public class GridManager : Singleton<GridManager>
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
 
-	[SerializeField] private PriceData _priceData;
+	[SerializeField] private PriceDataSO _priceDataSO;
 
 	private Transform _centerBlockParent;
 
@@ -277,11 +277,11 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void BuyCenterBlock() {
-		if ((_currentProperty >= _priceData._priceList[_currentCenterLevel]) == false) {
+		if ((_currentProperty >= _priceDataSO._priceList[_currentCenterLevel]) == false) {
 			return;
 		}
 
-		_currentProperty -= _priceData._priceList[_currentCenterLevel];
+		_currentProperty -= _priceDataSO._priceList[_currentCenterLevel];
 		BuildNewCenterBlock();
 	}
 

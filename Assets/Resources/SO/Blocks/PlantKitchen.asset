@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: PlantKitchen
   m_EditorClassIdentifier: 
+  blockName: PlantKitchen
+  description: 
   BuildingType: 1
   SourceType: 2
   FloatingPrefab: {fileID: 6907955255870212705, guid: 3dabd9883398a6740b637f5aa1bf43f9,
