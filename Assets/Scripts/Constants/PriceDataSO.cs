@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TH.Core {
 
 [ManageableData]
-[CreateAssetMenu(fileName = "PriceDataSO", menuName = "SO/PriceDataSO", order = 1)]
+[CreateAssetMenu(fileName = "PriceDataSO", menuName = "SO/PriceDataSO", order = 2)]
 public class PriceDataSO : ScriptableObject
 {
     #region PublicVariables
