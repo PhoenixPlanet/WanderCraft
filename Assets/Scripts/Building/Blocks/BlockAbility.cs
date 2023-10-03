@@ -18,7 +18,7 @@ public class BlockAbility : MonoBehaviour
     private ComponentGetter<Block> _block =
         new ComponentGetter<Block>(TypeOfGetter.This);
 
-    public void Init(BlockData blockData) {
+    public void Init(BlockDataSO blockData) {
         m_BuidlingType = blockData.BuildingType;
         m_SourceType = blockData.SourceType;
     }
