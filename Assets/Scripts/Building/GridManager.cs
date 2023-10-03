@@ -15,9 +15,18 @@ public class GridManager : Singleton<GridManager>
 		[Serializable]
 		public class ScoreData {
 			public ESourceType sourceType;
-			public int[] levelScores;
+			public PropertyData[] levelScores;
 			public int thread;
-			public int totalScore;
+			public PropertyData totalScore;
+
+			public int[] GetLevelScores() {
+				int[] scores = new int[levelScores.Length];
+				for (int i = 0; i < levelScores.Length; i++) {
+					scores[i] = levelScores[i].GetPropertyValue(sourceType);
+				}
+
+				return scores;
+			}
 		}
 
 		public List<HashSet<BlockCluster>> link;
@@ -54,21 +63,21 @@ public class GridManager : Singleton<GridManager>
 			ScoreData sd = new ScoreData
 			{
 				sourceType = link[link.Count - 1].ToList()[0].sourceType,
-				levelScores = new int[link.Count],
+				levelScores = new PropertyData[link.Count],
 				thread = 0,
-				totalScore = 0
+				totalScore = PropertyData.Zero,
 			};
 
 			int[] threadNum = new int[link.Count];
 
 			bool isSink = false;
 			for (int i = 0; i < link.Count; i++) {
-				int s = 0;
+				PropertyData s = PropertyData.Zero;
 				int t = 0;
 				foreach (var bc in link[i]) {
-					int ps = bc.GetProductionScore();
+					PropertyData ps = bc.GetProductionScore();
 					
-					if (ps == 0) {
+					if (ps == PropertyData.Zero) {
 						isSink = true;
 					}
 
@@ -81,7 +90,7 @@ public class GridManager : Singleton<GridManager>
 
 			sd.thread = threadNum.Min();
 
-			sd.totalScore = 0;
+			sd.totalScore = PropertyData.Zero;
 			if (isSink == false) {
 				for (int i = 0; i < link.Count; i++) {
 					sd.totalScore += sd.levelScores[i] * sd.thread;
@@ -101,11 +110,13 @@ public class GridManager : Singleton<GridManager>
     #region PublicVariables
 	public Vector2Int GridSize => _gridSize;
 	public BuildingState State => _buildingState;
-	public int Money => _money;
+	public PropertyData CurrentProperty => _currentProperty;
 
 	public int SelectedBuildingLevel => _selectedBuildingLevel;
 	public int CurrentCenterLevel => _currentCenterLevel;
 	public int CurrentOpenedBuildingLevel => _currentOpenedBuildingLevel;
+
+	public PriceData PriceData => _priceData;
 
 	#endregion
 
@@ -132,6 +143,8 @@ public class GridManager : Singleton<GridManager>
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
 
+	[SerializeField] private PriceData _priceData;
+
 	private Transform _centerBlockParent;
 
 	private List<BuildingLevel> _buildingLevels;
@@ -146,9 +159,9 @@ public class GridManager : Singleton<GridManager>
 	private FloatingBlock _selectedFloatingBlock;
 
 	[ShowInInspector] private List<BlockLink> _blockLinks;
-	private int _money;
-	private float _moneyIncreaseInterval = 1f;
-	private float _moneyIncreaseTimer = 0f;
+	private PropertyData _currentProperty;
+	private float _resourceIncreaseInterval = 1f;
+	private float _resourceIncreaseTimer = 0f;
 	#endregion
 
 	#region PublicMethod
@@ -264,11 +277,11 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	public void BuyCenterBlock() {
-		if (_money < Constants.GameSetting.Price.BLOCK_PRICE) {
+		if ((_currentProperty >= _priceData._priceList[_currentCenterLevel]) == false) {
 			return;
 		}
 
-		_money -= Constants.GameSetting.Price.BLOCK_PRICE;
+		_currentProperty -= _priceData._priceList[_currentCenterLevel];
 		BuildNewCenterBlock();
 	}
 
@@ -309,10 +322,10 @@ public class GridManager : Singleton<GridManager>
 			CancelFloatingBlockSelect();
 		}
 
-		_moneyIncreaseTimer += Time.deltaTime;
-		if (_moneyIncreaseTimer >= _moneyIncreaseInterval) {
-			_moneyIncreaseTimer = 0f;
-			_money += CalculateProduction();
+		_resourceIncreaseTimer += Time.deltaTime;
+		if (_resourceIncreaseTimer >= _resourceIncreaseInterval) {
+			_resourceIncreaseTimer = 0f;
+			_currentProperty += CalculateProduction();
 		}
 
 		if ((_currentOpenedBuildingLevel-1) * 0.6 < _waterObj.Get().transform.position.y) {
@@ -341,7 +354,7 @@ public class GridManager : Singleton<GridManager>
 
 		_floatingSpawner.Get(gameObject).Init();
 
-		_money = 0;
+		_currentProperty = PropertyData.Zero;
 
 		for (int i = 0; i < 3; i++) {
 			BuildNewCenterBlock();
@@ -396,8 +409,8 @@ public class GridManager : Singleton<GridManager>
 		_infoPanel.Get().SetInfoPanel(_blockLinks);
 	}
 
-	private int CalculateProduction() {
-		int production = 0;
+	private PropertyData CalculateProduction() {
+		PropertyData production = PropertyData.Zero;
 
 		if (_blockLinks == null) {
 			return production;
@@ -405,7 +418,7 @@ public class GridManager : Singleton<GridManager>
 
 		foreach (var bl in _blockLinks) {
 			BlockLink.ScoreData sd = bl.CalculateScore();
-			production += sd == null ? 0 : sd.totalScore;
+			production += sd == null ? PropertyData.Zero : sd.totalScore;
 		}
 
 		//Debug.Log("Production: " + production);

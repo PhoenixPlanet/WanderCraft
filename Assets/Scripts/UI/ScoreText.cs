@@ -20,7 +20,7 @@ public class ScoreText : MonoBehaviour
     
 	#region PrivateMethod
 	private void Update() {
-		_text.Get(gameObject).text = GridManager.Instance.Money.ToString();
+		//_text.Get(gameObject).text = GridManager.Instance.Money.ToString();
 	}
 	#endregion
 }

@@ -86,7 +86,7 @@ namespace TH.Core
                 fb.GetComponent<FloatingBlock>().Init(blockData, OnFloatingBlockClicked);
                 fb.GetComponent<FloatingBlock>().myDirection = spawnDir;
                 i++;
-                if (i >= _blockDataDict[ESourceType.Meat].Count)
+                if (i >= _blockDataDict[ESourceType.Red].Count)
                 {
                     i = 0;
                 }
@@ -98,16 +98,16 @@ namespace TH.Core
             float RandomValue = Random.Range(0f, 1f);
             if(RandomValue < _veggieProbability)
             {
-                return ESourceType.Plant;
+                return ESourceType.Blue;
             } else if (RandomValue >= _veggieProbability && RandomValue < _fishProbability )  {
-                return ESourceType.Fish;
+                return ESourceType.Green;
 
             } else if (RandomValue >= _meatProbability)
             {
-                return ESourceType.Meat;
+                return ESourceType.Red;
             } else
             {
-                return ESourceType.Meat;
+                return ESourceType.Red;
             }
         
         }
