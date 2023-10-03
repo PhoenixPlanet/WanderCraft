@@ -88,7 +88,7 @@ public enum EBuildingType
 
 public enum ESourceType
 {
-    Fish,
-    Meat,
-    Plant
+    Red,
+    Green,
+    Blue
 }

@@ -55,9 +55,9 @@ namespace TH.Core {
 					};
 
 					public static readonly Dictionary<ESourceType, string[]> INTENSITY = new Dictionary<ESourceType, string[]>() {
-						{ESourceType.Meat, MEAT},
-						{ESourceType.Fish, FISH},
-						{ESourceType.Plant, PLANT},
+						{ESourceType.Red, MEAT},
+						{ESourceType.Green, FISH},
+						{ESourceType.Blue, PLANT},
 					};
 				}
 			}
@@ -79,21 +79,17 @@ namespace TH.Core {
 		namespace GameSetting {
 			public static class SourceProduction {
 				public readonly static Dictionary<ESourceType, int> SOURCE_PRODUCTION = new Dictionary<ESourceType, int>() {
-					{ESourceType.Meat, 1},
-					{ESourceType.Fish, 2},
-					{ESourceType.Plant, 4},
+					{ESourceType.Red, 1},
+					{ESourceType.Green, 2},
+					{ESourceType.Blue, 4},
 				};
-			}
-
-			public static class Price {
-				public const int BLOCK_PRICE = 50;
 			}
 
 			public static class SourceName {
 				public static readonly Dictionary<ESourceType, string> name = new Dictionary<ESourceType, string>() {
-					{ESourceType.Meat, "고기"},
-					{ESourceType.Fish, "생선"},
-					{ESourceType.Plant, "야채"},
+					{ESourceType.Red, "고기"},
+					{ESourceType.Green, "생선"},
+					{ESourceType.Blue, "야채"},
 				};
 			}
 		}

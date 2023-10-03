@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TH.Core;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -122,18 +123,23 @@ public class BlockCluster
         return blockAbilities.Contains(blockAbility);
     }
 
-    public int GetProductionScore() {
+    public PropertyData GetProductionScore() {
         foreach (var blockAbility in blockAbilities) {
             if (blockAbility.IsActivated == false) {
-                return 0;
+                return PropertyData.Zero;
             }
         }
+        
+        PropertyData production = PropertyData.Zero;
 
         return 
             blockAbilities.Count == 0 ? 
-            0 :
-            TH.Core.Constants.GameSetting.SourceProduction.SOURCE_PRODUCTION[sourceType]
-            * (int)Mathf.Ceil(Mathf.Log(blockAbilities.Count, 2) + 1);
+            PropertyData.Zero :
+            PropertyData.Zero.SetProperty(
+                sourceType,
+                TH.Core.Constants.GameSetting.SourceProduction.SOURCE_PRODUCTION[sourceType]
+                * (int)Mathf.Ceil(Mathf.Log(blockAbilities.Count, 2) + 1)
+            );
     }
     #endregion
 
