@@ -495,6 +495,7 @@ MonoBehaviour:
   forecastPanelPrefab: {fileID: 1425961788832407962, guid: f8a4baa0041006b41a11e0b76d4d69af,
     type: 3}
   waterController: {fileID: 1931991796}
+  _currentTimeUI: {fileID: 0}
 --- !u!114 &141622095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,6 +1523,7 @@ MonoBehaviour:
   forecastPanelPrefab: {fileID: 1425961788832407962, guid: f8a4baa0041006b41a11e0b76d4d69af,
     type: 3}
   waterController: {fileID: 1931991796}
+  _currentTimeUI: {fileID: 0}
 --- !u!1 &634405898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,6 +2113,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831826462}
   m_CullTransparentMesh: 1
+--- !u!1 &849536971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 849536972}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &849536972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849536971}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 0, z: -3.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1406130143}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867473652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,7 +2252,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1406130143}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &877466092
 BoxCollider:
@@ -3456,6 +3489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 285914013}
+  - {fileID: 849536972}
   - {fileID: 877466091}
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -3722,7 +3756,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 867473653}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999921
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4987,7 +5021,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 369448662883be64892c6d1fa7671b81, type: 2}
   _spawnInterval: 1.5
   _upperTransform: {fileID: 285914013}
-  _downTransform: {fileID: 0}
+  _downTransform: {fileID: 849536972}
   minSpawnOffset: 0.5
   maxSpawnOffset: 0.5
   _upperSpawnProbability: 0.5
@@ -5006,7 +5040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47edaa762689bdd458c40d711f45419c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentTimeUI: {fileID: 0}
   _Speed: 0.1
   _currentWaveStatus: 0
   forecastPanel: {fileID: 573075555}

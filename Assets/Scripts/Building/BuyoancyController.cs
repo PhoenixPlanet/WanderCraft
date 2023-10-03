@@ -28,7 +28,7 @@ public class BuyoancyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        if (other.gameObject.CompareTag("Water"))
         {
             isFloating = true;
         }
@@ -36,7 +36,7 @@ public class BuyoancyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        if (other.gameObject.CompareTag("Water"))
         {
             isFloating = false;
         }
@@ -45,7 +45,7 @@ public class BuyoancyController : MonoBehaviour
     private void buyoancy()
     {
       if(isFloating == true){
-            float difference = transform.position.y - GameObject.Find("WaterGroup").transform.position.y + 0.01f * Mathf.Sin(Time.time);
+            float difference = transform.position.y - GameObject.FindGameObjectWithTag("Water").transform.parent.position.y + 0.01f * Mathf.Sin(Time.time);
             if (difference < 0)
             {
                 _rigidbody.Get(gameObject).AddForce(Vector3.up * floatingPower * (Mathf.Clamp(Mathf.Abs(difference), 0, maxBuyoncyPower)), ForceMode.Force);
