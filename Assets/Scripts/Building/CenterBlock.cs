@@ -8,7 +8,7 @@ namespace TH.Core {
 public class CenterBlock : MonoBehaviour
 {
     #region PublicVariables
-	public const float HEIGHT = 0.6f;
+	public const float HEIGHT = 1f;
 	#endregion
 
 	#region PrivateVariables
