@@ -23,7 +23,7 @@ public class ForecastPanel : MonoBehaviour
 
     public void Update()
     {
-        //_currentTimeUI.text = waterController.getStatusName(waterController._currentWaveStatus) + "\n" + waterController._timer + "√ ";
+        _currentTimeUI.text = waterController.getStatusName(waterController._currentWaveStatus) + "\n" + waterController._timer + "√ ";
     }
 
     public void InstantiateForecastUI(Queue<WaveStatus> _waveStatusForecast)
