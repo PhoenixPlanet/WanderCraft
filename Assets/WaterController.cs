@@ -6,7 +6,6 @@ using DG.Tweening;
 using TMPro;
 using System.Threading;
 using UnityEditor;
-using System;
 
 public class WaterController : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class WaterController : MonoBehaviour
     }
     WaveStatus _waveStatus;
     public float _Speed = 0.1f;
-    public Queue<WaveStatus> _waveStatusForecast;
+    public Stack<WaveStatus> _waveStatusForecast;
     public WaveStatus _currentWaveStatus;
     public ForecastPanel forecastPanel;
 
@@ -36,16 +35,16 @@ public class WaterController : MonoBehaviour
 
     private GameObject _waterGroup;
     [Header("IdleState")]
-    public float _IdleWaveHeight;
+    [SerializeField] private float _IdleWaveHeight;
     public float _IdleWaveTime;
     [Header("LowState")]
-    public float _LowWaveHeight;
+    [SerializeField] float _LowWaveHeight;
     public float _LowWaveTime;
     [Header("MiddleState")]
-    public float _MiddleWaveHeight;
+    [SerializeField] private float _MiddleWaveHeight;
     public float _MiddleWaveTime;
     [Header("HighState")]
-    public float _HighWaveHeight;
+    [SerializeField] private float _HighWaveHeight;
     public float _HighWaveTime;
     private int CycleCount = 0;
     private bool _isExecutingCycle = false;
@@ -58,11 +57,7 @@ public class WaterController : MonoBehaviour
     private void Start()
     {
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
-        _waveStatusForecast = new Queue <WaveStatus>();
-        for(int i = 0; i<7; i++)
-        {
-            _waveStatusForecast.Enqueue(WaveStatus.Idle);
-        }
+        _waveStatusForecast = new Stack <WaveStatus>();
         setRandomStatusOrder();
         forecastPanel.InstantiateForecastUI(_waveStatusForecast);
         StartCoroutine(IE_totalCycle());
@@ -129,36 +124,47 @@ public class WaterController : MonoBehaviour
 
     private void setRandomStatusOrder()
     {
-        _waveStatusForecast.Enqueue(WaveStatus.Idle);
-        _waveStatusForecast.Enqueue(WaveStatus.Idle);
-        _waveStatusForecast.Enqueue(WaveStatus.Middle);
-        _waveStatusForecast.Enqueue(WaveStatus.Low);
-        for (int i = 0; i < 3; i++)
+        for(int i = 0; i<3; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
-            int randomIndex = UnityEngine.Random.Range(1, numValues);
+            int randomIndex = Random.Range(1, numValues);
             waveStatus = (WaveStatus)randomIndex;
-            _waveStatusForecast.Enqueue(waveStatus);
+            _waveStatusForecast.Push(waveStatus);
         }
+        _waveStatusForecast.Push(WaveStatus.Idle);
+        for(int i = 0; i<3; i++)
+        {
+            WaveStatus waveStatus;
+            int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
+            int randomIndex = Random.Range(1, numValues);
+            waveStatus = (WaveStatus)randomIndex;
+            _waveStatusForecast.Push(waveStatus);
+        }
+
+        _waveStatusForecast.Push(WaveStatus.Middle);
+        _waveStatusForecast.Push(WaveStatus.Low);
+        _waveStatusForecast.Push(WaveStatus.Idle);
+        _waveStatusForecast.Push(WaveStatus.Idle);
+
     }
 
     private void Update()
     {
         _timer += Time.deltaTime;
-        //_currentTimeUI.text = ((int)_timer).ToString();
+        _currentTimeUI.text = ((int)_timer).ToString();
     }
 
     private void nextState()
     {
         _isExecutingCycle = true;
-        if (_waveStatusForecast.Count < 7)
+        if (_waveStatusForecast.Count == 0)
         {
             CycleCount++;
             setRandomStatusOrder();
             forecastPanel.UpdateForecastUI(_waveStatusForecast);
         }
-        WaveStatus nextWaveStatus = _waveStatusForecast.Dequeue();
+        WaveStatus nextWaveStatus = _waveStatusForecast.Pop();
         forecastPanel.UpdateForecastUI(_waveStatusForecast);
         _currentWaveStatus = nextWaveStatus;
         print(_currentWaveStatus);

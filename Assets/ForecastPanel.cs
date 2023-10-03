@@ -20,7 +20,7 @@ public class ForecastPanel : MonoBehaviour
 
     
 
-    public void InstantiateForecastUI(Queue<WaveStatus> _waveStatusForecast)
+    public void InstantiateForecastUI(Stack<WaveStatus> _waveStatusForecast)
     {
         if (_waveStatusForecast != null)
         {
@@ -31,10 +31,10 @@ public class ForecastPanel : MonoBehaviour
                 string target = "";
                 switch (waveStatus)
                 {
-                    case WaveStatus.Idle: target = "파도 없음\n" + (int)waterController._IdleWaveTime + "초\n" + "높이 : " + (int)waterController._IdleWaveHeight + "층"; break;
-                    case WaveStatus.Low: target = "잔잔한 파도\n" + (int)waterController._LowWaveTime + "초" + "높이 : " + (int)waterController._LowWaveHeight + "층"; break;
-                    case WaveStatus.Middle: target = "강한 파도\n" + (int)waterController._MiddleWaveTime + "초" + "높이 : " + (int)waterController._MiddleWaveHeight + "층"; break;
-                    case WaveStatus.High: target = "쓰나미\n" + waterController._HighWaveTime + "초" + "높이 : " + (int)waterController._HighWaveHeight + "층"; break;
+                    case WaveStatus.Idle: target = "파도 없음\n" + (int)waterController._IdleWaveTime +"초"; break;
+                    case WaveStatus.Low: target = "잔잔한 파도\n" + (int)waterController._LowWaveTime + "초"; break;
+                    case WaveStatus.Middle: target = "강한 파도\n" + (int)waterController._MiddleWaveTime + "초"; break;
+                    case WaveStatus.High: target = "쓰나미\n" + waterController._HighWaveTime + "초"; break;
                 }
 
                 textMeshPro.text = target;
@@ -42,7 +42,7 @@ public class ForecastPanel : MonoBehaviour
         }
     }
 
-    public void UpdateForecastUI(Queue<WaveStatus> _waveStatusForecast)
+    public void UpdateForecastUI(Stack<WaveStatus> _waveStatusForecast)
     {
         // Remove the old UI elements.
         foreach (Transform child in scrollViewContent)
