@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TH.Core {
 
-[CreateAssetMenu(fileName = "PriceData", menuName = "ScriptableObjects/PriceData", order = 1)]
+[CreateAssetMenu(fileName = "PriceData", menuName = "SO/PriceData", order = 1)]
 public class PriceData : ScriptableObject
 {
     #region PublicVariables
