@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: PlantFactory
   m_EditorClassIdentifier: 
+  blockName: PlantFactory
+  description: 
   BuildingType: 0
   SourceType: 2
   FloatingPrefab: {fileID: 836044172351173065, guid: 742a270b4c4c2dd43a535e651b576167,
     type: 3}
   RealPrefab: {fileID: 836044172351173065, guid: 1c49d3f3cd43da5448a56a51e3cc5065,
     type: 3}
+  blockPrice:
+    red: 0
+    blue: 0
+    green: 0
+    money: 0

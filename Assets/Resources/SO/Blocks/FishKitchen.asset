@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: FishKitchen
   m_EditorClassIdentifier: 
+  blockName: FishKitchen
+  description: 
   BuildingType: 1
   SourceType: 0
   FloatingPrefab: {fileID: 836044172351173065, guid: 88a52b0775fd3ae4c8d982de2f06a6ae,
     type: 3}
   RealPrefab: {fileID: 836044172351173065, guid: 133e6f42ef52b25429edc523fc5d3dde,
     type: 3}
+  blockPrice:
+    red: 0
+    blue: 0
+    green: 0
+    money: 0

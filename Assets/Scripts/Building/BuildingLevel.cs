@@ -58,7 +58,7 @@ public class BuildingLevel : MonoBehaviour
 		}
 	}
 
-	public bool InstallBlock(Vector2Int gridPos, BlockData blockData) {
+	public bool InstallBlock(Vector2Int gridPos, BlockDataSO blockData) {
 		if (_hasInit == false) {
 			return false;
 		}

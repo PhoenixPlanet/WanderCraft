@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace TH.Core {
 
-[CreateAssetMenu(fileName = "PriceData", menuName = "SO/PriceData", order = 1)]
-public class PriceData : ScriptableObject
+[CreateAssetMenu(fileName = "PriceDataSO", menuName = "SO/PriceDataSO", order = 1)]
+public class PriceDataSO : ScriptableObject
 {
     #region PublicVariables
 	[SerializeField]
