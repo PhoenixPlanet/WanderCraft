@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18189587, g: 0.2275762, b: 0.30741814, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000021573246}
+  m_AnchoredPosition: {x: 0, y: 0.00029127087}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &137128347
@@ -3467,11 +3467,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406130143}
-  - component: {fileID: 1406130145}
-  - component: {fileID: 1406130144}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: WaterGroup
-  m_TagString: Water
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3494,35 +3492,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1406130144
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406130142}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 50.000004, y: 78.71433, z: 50}
-  m_Center: {x: 0, y: -39.845013, z: 0}
---- !u!54 &1406130145
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406130142}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1434487560
 GameObject:
   m_ObjectHideFlags: 0
@@ -3756,7 +3725,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 867473653}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999921
+  m_Size: 0.92786855
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5051,6 +5020,7 @@ MonoBehaviour:
   _MiddleWaveTime: 15
   _HighWaveHeight: 10
   _HighWaveTime: 15
+  _timer: 0
 --- !u!1001 &1967499459
 PrefabInstance:
   m_ObjectHideFlags: 0
