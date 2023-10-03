@@ -11,8 +11,7 @@ public class WaterController : MonoBehaviour
 {
     #region PublicVariables
 
-    public TextMeshProUGUI _currentStatusUI;
-    public GameObject _warningUI;
+    public TextMeshProUGUI _currentTimeUI;
 
     public enum WaveStatus
     {
@@ -23,7 +22,7 @@ public class WaterController : MonoBehaviour
     }
     WaveStatus _waveStatus;
     public float _Speed = 0.1f;
-    public Stack<WaveStatus> _waveStatusForecast;
+    public Queue<WaveStatus> _waveStatusForecast;
     public WaveStatus _currentWaveStatus;
     public ForecastPanel forecastPanel;
 
@@ -36,16 +35,16 @@ public class WaterController : MonoBehaviour
 
     private GameObject _waterGroup;
     [Header("IdleState")]
-    [SerializeField] private float _IdleWaveHeight;
+    public float _IdleWaveHeight;
     public float _IdleWaveTime;
     [Header("LowState")]
-    [SerializeField] float _LowWaveHeight;
+    public float _LowWaveHeight;
     public float _LowWaveTime;
     [Header("MiddleState")]
-    [SerializeField] private float _MiddleWaveHeight;
+    public float _MiddleWaveHeight;
     public float _MiddleWaveTime;
     [Header("HighState")]
-    [SerializeField] private float _HighWaveHeight;
+    public float _HighWaveHeight;
     public float _HighWaveTime;
     private int CycleCount = 0;
     private bool _isExecutingCycle = false;
@@ -58,7 +57,11 @@ public class WaterController : MonoBehaviour
     private void Start()
     {
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
-        _waveStatusForecast = new Stack<WaveStatus>();
+        _waveStatusForecast = new Queue<WaveStatus>();
+        for (int i = 0; i < 7; i++)
+        {
+            _waveStatusForecast.Enqueue(WaveStatus.Idle);
+        }
         setRandomStatusOrder();
         forecastPanel.InstantiateForecastUI(_waveStatusForecast);
         StartCoroutine(IE_totalCycle());
@@ -80,7 +83,7 @@ public class WaterController : MonoBehaviour
 
     private IEnumerator IdleWaveCoroutine()
     {
-        lowerSeaLevel(0);
+
         yield return new WaitForSeconds(_IdleWaveTime);
         _isExecutingCycle = false;
     }
@@ -89,7 +92,7 @@ public class WaterController : MonoBehaviour
     {
         riseSeaLevel(_LowWaveHeight + CycleCount / 3 * 4);
         yield return new WaitForSeconds(_LowWaveTime);
-        //lowerSeaLevel(_IdleWaveHeight);
+        lowerSeaLevel(_IdleWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
@@ -98,7 +101,7 @@ public class WaterController : MonoBehaviour
     {
         riseSeaLevel(_MiddleWaveHeight + CycleCount / 3 * 4);
         yield return new WaitForSeconds(_MiddleWaveTime);
-        //lowerSeaLevel(_IdleWaveHeight);
+        lowerSeaLevel(_MiddleWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
@@ -107,7 +110,7 @@ public class WaterController : MonoBehaviour
     {
         riseSeaLevel(_HighWaveHeight + CycleCount / 3 * 4);
         yield return new WaitForSeconds(_HighWaveTime);
-        //lowerSeaLevel(_IdleWaveHeight);
+        lowerSeaLevel(_HighWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
@@ -125,95 +128,36 @@ public class WaterController : MonoBehaviour
 
     private void setRandomStatusOrder()
     {
+        _waveStatusForecast.Enqueue(WaveStatus.Idle);
+        _waveStatusForecast.Enqueue(WaveStatus.Idle);
+        _waveStatusForecast.Enqueue(WaveStatus.Middle);
+        _waveStatusForecast.Enqueue(WaveStatus.Low);
         for (int i = 0; i < 3; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
-            int randomIndex = Random.Range(1, numValues);
+            int randomIndex = UnityEngine.Random.Range(1, numValues);
             waveStatus = (WaveStatus)randomIndex;
-            _waveStatusForecast.Push(waveStatus);
+            _waveStatusForecast.Enqueue(waveStatus);
         }
-        _waveStatusForecast.Push(WaveStatus.Idle);
-        for (int i = 0; i < 3; i++)
-        {
-            WaveStatus waveStatus;
-            int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
-            int randomIndex = Random.Range(1, numValues);
-            waveStatus = (WaveStatus)randomIndex;
-            _waveStatusForecast.Push(waveStatus);
-        }
-
-        _waveStatusForecast.Push(WaveStatus.Middle);
-        _waveStatusForecast.Push(WaveStatus.Idle);
-        _waveStatusForecast.Push(WaveStatus.Low);
-        _waveStatusForecast.Push(WaveStatus.Idle);
-        _waveStatusForecast.Push(WaveStatus.Idle);
-        _waveStatusForecast.Push(WaveStatus.Idle);
     }
 
     private void Update()
     {
         _timer += Time.deltaTime;
-
-        switch (_currentWaveStatus)
-        {
-            case WaveStatus.Idle:
-                _currentStatusUI.text = "파도 없음\n" + ((int)_timer).ToString() + "/" + _IdleWaveTime + "초";
-                if (_IdleWaveTime-_timer < 10f)
-                {
-                    _warningUI.SetActive(true);
-                }
-                else
-                {
-                    _warningUI.SetActive(false);
-                }
-                break;
-            case WaveStatus.Low:
-                _currentStatusUI.text = "잔잔한 파도\n" + ((int)_timer).ToString() + "/" + _LowWaveTime + "초";
-                if ( _LowWaveTime-_timer < 10f)
-                {
-                    _warningUI.SetActive(true);
-                }
-                else
-                {
-                    _warningUI.SetActive(false);
-                }
-                break;
-            case WaveStatus.Middle:
-                _currentStatusUI.text = "높은 파도\n" + ((int)_timer).ToString() + "/" + _MiddleWaveTime + "초";
-                if (_MiddleWaveTime-_timer < 10f)
-                {
-                    _warningUI.SetActive(true);
-                }
-                else
-                {
-                    _warningUI.SetActive(false);
-                }
-                break;
-            case WaveStatus.High:
-                _currentStatusUI.text = "쓰나미\n" + ((int)_timer).ToString() + "/" + _HighWaveTime + "초";
-                if (_HighWaveTime-_timer < 10f)
-                {
-                    _warningUI.SetActive(true);
-                }
-                else
-                {
-                    _warningUI.SetActive(false);
-                }
-                break;
-        }
+        //_currentTimeUI.text = ((int)_timer).ToString();
     }
 
     private void nextState()
     {
         _isExecutingCycle = true;
-        if (_waveStatusForecast.Count == 0)
+        if (_waveStatusForecast.Count < 7)
         {
             CycleCount++;
             setRandomStatusOrder();
             forecastPanel.UpdateForecastUI(_waveStatusForecast);
         }
-        WaveStatus nextWaveStatus = _waveStatusForecast.Pop();
+        WaveStatus nextWaveStatus = _waveStatusForecast.Dequeue();
         forecastPanel.UpdateForecastUI(_waveStatusForecast);
         _currentWaveStatus = nextWaveStatus;
         print(_currentWaveStatus);
