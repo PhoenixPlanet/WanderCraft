@@ -22,7 +22,7 @@ public class PriceData : ScriptableObject
 	#endregion
 }
 
-[SerializeField]
+[System.Serializable]
 public class PropertyData {
 		public int red;
 		public int blue;
