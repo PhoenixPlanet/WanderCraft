@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingType: 1
   SourceType: 2
-  FloatingPrefab: {fileID: 836044172351173065, guid: b60bcf97fa7f338468534ed067df8cb7,
+  FloatingPrefab: {fileID: 6907955255870212705, guid: 3dabd9883398a6740b637f5aa1bf43f9,
     type: 3}
-  RealPrefab: {fileID: 836044172351173065, guid: bcb35e01d1f865d4d9104d2d4f23b016,
+  RealPrefab: {fileID: 6907955255870212705, guid: 4df88bbb4aea15d49a96e72b747266a0,
     type: 3}
+  blockPrice:
+    red: 0
+    blue: 0
+    green: 0
+    money: 0
