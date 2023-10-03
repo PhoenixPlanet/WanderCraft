@@ -116,6 +116,12 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<Building> _building
 		= new ComponentGetter<Building>(TypeOfGetter.GlobalByName, "Building");
 
+	private ObjectGetter _waterObj
+		= new ObjectGetter(TypeOfGetter.GlobalByName, "WaterGroup");
+
+	private ObjectGetter _endGameUI
+		= new ObjectGetter(TypeOfGetter.GlobalByName, "Canvas/MainUI/EndPanel");
+
 	private ComponentGetter<FloatingSpawner> _floatingSpawner
 		= new ComponentGetter<FloatingSpawner>(TypeOfGetter.This);
 
@@ -308,6 +314,10 @@ public class GridManager : Singleton<GridManager>
 			_moneyIncreaseTimer = 0f;
 			_money += CalculateProduction();
 		}
+
+		if ((_currentOpenedBuildingLevel-1) * 0.6 < _waterObj.Get().transform.position.y) {
+			_endGameUI.Get().SetActive(true);
+		}
 	}
 
 	protected override void Init() {
@@ -398,7 +408,7 @@ public class GridManager : Singleton<GridManager>
 			production += sd == null ? 0 : sd.totalScore;
 		}
 
-		Debug.Log("Production: " + production);
+		//Debug.Log("Production: " + production);
 		return production;
 	}
 

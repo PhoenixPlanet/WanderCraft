@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloating: 0
-  maxBuyoncyPower: 4
+  maxBuyoncyPower: 8
   underWaterDrag: 3
   underWaterAngularDrag: 1
   airDrag: 0
@@ -718,7 +718,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 879922885
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6213843392174628306

@@ -86,7 +86,7 @@ namespace TH.Core {
 			}
 
 			public static class Price {
-				public const int BLOCK_PRICE = 10;
+				public const int BLOCK_PRICE = 50;
 			}
 
 			public static class SourceName {
