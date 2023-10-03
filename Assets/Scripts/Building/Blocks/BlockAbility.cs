@@ -13,6 +13,7 @@ public class BlockAbility : MonoBehaviour
     public bool IsActivated => _isActivated;
 
     private bool _isActivated = true;
+    private bool _lastActivated = true;
 
     private ComponentGetter<Block> _block =
         new ComponentGetter<Block>(TypeOfGetter.This);
@@ -44,19 +45,36 @@ public class BlockAbility : MonoBehaviour
         _isActivated = true;
     }
 
-    private void OnTriggerEnter(Collider other) {
-        Debug.Log("OnTriggerEnter Water");
-        if (other.gameObject.CompareTag("Water")) {
-            _isActivated = false;
-            GridManager.Instance.CalculateAgain();
-        }
-    }
+    // private void OnTriggerEnter(Collider other) {
+    //     Debug.Log("OnTriggerEnter Water");
+    //     if (other.gameObject.CompareTag("Water")) {
+    //         _isActivated = false;
+    //         GridManager.Instance.CalculateAgain();
+    //     }
+    // }
 
-    private void OnTriggerExit(Collider other) {
-        Debug.Log("OnTriggerExit Water");
-        if (other.gameObject.CompareTag("Water")) {
+    // private void OnTriggerExit(Collider other) {
+    //     Debug.Log("OnTriggerExit Water");
+    //     if (other.gameObject.CompareTag("Water")) {
+    //         _isActivated = true;
+    //         GridManager.Instance.CalculateAgain();
+    //     }
+    // }
+
+    private void Update() {
+        GameObject water = GameObject.Find("WaterGroup");
+
+        _lastActivated = _isActivated;
+        if (water.transform.position.y > transform.position.y) {
+            _isActivated = false;
+            if (_lastActivated != _isActivated) {
+                GridManager.Instance.CalculateAgain();
+            }
+        } else {
             _isActivated = true;
-            GridManager.Instance.CalculateAgain();
+            if (_lastActivated != _isActivated) {
+                GridManager.Instance.CalculateAgain();
+            }
         }
     }
 }    

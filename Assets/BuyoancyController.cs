@@ -8,7 +8,7 @@ using System;
 public class BuyoancyController : MonoBehaviour
 {
     public bool isFloating = false;
-    public ComponentGetter<WaterVolumeHelper> WaterVolumeHelper = new ComponentGetter<WaterVolumeHelper>(TypeOfGetter.Global);
+   //public ComponentGetter<WaterVolumeHelper> WaterVolumeHelper = new ComponentGetter<WaterVolumeHelper>(TypeOfGetter.Global);
     //========moving======
     //=======buyonacy==========
     public float maxBuyoncyPower = 3f;
@@ -44,13 +44,8 @@ public class BuyoancyController : MonoBehaviour
 
     private void buyoancy()
     {
-        if (!WaterVolumeHelper.Get(gameObject))
-        {
-            return;
-        }
-        if (WaterVolumeHelper.Get().GetHeight(transform.position) != null)
-        {
-            float difference = transform.position.y - (float)WaterVolumeHelper.Get().GetHeight(transform.position);
+      if(isFloating == true){
+            float difference = transform.position.y - GameObject.Find("WaterGroup").transform.position.y + 0.01f * Mathf.Sin(Time.time);
             if (difference < 0)
             {
                 _rigidbody.Get(gameObject).AddForce(Vector3.up * floatingPower * (Mathf.Clamp(Mathf.Abs(difference), 0, maxBuyoncyPower)), ForceMode.Force);
@@ -59,7 +54,7 @@ public class BuyoancyController : MonoBehaviour
                     isFloating = true;
                 }
             }
-        }
+      }
     }
 
     void SwitchState()

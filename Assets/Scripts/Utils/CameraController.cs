@@ -27,6 +27,7 @@ namespace TH.Core
         [SerializeField] private float lerpSpeed = 5f;
         void Start()
         {
+            transform.position = new Vector3(transform.position.x, 3.1f, transform.position.z);
             originalRotation = transform.rotation;
         }
 
@@ -39,7 +40,7 @@ namespace TH.Core
 
         private void ClampWithWaterHeight()
         {
-            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, waterGroup.transform.position.y, 1000));
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, waterGroup.transform.position.y + 3f, 1000));
         }
 
         void HandleKeyboardInput()

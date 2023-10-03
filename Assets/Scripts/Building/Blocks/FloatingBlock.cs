@@ -24,7 +24,7 @@ namespace TH.Core
         private bool _isFlying = false;
         private bool _isDestroying = false;
         private float _yPos;
-        private float _destroyYpos = -30f;
+        private float _destroyYpos = -10f;
         
         private float _flyingSpeed = 5;
         private float _randomSpeed;
@@ -39,7 +39,7 @@ namespace TH.Core
         {
             _blockData = blockData;
             _onFloatingBlockClicked = onFloatingBlockClicked;
-            _yPos = GridManager.Instance.CurrentCenterLevel + 1;
+            _yPos = GridManager.Instance.CurrentCenterLevel - 2f;
             _hasInit = true;
         
             _rb = GetComponent<Rigidbody>();
@@ -92,26 +92,24 @@ namespace TH.Core
 
         private void Awake()
         {
-            _randomSpeed = UnityEngine.Random.Range(.5f, .8f);
+            _randomSpeed = UnityEngine.Random.Range(5f, 12f);
         }
         private void moveDirection()
         {
             _rb.AddForce(myDirection * _randomSpeed);
         }
-        private void Update()
+        private void FixedUpdate()
         {
             if (transform.position.y < _destroyYpos)
             {
-                StartCoroutine(nameof(destroyObject));
+                Destroy(gameObject);
             }
-            else if (_isFlying)
-            {
-      
-            }
-            else
+           if (!_isFlying)
             {
                 moveDirection();
-            }
+            } else {
+				_rb.velocity = Vector3.zero;
+			}
         }
         private void StartFlying()
         {

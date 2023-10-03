@@ -21,7 +21,7 @@ public class AboutText : MonoBehaviour
 	}
 
 	private IEnumerator DestroySelf() {
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(10f);
 		Destroy(gameObject);
 	}
 	#endregion

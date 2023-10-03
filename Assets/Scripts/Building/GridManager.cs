@@ -315,7 +315,7 @@ public class GridManager : Singleton<GridManager>
 			_money += CalculateProduction();
 		}
 
-		if (_currentCenterLevel * 0.6 < _waterObj.Get().transform.position.y) {
+		if ((_currentOpenedBuildingLevel-1) * 0.6 < _waterObj.Get().transform.position.y) {
 			_endGameUI.Get().SetActive(true);
 		}
 	}

@@ -12,14 +12,14 @@ public class WaterController : MonoBehaviour
     #region PublicVariables
 
     public TextMeshProUGUI _currentStatusUI;
+    public GameObject _warningUI;
 
-    
     public enum WaveStatus
     {
-       Idle,
-       Low,
-       Middle,
-       High
+        Idle,
+        Low,
+        Middle,
+        High
     }
     WaveStatus _waveStatus;
     public float _Speed = 0.1f;
@@ -58,20 +58,20 @@ public class WaterController : MonoBehaviour
     private void Start()
     {
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
-        _waveStatusForecast = new Stack <WaveStatus>();
+        _waveStatusForecast = new Stack<WaveStatus>();
         setRandomStatusOrder();
         forecastPanel.InstantiateForecastUI(_waveStatusForecast);
         StartCoroutine(IE_totalCycle());
-        
+
     }
 
     IEnumerator IE_totalCycle()
     {
-        while(true)
+        while (true)
         {
             if (_isExecutingCycle == false)
             {
-            nextState();
+                nextState();
 
             }
             yield return null;
@@ -80,7 +80,7 @@ public class WaterController : MonoBehaviour
 
     private IEnumerator IdleWaveCoroutine()
     {
-        
+        lowerSeaLevel(0);
         yield return new WaitForSeconds(_IdleWaveTime);
         _isExecutingCycle = false;
     }
@@ -89,7 +89,7 @@ public class WaterController : MonoBehaviour
     {
         riseSeaLevel(_LowWaveHeight + CycleCount / 3 * 4);
         yield return new WaitForSeconds(_LowWaveTime);
-        lowerSeaLevel(_IdleWaveHeight);
+        //lowerSeaLevel(_IdleWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
@@ -98,22 +98,22 @@ public class WaterController : MonoBehaviour
     {
         riseSeaLevel(_MiddleWaveHeight + CycleCount / 3 * 4);
         yield return new WaitForSeconds(_MiddleWaveTime);
-        lowerSeaLevel(_MiddleWaveHeight);
+        //lowerSeaLevel(_IdleWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
 
     private IEnumerator HighWaveCoroutine()
     {
-       riseSeaLevel(_HighWaveHeight + CycleCount / 3 * 4);
-       yield return new WaitForSeconds(_HighWaveTime);
-       lowerSeaLevel(_HighWaveHeight);
+        riseSeaLevel(_HighWaveHeight + CycleCount / 3 * 4);
+        yield return new WaitForSeconds(_HighWaveTime);
+        //lowerSeaLevel(_IdleWaveHeight);
         yield return null;
         _isExecutingCycle = false;
     }
 
 
-    void riseSeaLevel (float level)
+    void riseSeaLevel(float level)
     {
         _waterGroup.transform.DOMoveY(level, 5).SetEase(Ease.OutCubic);
     }
@@ -125,7 +125,7 @@ public class WaterController : MonoBehaviour
 
     private void setRandomStatusOrder()
     {
-        for(int i = 0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
@@ -134,7 +134,7 @@ public class WaterController : MonoBehaviour
             _waveStatusForecast.Push(waveStatus);
         }
         _waveStatusForecast.Push(WaveStatus.Idle);
-        for(int i = 0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
             WaveStatus waveStatus;
             int numValues = System.Enum.GetValues(typeof(WaveStatus)).Length;
@@ -144,32 +144,64 @@ public class WaterController : MonoBehaviour
         }
 
         _waveStatusForecast.Push(WaveStatus.Middle);
+        _waveStatusForecast.Push(WaveStatus.Idle);
         _waveStatusForecast.Push(WaveStatus.Low);
         _waveStatusForecast.Push(WaveStatus.Idle);
         _waveStatusForecast.Push(WaveStatus.Idle);
-
+        _waveStatusForecast.Push(WaveStatus.Idle);
     }
 
     private void Update()
     {
         _timer += Time.deltaTime;
-        
+
         switch (_currentWaveStatus)
         {
             case WaveStatus.Idle:
-                _currentStatusUI.text = "파도 없음\n" +  ((int)_timer).ToString() + "/" + _IdleWaveTime +"초";
+                _currentStatusUI.text = "파도 없음\n" + ((int)_timer).ToString() + "/" + _IdleWaveTime + "초";
+                if (_IdleWaveTime-_timer < 10f)
+                {
+                    _warningUI.SetActive(true);
+                }
+                else
+                {
+                    _warningUI.SetActive(false);
+                }
                 break;
             case WaveStatus.Low:
-                _currentStatusUI.text = "잔잔한 파도\n" +  ((int)_timer).ToString() + "/" + _LowWaveTime + "초";
+                _currentStatusUI.text = "잔잔한 파도\n" + ((int)_timer).ToString() + "/" + _LowWaveTime + "초";
+                if ( _LowWaveTime-_timer < 10f)
+                {
+                    _warningUI.SetActive(true);
+                }
+                else
+                {
+                    _warningUI.SetActive(false);
+                }
                 break;
             case WaveStatus.Middle:
-                _currentStatusUI.text = "높은 파도\n" + ((int)_timer).ToString() + "/" +  _MiddleWaveTime + "초";
+                _currentStatusUI.text = "높은 파도\n" + ((int)_timer).ToString() + "/" + _MiddleWaveTime + "초";
+                if (_MiddleWaveTime-_timer < 10f)
+                {
+                    _warningUI.SetActive(true);
+                }
+                else
+                {
+                    _warningUI.SetActive(false);
+                }
                 break;
             case WaveStatus.High:
-                _currentStatusUI.text = "쓰나미\n" + ((int)_timer).ToString() + "/" +  _HighWaveTime + "초";
+                _currentStatusUI.text = "쓰나미\n" + ((int)_timer).ToString() + "/" + _HighWaveTime + "초";
+                if (_HighWaveTime-_timer < 10f)
+                {
+                    _warningUI.SetActive(true);
+                }
+                else
+                {
+                    _warningUI.SetActive(false);
+                }
                 break;
         }
-        
     }
 
     private void nextState()
