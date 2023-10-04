@@ -226,6 +226,10 @@ public class GridManager : Singleton<GridManager>
 			return false;
 		}
 
+		if (level >= _currentCenterLevel) {
+			return false;
+		}
+
 		if (level >= _currentOpenedBuildingLevel) {
 			OpenNewLevel();
 		}
@@ -371,7 +375,7 @@ public class GridManager : Singleton<GridManager>
 		}
 		
 		// Check Game Over
-		if ((_currentOpenedBuildingLevel-1)/* * 0.6*/ < _waterObj.Get().transform.position.y) {
+		if ((_currentCenterLevel-1)/* * 0.6*/ < _waterObj.Get().transform.position.y) {
 			_endGameUI.Get().SetActive(true);
 		}
 	}
@@ -508,7 +512,7 @@ public class GridManager : Singleton<GridManager>
 
 	private bool IsBlockInstalable(int level, Vector2Int gridPos) {
 		if (level >= _currentOpenedBuildingLevel) {
-			if (level > _currentCenterLevel) {
+			if (level >= _currentCenterLevel) {
 				return false;
 			}
 
