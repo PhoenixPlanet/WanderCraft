@@ -1,8 +1,10 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
+
 
 public class ColorGroupAttribute : PropertyGroupAttribute
 {
@@ -63,3 +65,4 @@ public class ColorFoldoutGroupAttributeDrawer : OdinGroupDrawer<ColorGroupAttrib
         SirenixEditorGUI.EndBox();
     }
 }
+#endif
