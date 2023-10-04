@@ -17,23 +17,28 @@ namespace TH.Core
         private Transform _floatingBlockParentTransform;
         private bool _hasInit = false;
 
-        [SerializeField] Transform _upperTransform;
-        [SerializeField] Transform _downTransform;
-        [SerializeField] private float minSpawnOffset;
-        [SerializeField] private float maxSpawnOffset;
-        [SerializeField] float _upperSpawnProbability;
+        //[SerializeField] Transform _upperTransform;
+        //[SerializeField] Transform _downTransform;
+        private int minSpawnOffset = 0;
+        //[SerializeField] private int maxSpawnOffset;
+        //[SerializeField] float _upperSpawnProbability;
 
-        [SerializeField] float _RProbability = 0.6f;
-        [SerializeField] float _GProbability = 0.3f;
-        [SerializeField] float _BProbability = 0.1f;
+        //[SerializeField] float _RProbability = 0.6f;
+        //[SerializeField] float _GProbability = 0.3f;
+        //[SerializeField] float _BProbability = 0.1f;
+        [SerializeField] private int _xOffset;
+        [SerializeField] private int _zOffset;
+        [SerializeField] private float _spawnYpos;
         #endregion
 
         #region PublicMethod
+
         public void Init()
         {
+            
             if (_hasInit == true)
             {
-                return;
+               return;
             }
 
             _blockDataDict = new Dictionary<ESourceType, List<BlockDataSO>>();
@@ -53,9 +58,9 @@ namespace TH.Core
         }
 
 
-        public void spawnBlocks(int minSize, int maxSize, float Rprob, float Gprob, float Bprob)
+        public void spawnBlocks(float interval, int minNum, int maxNum, float Rprob, float Gprob, float Bprob)
         {
-            StartCoroutine(SpawnFloatingBlock(minSize, maxSize, Rprob, Gprob, Bprob));
+            StartCoroutine(IEFeverSpawnFloatingBlock(interval, minNum, maxNum, Rprob, Gprob, Bprob));
         }
 
         #endregion
@@ -69,45 +74,42 @@ namespace TH.Core
             }
         }
 
-        private IEnumerator SpawnFloatingBlock(int minSize, int maxSize, float Rprob, float Gprob, float Bprob)
+
+        private IEnumerator IEFeverSpawnFloatingBlock(float _Interval, int minNum, int maxNum, float Rprob, float Gprob, float Bprob)
         {
-            int n  = Random.Range(minSize, maxSize);
-            for (int i = 0; i < n; i++)
+            int n = UnityEngine.Random.Range(minNum, maxNum);
+            for (int j = 0; j < n; j++)
             {
-                yield return new WaitForSeconds(_spawnInterval);
+                yield return new WaitForSeconds(_Interval);
                 Vector3 spawnPos;
                 Vector3 spawnDir;
-                BlockDataSO blockData = _blockDataDict[getSpawnTarget(Rprob, Gprob, Bprob)][i];
-                if(Random.Range(0f, 1f) < _upperSpawnProbability)
+
+                for (int i = 0; i < 3; i++)
                 {
-                    spawnPos = _upperTransform.position;
+                    BlockDataSO blockData = _blockDataDict[getSpawnTarget(Rprob, Gprob, Bprob)][i];
+                    float randomX = Random.Range(-_xOffset, _xOffset);
+                    float randomZ = Random.Range(-_zOffset, _zOffset);
+                    spawnPos = new Vector3(randomX, _spawnYpos, randomZ);
                     spawnDir = new Vector3(1, 0, 0);
-                } else
-                {
-                    spawnPos = _downTransform.position;
-                    spawnDir = new Vector3(0, 0, 1);
+                    GameObject fb = Instantiate(blockData.FloatingPrefab, spawnPos, Quaternion.identity,
+                        _floatingBlockParentTransform);
+                    //fb.GetComponent<FloatingBlock>().Init(blockData);
+                    fb.GetComponent<FloatingBlock>().myDirection = spawnDir;
                 }
-                GameObject fb = Instantiate(blockData.FloatingPrefab, spawnPos, Quaternion.identity, _floatingBlockParentTransform);
-                fb.GetComponent<FloatingBlock>().Init(blockData, OnFloatingBlockClicked);
-                fb.GetComponent<FloatingBlock>().myDirection = spawnDir;
-                i++;
-                if (i >= _blockDataDict[ESourceType.Red].Count)
-                {
-                    i = 0;
-                }
+            
             }
         }
 
-        ESourceType getSpawnTarget (float rProb, float gProb, float bProb)
+        ESourceType getSpawnTarget (float RProb, float GProb, float BProb)
         {
             float RandomValue = Random.Range(0f, 1f);
-            if(RandomValue < _BProbability)
+            if(RandomValue < BProb)
             {
                 return ESourceType.Blue;
-            } else if (RandomValue >= _GProbability && RandomValue < _BProbability )  {
+            } else if (RandomValue >= GProb && RandomValue < BProb )  {
                 return ESourceType.Green;
 
-            } else if (RandomValue >= _RProbability)
+            } else if (RandomValue >= RProb)
             {
                 return ESourceType.Red;
             } else
@@ -115,14 +117,6 @@ namespace TH.Core
                 return ESourceType.Red;
             }
         
-        }
-
-        private void OnFloatingBlockClicked(FloatingBlock floatingBlock)
-        {
-            if (GridManager.Instance.State == GridManager.BuildingState.Building)
-            {
-                GridManager.Instance.SelectFloatingBlock(floatingBlock);
-            }
         }
         #endregion
     }
