@@ -10,38 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afe6d06fb45c18f4e8794e2615887189, type: 3}
-  m_Name: WaveData
+  m_Name: WaveData-Level9-7Min
   m_EditorClassIdentifier: 
   _waveList:
   - waveLevel: 0
-    waveTime: 60
+    waveTime: 0
   - waveLevel: 0
     waveTime: 60
   - waveLevel: 1
-    waveTime: 30
-  - waveLevel: 0
-    waveTime: 60
-  - waveLevel: 3
-    waveTime: 30
-  - waveLevel: 0
-    waveTime: 60
-  - waveLevel: 3
-    waveTime: 60
+    waveTime: 10
   - waveLevel: 0
     waveTime: 50
+  - waveLevel: 3
+    waveTime: 30
+  - waveLevel: 0
+    waveTime: 60
+  - waveLevel: 3
+    waveTime: 60
+  - waveLevel: 0
+    waveTime: 60
   - waveLevel: 6
     waveTime: 30
   - waveLevel: 0
     waveTime: 60
   - waveLevel: 9
-    waveTime: 30
-  - waveLevel: 0
-    waveTime: 60
-  - waveLevel: 9
-    waveTime: 30
-  - waveLevel: 0
-    waveTime: 60
-  - waveLevel: 3
-    waveTime: 30
-  - waveLevel: 0
-    waveTime: 60
+    waveTime: 5

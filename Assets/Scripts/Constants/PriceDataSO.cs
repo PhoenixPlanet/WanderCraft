@@ -11,6 +11,7 @@ public class PriceDataSO : ScriptableObject
 {
     #region PublicVariables
 	[SerializeField]
+	[ListDrawerSettings(ShowIndexLabels = true, ShowPaging = false)]
 	public List<PropertyData> _priceList = new List<PropertyData>();
 	#endregion
 
