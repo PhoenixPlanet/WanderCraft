@@ -102,19 +102,19 @@ Material:
     - BOOLEAN_DDDED732: 0
     - BOOLEAN_E6627419: 0
     - Boolean_1A499D3: 1
-    - Boolean_E53E5D96: 0
+    - Boolean_E53E5D96: 1
     - Vector1_2520DE87: 0.1
     - Vector1_48C004F6: 3
-    - Vector1_575FDCB0: 0.711
+    - Vector1_575FDCB0: 0.37
     - Vector1_5B35BF2: 2.96
-    - Vector1_5F10D5CF: 0.62
+    - Vector1_5F10D5CF: 0.21
     - Vector1_79CD236A: 3
     - Vector1_8D7584D8: 0.055
     - Vector1_AD7F7343: 0
     - Vector1_BA283AB7: 0.96
     - Vector1_BC31787F: 2.12
-    - Vector1_D8127884: 0.72
-    - Vector1_DD6C0587: 2.13
+    - Vector1_D8127884: 0.37
+    - Vector1_DD6C0587: 0.51
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
