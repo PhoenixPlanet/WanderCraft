@@ -25,15 +25,15 @@ public class ForecastPanel : MonoBehaviour
     #region PublicMethod
 
     public void Update()
-    {   
+    {
         _timer += Time.deltaTime;
-        _currentTimeUI.text 
-            = TH.Core.Constants.GameSetting.WaveInfo.WaveHeightInString(waterController.CurrentWaveData.waveLevel) 
-            + "\n" 
+        _currentTimeUI.text
+            = TH.Core.Constants.GameSetting.WaveInfo.WaveHeightInString(waterController.CurrentWaveData.waveLevel)
+            + "\n"
             + (int)_timer + "/" + (int)waterController.CurrentWaveData.waveTime + "초";
     }
 
-    public void InstantiateForecastUI(List<WaveData> waveDatas, int currentIdx)
+        public void InstantiateForecastUI(List<WaveData> waveDatas, int currentIdx)
     {
         if (waveDatas != null)
         {

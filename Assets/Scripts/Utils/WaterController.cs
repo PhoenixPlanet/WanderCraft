@@ -6,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using System.Threading;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class WaterController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class WaterController : MonoBehaviour
     public float _Speed = 0.1f;
     public ForecastPanel forecastPanel;
     public WaveDataSO waveDataSO;
+    public List<Image> indicators;
+
     public WaveData CurrentWaveData
     {
         get
@@ -29,7 +32,7 @@ public class WaterController : MonoBehaviour
     #region PublicMethod
 
     private GameObject _waterGroup;
-    private int cycleIdx = 0;
+    public int cycleIdx = 0;
     private bool _isExecutingCycle = false;
     #endregion
 
@@ -38,7 +41,6 @@ public class WaterController : MonoBehaviour
     private void Start()
     {
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
-        
         forecastPanel.InstantiateForecastUI(waveDataSO._waveList, cycleIdx);
         StartCoroutine(IE_totalCycle());
     }
@@ -78,9 +80,19 @@ public class WaterController : MonoBehaviour
         }
 
         forecastPanel.UpdateForecastUI(waveDataSO._waveList, cycleIdx);
+        moveIndicator();
         StartCoroutine(WaveCoroutine(CurrentWaveData.waveLevel, CurrentWaveData.waveTime));
     }
 
+    private void moveIndicator()
+    {
+        foreach(var i in indicators)
+        {
+            i.color = Color.white;
+        }
+        indicators[(int)waveDataSO._waveList[(cycleIdx + 1) % waveDataSO._waveList.Count].waveLevel].color = Color.red;
+        
+    }
 
     #endregion
 }
