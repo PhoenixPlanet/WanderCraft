@@ -13,36 +13,32 @@ namespace TH.Core
         [SerializeField] private float zoomSpeed = 5f; // Speed of camera zoom
         [SerializeField] private float minZoomDistance = 1f; // Minimum distance for zoom
         [SerializeField] private float maxZoomDistance = 20f; // Maximum distance for zoom
-        [SerializeField] private float yHeightOffset = 5f;
         [SerializeField] private float yMoveSpeed = 3f;
         [SerializeField] private float centerBlockCount = 0;
         private bool isRotating = false;
         private float currentZoomDistance = 10f; // Initial zoom distance
-
-        private float _originX;
-
-        private Vector3 rotateStartPosition;
-        private Quaternion originalRotation;
-
+        [SerializeField] float startingYpos = 3.1f; 
         [SerializeField] private float lerpSpeed = 5f;
+        //[SerializeField] private float yHeightOffset = 5f;
+
         void Start()
         {
-            transform.position = new Vector3(transform.position.x, 3.1f, transform.position.z);
-            originalRotation = transform.rotation;
+            transform.position = new Vector3(transform.position.x * 2, startingYpos * 2, transform.position.z * 2);
         }
 
         void Update()
         {
             HandleKeyboardInput();
             LerpCameraYPosition();
-            ClampWithWaterHeight();
+            //ClampWithWaterHeight();
         }
 
+        /*
         private void ClampWithWaterHeight()
         {
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, waterGroup.transform.position.y + 3f, 1000));
         }
-
+        */
         void HandleKeyboardInput()
         {
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -98,13 +94,13 @@ namespace TH.Core
                 transform.DOMoveY(transform.position.y - yMoveSpeed, 0.1f);
             }
         }
-
+        /*
         private void lockOnYpos(int centerBlockCount)
         {
             Vector3 targetPosition = new Vector3(transform.position.x, yHeightOffset + centerBlockCount * CenterBlock.HEIGHT, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
         }
-
+        */
 
     }
 }
