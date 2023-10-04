@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f475e0cf73ad1194f975d44741678c8e, type: 3}
+  m_Name: SpawnData
+  m_EditorClassIdentifier: 
+  spawnList:
+  - block: {fileID: 11400000, guid: 8ad759101791c25488ab89dcd6a78ea7, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 46c16d43aa636da4b88b92c75a253792, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 23e336e7ffc6f7049b728c7aac9541ec, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 8e8718bcace988b4aa7b45e2e06ee3ec, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 8389f8eb8f91f924791d9f6c23a42175, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 46001b36836e13c40affec6c35e1f4de, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 97c2288f4e8bdce468a5f4291b7bb026, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 369448662883be64892c6d1fa7671b81, type: 2}
+    spawnRate: 0
+    spawnProbability: 0
+  - block: {fileID: 11400000, guid: 113771b8e6021294ea65eb4d70997966, type: 2}
+    spawnRate: 0
+    spawnProbability: 0

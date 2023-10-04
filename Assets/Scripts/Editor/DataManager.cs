@@ -21,11 +21,13 @@ public class DataManager : OdinMenuEditorWindow
     private DrawSelected<BlockDataSO> drawBlockData = new DrawSelected<BlockDataSO>();
     private DrawSelected<PriceDataSO> drawPillarPrice = new DrawSelected<PriceDataSO>();
     private DrawSelected<WaveDataSO> drawWaveData = new DrawSelected<WaveDataSO>();
+    private DrawSelected<SpawnDataSO> drawSpawnData = new DrawSelected<SpawnDataSO>();
     
     //paths to SOs in project
     private string blockDataPath = "Assets/Resources/SO/Blocks";
     private string pillarPricePath = "Assets/Resources/SO/Pillar";
     private string waveDataPath = "Assets/Resources/SO/Wave";
+    private string spawnDataPath = "Assets/Resources/SO/Spawner";
 
     [MenuItem("Tools/Data Manager")]
     private static void OpenWindow() => GetWindow<DataManager>();
@@ -40,6 +42,7 @@ public class DataManager : OdinMenuEditorWindow
         drawBlockData.SetPath(blockDataPath);
         drawPillarPrice.SetPath(pillarPricePath);
         drawWaveData.SetPath(waveDataPath);
+        drawSpawnData.SetPath(spawnDataPath);
     }
 
     protected override void OnGUI()
@@ -56,6 +59,7 @@ public class DataManager : OdinMenuEditorWindow
             case ManagerState.blockData:
             case ManagerState.pillarPrice:
             case ManagerState.waveData:
+            case ManagerState.spawnData:
                 DrawEditor(enumIndex);
                 break;
             default:
@@ -79,6 +83,9 @@ public class DataManager : OdinMenuEditorWindow
             case ManagerState.waveData:
                 drawWaveData.SetSelected(this.MenuTree.Selection.SelectedValue);
                 break;
+            case ManagerState.spawnData:
+                drawSpawnData.SetSelected(this.MenuTree.Selection.SelectedValue);
+                break;
             /*case ManagerState.sfx:
                 DrawEditor(enumIndex);
                 break;*/
@@ -95,6 +102,7 @@ public class DataManager : OdinMenuEditorWindow
         targets.Add(drawBlockData);
         targets.Add(drawPillarPrice);
         targets.Add(drawWaveData);
+        targets.Add(drawSpawnData);
         targets.Add(base.GetTarget());
 
         enumIndex = targets.Count - 1;
@@ -110,6 +118,7 @@ public class DataManager : OdinMenuEditorWindow
             case ManagerState.blockData:
             case ManagerState.pillarPrice:
             case ManagerState.waveData:
+            case ManagerState.spawnData:
                 base.DrawMenu();
                 break;
             default:
@@ -133,6 +142,9 @@ public class DataManager : OdinMenuEditorWindow
             case ManagerState.waveData:
                 tree.AddAllAssetsAtPath("Wave Data", waveDataPath, typeof(WaveDataSO));
                 break;
+            case ManagerState.spawnData:
+                tree.AddAllAssetsAtPath("Spawn Data", spawnDataPath, typeof(SpawnDataSO));
+                break;
             default:
                 break;
         }
@@ -144,7 +156,8 @@ public class DataManager : OdinMenuEditorWindow
     {
         blockData,
         pillarPrice,
-        waveData
+        waveData,
+        spawnData
     }
 }
 
