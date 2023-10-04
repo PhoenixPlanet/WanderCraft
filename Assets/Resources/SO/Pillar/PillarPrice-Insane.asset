@@ -38,11 +38,11 @@ MonoBehaviour:
     blue: 0
     money: 0
   - red: 5000
-    green: 500
+    green: 800
     blue: 100
     money: 0
   - red: 10000
-    green: 1000
+    green: 1600
     blue: 500
     money: 0
   - red: 15000
