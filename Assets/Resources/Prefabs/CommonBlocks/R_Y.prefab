@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 7155952445782319859}
   - component: {fileID: 7067469526356865097}
   - component: {fileID: 7033077052431895713}
+  - component: {fileID: 7047341412636250370}
   m_Layer: 0
   m_Name: R_Y
   m_TagString: Untagged
@@ -215,7 +216,7 @@ Animator:
   m_GameObject: {fileID: 7153126495687371537}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 851a31a3fd963e149ac9047fa259a742, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5e01045017c2a546b65dd52ef613f85, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -256,6 +257,18 @@ LODGroup:
     - renderer: {fileID: 7138894938414014225}
     - renderer: {fileID: 7139612016805854293}
   m_Enabled: 1
+--- !u!114 &7047341412636250370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153126495687371537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b766d8b3f6efd24c96e334b5bc5dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7153143558112034085
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2894060353666513185}
-  - component: {fileID: 2986583977550293915}
   - component: {fileID: 3097432059099191155}
   - component: {fileID: 8985172879255886078}
   - component: {fileID: 6270993020856403428}
   - component: {fileID: 5988663553304085654}
+  - component: {fileID: 6076988548887745584}
   m_Layer: 0
   m_Name: B_Y
   m_TagString: Untagged
@@ -38,27 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2986583977550293915
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892378574252503235}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 851a31a3fd963e149ac9047fa259a742, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!205 &3097432059099191155
 LODGroup:
   m_ObjectHideFlags: 0
@@ -130,6 +109,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6076988548887745584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892378574252503235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b766d8b3f6efd24c96e334b5bc5dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &408939220948944164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,6 +274,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5131534211330196826, guid: ccfe13c8bf3735548ae4137fd5485c83,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a5e01045017c2a546b65dd52ef613f85, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccfe13c8bf3735548ae4137fd5485c83, type: 3}
 --- !u!4 &7378167196073325714 stripped
