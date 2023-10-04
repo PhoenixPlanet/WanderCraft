@@ -55,7 +55,7 @@ namespace TH.Core
             {
                 Quaternion targetRotation;
                 isRotating = true; 
-                float targetRotationY = transform.eulerAngles.y + (horizontalInput > 0 ? 90 : -90);
+                float targetRotationY = transform.eulerAngles.y + (horizontalInput > 0 ? -90 : 90);
                 targetRotation = Quaternion.Euler(25, targetRotationY, 0);
                 print(rotationSpeed);
                 transform.DORotateQuaternion(targetRotation, rotationSpeed).SetEase(Ease.InCubic).OnComplete(() => isRotating = false);
