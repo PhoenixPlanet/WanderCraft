@@ -42,7 +42,8 @@ namespace TH.Core
         void HandleKeyboardInput()
         {
             float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            //float verticalInput = Input.GetAxis("Vertical");
+            float verticalInput = Input.GetAxis("Mouse ScrollWheel");
 
             RotateCameraByInput(horizontalInput);
             ZoomCamera(verticalInput);
@@ -64,9 +65,9 @@ namespace TH.Core
 
         void ZoomCamera(float verticalInput)
         {
-            currentZoomDistance -= verticalInput * zoomSpeed;
+            currentZoomDistance -= verticalInput * zoomSpeed * Time.deltaTime;
             currentZoomDistance = Mathf.Clamp(currentZoomDistance, minZoomDistance, maxZoomDistance);
-            cameraTransform.localPosition = new Vector3(0, 0, -currentZoomDistance);
+            cameraTransform.GetComponent<Camera>().orthographicSize = currentZoomDistance;
         }
 
         void LerpCameraYPosition()
@@ -86,12 +87,12 @@ namespace TH.Core
 
         private void changeYPos()
         {
-            if(Input.GetAxis("Mouse ScrollWheel") > 0)
+            if(Input.GetKey(KeyCode.W))
             {
-                transform.DOMoveY(transform.position.y + yMoveSpeed, 0.1f);
-            } else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+                cameraTransform.DOMoveY(cameraTransform.position.y + yMoveSpeed * Time.deltaTime, 0.1f);
+            } else if (Input.GetKey(KeyCode.S))
             {
-                transform.DOMoveY(transform.position.y - yMoveSpeed, 0.1f);
+                cameraTransform.DOMoveY(cameraTransform.position.y - yMoveSpeed * Time.deltaTime, 0.1f);
             }
         }
         /*

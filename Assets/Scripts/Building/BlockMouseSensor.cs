@@ -18,10 +18,10 @@ public class BlockMouseSensor : MonoBehaviour
 
     #region PublicVariables
 	public static readonly Dictionary<Direction, Vector3> COLLIDER_CENTER = new Dictionary<Direction, Vector3> {
-		{Direction.Up, new Vector3(0, .5f, .75f)},
-		{Direction.Down, new Vector3(0, .5f, -.75f)},
-		{Direction.Left, new Vector3(-.75f, .5f, 0)},
-		{Direction.Right, new Vector3(.75f, .5f, 0)},
+		{Direction.Up, new Vector3(0, 0, .75f)},
+		{Direction.Down, new Vector3(0, 0, -.75f)},
+		{Direction.Left, new Vector3(-.75f, 0, 0)},
+		{Direction.Right, new Vector3(.75f, 0, 0)},
 		{Direction.Above, new Vector3(0, .75f, 0)}
 	};
 	
