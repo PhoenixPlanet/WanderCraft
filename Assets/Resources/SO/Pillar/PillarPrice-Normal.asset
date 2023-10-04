@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37d96210a8c3e5d40ac18795fa5d239b, type: 3}
-  m_Name: PillarPrice
+  m_Name: PillarPrice-Normal
   m_EditorClassIdentifier: 
   _priceList:
   - red: 0
@@ -37,19 +37,23 @@ MonoBehaviour:
     green: 100
     blue: 0
     money: 0
-  - red: 5000
-    green: 500
+  - red: 4000
+    green: 400
     blue: 100
     money: 0
   - red: 10000
     green: 1000
+    blue: 250
+    money: 0
+  - red: 12500
+    green: 1750
     blue: 500
     money: 0
-  - red: 20000
-    green: 2000
+  - red: 15000
+    green: 2500
     blue: 1000
     money: 0
-  - red: 50000
-    green: 4000
-    blue: 2000
+  - red: 99999
+    green: 99999
+    blue: 99999
     money: 0

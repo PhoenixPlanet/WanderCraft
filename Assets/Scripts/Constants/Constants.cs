@@ -89,9 +89,9 @@ namespace TH.Core {
 
 			public static class SourceName {
 				public static readonly Dictionary<ESourceType, string> name = new Dictionary<ESourceType, string>() {
-					{ESourceType.Red, "Red"},
-					{ESourceType.Green, "Green"},
-					{ESourceType.Blue, "Blue"},
+					{ESourceType.Red, "R"},
+					{ESourceType.Green, "G"},
+					{ESourceType.Blue, "B"},
 				};
 			}
 

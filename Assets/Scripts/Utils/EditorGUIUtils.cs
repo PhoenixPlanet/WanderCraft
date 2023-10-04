@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
@@ -44,3 +45,4 @@ namespace TH.Core
         }
     }
 }
+#endif
