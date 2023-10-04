@@ -81,18 +81,34 @@ namespace TH.Core {
 		namespace GameSetting {
 			public static class SourceProduction {
 				public readonly static Dictionary<ESourceType, int> SOURCE_PRODUCTION = new Dictionary<ESourceType, int>() {
-					{ESourceType.Red, 1},
+					{ESourceType.Red, 4},
 					{ESourceType.Green, 2},
-					{ESourceType.Blue, 4},
+					{ESourceType.Blue, 1},
 				};
 			}
 
 			public static class SourceName {
 				public static readonly Dictionary<ESourceType, string> name = new Dictionary<ESourceType, string>() {
-					{ESourceType.Red, "고기"},
-					{ESourceType.Green, "생선"},
-					{ESourceType.Blue, "야채"},
+					{ESourceType.Red, "Red"},
+					{ESourceType.Green, "Green"},
+					{ESourceType.Blue, "Blue"},
 				};
+			}
+
+			public static class WaveInfo {
+				public static string WaveHeightInString(float height) {
+					if (height == 0) {
+						return "기본 파도";
+					}
+					else if (height <= 3 && height > 0) {
+						return "낮은 파도";
+					}
+					else if (height <= 6 && height > 3) {
+						return "중간 파도";
+					} else {
+						return "높은 파도";
+					}
+				}
 			}
 		}
 	}

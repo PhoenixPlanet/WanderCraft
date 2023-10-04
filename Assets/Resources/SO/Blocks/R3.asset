@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
-  m_Name: MeatFactory
+  m_Name: R3
   m_EditorClassIdentifier: 
-  blockName: "\uBE68\uAC15\uC6D0\uC11D"
+  blockName: "\uBE68\uAC15\uBE14\uB85D"
   description: 
-  BuildingType: 0
+  BuildingType: 2
   SourceType: 0
-  FloatingPrefab: {fileID: 8050162264790350146, guid: cd6f5622d33b1544e873afd7c3b225e8,
+  FloatingPrefab: {fileID: 92713516089344948, guid: 5810275a9fc288f40b2b6e23dce1be44,
     type: 3}
-  RealPrefab: {fileID: 8050162264790350146, guid: a0eccae7373055048911c3c26e36e0c1,
+  RealPrefab: {fileID: 92713516089344948, guid: 59973d1cdb654f54ba192e3a38d41475,
     type: 3}
-  uiSprite: {fileID: 21300000, guid: 225a0bd268af628468d61e34b6c9de58, type: 3}
+  uiSprite: {fileID: 21300000, guid: dace493309f242a46b0a1a0314286a4e, type: 3}
   blockPrice:
     red: 0
     blue: 0

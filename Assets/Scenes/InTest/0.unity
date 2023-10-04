@@ -3100,6 +3100,7 @@ MonoBehaviour:
     type: 3}
   waterController: {fileID: 1931991796}
   _currentTimeUI: {fileID: 1165173294}
+  maxInstantiatablePanel: 7
 --- !u!1 &591332248
 GameObject:
   m_ObjectHideFlags: 0
@@ -10510,7 +10511,7 @@ MonoBehaviour:
   _centerBlockHeight: 0.6
   _cellSize: {x: 1, y: 1, z: 0.6}
   _gridSize: {x: 15, y: 15}
-  _priceDataSO: {fileID: 11400000, guid: 8c7b27d6b12bc9844a59fcc836fcc16e, type: 2}
+  _priceDataSO: {fileID: 11400000, guid: aa834b3168dce4649808c1c393bdae2a, type: 2}
 --- !u!4 &1931991794
 Transform:
   m_ObjectHideFlags: 0
@@ -10556,17 +10557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 0.1
-  _currentWaveStatus: 0
   forecastPanel: {fileID: 573075555}
-  _IdleWaveHeight: 1
-  _IdleWaveTime: 15
-  _LowWaveHeight: 3
-  _LowWaveTime: 15
-  _MiddleWaveHeight: 5
-  _MiddleWaveTime: 15
-  _HighWaveHeight: 10
-  _HighWaveTime: 15
-  _timer: 0
+  waveDataSO: {fileID: 11400000, guid: 66875c637a215ee458f4e01738d9dd1e, type: 2}
 --- !u!1 &1938080719
 GameObject:
   m_ObjectHideFlags: 0
