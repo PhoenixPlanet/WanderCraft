@@ -23,7 +23,7 @@ public class ForecastPanel : MonoBehaviour
 
     public void Update()
     {
-        _currentTimeUI.text = waterController.getStatusName(waterController._currentWaveStatus) + "\n" + waterController._timer + "√ ";
+        _currentTimeUI.text = waterController.getStatusName(waterController._currentWaveStatus) + "\n" + waterController._timer + "Ï¥à";
     }
 
     public void InstantiateForecastUI(Queue<WaveStatus> _waveStatusForecast)
@@ -34,7 +34,7 @@ public class ForecastPanel : MonoBehaviour
             {
                 GameObject forecastPanel = Instantiate(forecastPanelPrefab, scrollViewContent);
                 TextMeshProUGUI textMeshPro = forecastPanel.GetComponentInChildren<TextMeshProUGUI>();
-                string target = waterController.getStatusName(waveStatus) +"\n≥Ù¿Ã : " + waterController.getStatusHeight(waveStatus) + "√˛";
+                string target = waterController.getStatusName(waveStatus) +"\nÎÜíÏù¥ : " + waterController.getStatusHeight(waveStatus) + "Ï∏µ";
                 textMeshPro.text = target;
             }
         }

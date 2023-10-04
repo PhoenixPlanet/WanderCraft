@@ -71,10 +71,10 @@ public class WaterController : MonoBehaviour
     {
         switch (waveStatus)
         {
-            case WaveStatus.Idle: return "ÆÄµµ ¾øÀ½";
-            case WaveStatus.Low: return "ÀÜÀÜÇÑ ÆÄµµ";
-            case WaveStatus.Middle: return "°­ÇÑ ÆÄµµ";
-            case WaveStatus.High: return "¾²³ª¹Ì";
+            case WaveStatus.Idle: return "ê¸°ë³¸ íŒŒë„";
+            case WaveStatus.Low: return "ë‚®ì€ íŒŒë„";
+            case WaveStatus.Middle: return "ì¤‘ê°„ íŒŒë„";
+            case WaveStatus.High: return "ë†’ì€ íŒŒë„";
             default: return "";
         }
     }
