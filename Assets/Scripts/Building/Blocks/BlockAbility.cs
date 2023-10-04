@@ -67,6 +67,7 @@ public class BlockAbility : MonoBehaviour
         _lastActivated = _isActivated;
         if (water.transform.position.y > transform.position.y) {
             _isActivated = false;
+            Debug.Log("water sink");
             if (_lastActivated != _isActivated) {
                 GridManager.Instance.CalculateAgain();
             }
