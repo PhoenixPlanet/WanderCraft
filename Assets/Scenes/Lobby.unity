@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 78433235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &78433235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +476,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 293775548}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: GoGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &293775548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,7 +610,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 333094901}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: GoGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &333094901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,7 +1518,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1072705084}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: GoGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1072705084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,7 +1788,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1162676001}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: GoGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1162676001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,8 +1850,9 @@ GameObject:
   - component: {fileID: 1552814095}
   - component: {fileID: 1552814097}
   - component: {fileID: 1552814096}
+  - component: {fileID: 1552814098}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: LobbyMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1863,6 +1924,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 1
+--- !u!114 &1552814098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552814094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5877e5977e7a05549a1a1331ccf4abbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1644251032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2371,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1984472748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552814098}
+        m_TargetAssemblyTypeName: TH.Core.LobbyMenu, Assembly-CSharp
+        m_MethodName: GoGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1984472748
 MonoBehaviour:
   m_ObjectHideFlags: 0

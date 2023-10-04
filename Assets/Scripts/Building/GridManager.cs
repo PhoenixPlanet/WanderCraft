@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TH.Core {
 
@@ -145,12 +146,16 @@ public class GridManager : Singleton<GridManager>
 	private ComponentGetter<BlockShopList> _blockShopList
 		= new ComponentGetter<BlockShopList>(TypeOfGetter.Global);
 
+	private ComponentGetter<Image> _selectedBlockShowImage
+		= new ComponentGetter<Image>(TypeOfGetter.GlobalByName, "Canvas/MainUI/SelectedBlockShow/Image");
+
 	[SerializeField] private List<BlockDataSO> _blockDataList;
 
 	[SerializeField] private float _centerBlockHeight;
 	[SerializeField] private Vector3 _cellSize;
 	[SerializeField] private Vector2Int _gridSize;
 
+	[SerializeField] private List<PriceDataSO> _priceDataList;
 	[SerializeField] private PriceDataSO _priceDataSO;
 
 	private Transform _centerBlockParent;
@@ -240,7 +245,7 @@ public class GridManager : Singleton<GridManager>
 			CheckLink();
 
 			_onBlockInstalled?.Invoke();
-			_selectedBlockData = null;
+			//_selectedBlockData = null;
 
 			SelectLevel();
 
@@ -282,7 +287,7 @@ public class GridManager : Singleton<GridManager>
 		_selectedBlockData = blockData;
 		_selectedBlockPrice = blockData.blockPrice;
 		_onBlockInstalled = () => {
-			_selectedBlockData = null;
+			//_selectedBlockData = null;
 		};
 		SelectLevel();
 	}
@@ -369,7 +374,7 @@ public class GridManager : Singleton<GridManager>
 			SelectPrevLevel();
 		}
 
-		if (Input.GetMouseButtonDown(2)) {
+		if (Input.GetMouseButtonDown(1)) {
 			CancelFloatingBlockSelect();
 		}
 
@@ -383,10 +388,35 @@ public class GridManager : Singleton<GridManager>
 		if ((_currentCenterLevel-1)/* * 0.6*/ < _waterObj.Get().transform.position.y) {
 			_endGameUI.Get().SetActive(true);
 		}
+
+		if (_selectedBlockData != null) {
+			_selectedBlockShowImage.Get().sprite = _selectedBlockData.uiSprite;
+			_selectedBlockShowImage.Get().color = Color.white;
+
+			if (_currentProperty < _selectedBlockPrice) {
+				Color targetColor = _selectedBlockShowImage.Get().color;
+				targetColor.a = 0.5f;
+				_selectedBlockShowImage.Get().color = targetColor;
+
+				_selectedBlockShowImage.Get().transform.Find("Warn").gameObject.SetActive(true);
+			} else {
+				Color targetColor = _selectedBlockShowImage.Get().color;
+				targetColor.a = 1f;
+				_selectedBlockShowImage.Get().color = targetColor;
+
+				_selectedBlockShowImage.Get().transform.Find("Warn").gameObject.SetActive(false);
+			}
+		} else {
+			_selectedBlockShowImage.Get().sprite = null;
+			_selectedBlockShowImage.Get().color = Color.clear;
+			_selectedBlockShowImage.Get().transform.Find("Warn").gameObject.SetActive(false);
+		}
 	}
 
 	protected override void Init() {
 		HideGridSelector();
+
+		_priceDataSO = _priceDataList[PlayerPrefs.GetInt("Level")];
 
 		GameObject centerBlockParentObj = new GameObject(Constants.Helper.Organizer.CENTER_BLOCK_PARENT_NAME);
 		_centerBlockParent = centerBlockParentObj.transform;
@@ -401,7 +431,7 @@ public class GridManager : Singleton<GridManager>
 
 		BuildNewCenterBlock();
 
-		_buildingState = BuildingState.Normal;
+		_buildingState = BuildingState.Building;
 		ApplyState();
 
 		_floatingSpawner.Get(gameObject).Init();
@@ -490,9 +520,8 @@ public class GridManager : Singleton<GridManager>
 			_onBlockInstalled = null;
 		}
 
-		if (_buildingState == BuildingState.Building) {
-			SelectLevel();
-		}
+		SelectLevel();
+		_gridSelector.Get().gameObject.SetActive(false);
 	}
 
 	private void CheckCanOpenLevel() {

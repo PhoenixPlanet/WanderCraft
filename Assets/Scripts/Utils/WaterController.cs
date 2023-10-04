@@ -7,6 +7,7 @@ using TMPro;
 using System.Threading;
 using UnityEditor;
 using UnityEngine.UI;
+using TH.Core;
 
 public class WaterController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class WaterController : MonoBehaviour
     public float _Speed = 0.1f;
     public ForecastPanel forecastPanel;
     public WaveDataSO waveDataSO;
+    public WaveDataSO zeroWaveDataSO;
     public List<Image> indicators;
 
     public WaveData CurrentWaveData
@@ -40,6 +42,11 @@ public class WaterController : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.GetInt("Level") == 0)
+        {
+            waveDataSO = zeroWaveDataSO;
+        }
+        
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
         forecastPanel.InstantiateForecastUI(waveDataSO._waveList, cycleIdx);
         StartCoroutine(IE_totalCycle());
@@ -60,7 +67,9 @@ public class WaterController : MonoBehaviour
 
     private IEnumerator WaveCoroutine(float height, float time) {
         moveSeaLevel(height);
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(5);
+        GridManager.Instance.CalculateAgain();
+        yield return new WaitForSeconds(time - 5);
         _isExecutingCycle = false;
     }
 
