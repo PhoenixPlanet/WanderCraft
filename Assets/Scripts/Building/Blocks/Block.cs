@@ -29,6 +29,8 @@ public class Block : MonoBehaviour
 		= new ComponentGetter<BlockAbility>(TypeOfGetter.This);
 	private ObjectGetter _pillar
 		= new ObjectGetter(TypeOfGetter.ChildByName, "Pillar");
+		private ComponentGetter<blockAnimation> _animation
+			= new ComponentGetter<blockAnimation>(TypeOfGetter.This);
 	private ObjectGetter _iconObj
 		= new ObjectGetter(TypeOfGetter.ChildByName, "Icon");
 
@@ -150,6 +152,7 @@ public class Block : MonoBehaviour
 		if (aboveBlock != null) {
 			if (aboveBlock.Data.BuildingType == targetBuildingType && aboveBlock.Data.SourceType == sourceType) {
 				//_pillar.Get(gameObject).SetActive(true);
+
 				return aboveBlock.Cluster;
 			}
 		}
@@ -158,7 +161,11 @@ public class Block : MonoBehaviour
 	}
 
 	public void TurnOffPillar() {
-		//_pillar.Get(gameObject).SetActive(false);
+			//_pillar.Get(gameObject).SetActive(false);
+			if (_animation.Get(gameObject) != null)
+			{
+				_animation.Get(gameObject).GetComponent<blockAnimation>();
+			}
 	}
 	#endregion
     

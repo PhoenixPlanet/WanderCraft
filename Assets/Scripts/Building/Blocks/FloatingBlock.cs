@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ namespace TH.Core
     {
         #region PublicVariables
         public BlockDataSO Data => _blockData;
+        
         #endregion
 
+        public PropertyData myType;
         #region PrivateVariables
         [SerializeField] private BlockDataSO _blockData;
         private Action<FloatingBlock> _onFloatingBlockClicked;
@@ -31,13 +34,17 @@ namespace TH.Core
 
         public ObjectGetter _bigUI = new ObjectGetter(TypeOfGetter.ChildByName, "Canvas/Big");
         public ObjectGetter _smallUI = new ObjectGetter(TypeOfGetter.ChildByName, "Canvas/Small");
+        [SerializeField] int red;
+        [SerializeField] int green;
+        [SerializeField] int blue;
+        [SerializeField] GameObject indicatorUI;
         #endregion
 
         #region PublicMethod
-        public void Init(BlockDataSO blockData, Action<FloatingBlock> onFloatingBlockClicked)
+        public void Init(BlockDataSO blockData)
         {
             _blockData = blockData;
-            _onFloatingBlockClicked = onFloatingBlockClicked;
+            _onFloatingBlockClicked = OnFloatingBlockClicked;
             _yPos = GridManager.Instance.CurrentCenterLevel - 2f;
             _hasInit = true;
         
@@ -46,41 +53,31 @@ namespace TH.Core
         #endregion
 
         #region PrivateMethod
+        private void OnFloatingBlockClicked(FloatingBlock floatingBlock)
+        {
+            if (GridManager.Instance.State == GridManager.BuildingState.Building)
+            {
+                GridManager.Instance.SelectFloatingBlock(floatingBlock);
+            }
+        }
 
 
         private void OnMouseOver()
         {
             _smallUI.Get(gameObject).SetActive(false);
             _bigUI.Get(gameObject).SetActive(true);
-            if (_hasInit == false)
-            {
-                return;
-            }
 
-			if (GridManager.Instance.State == GridManager.BuildingState.Normal) {
-				if (Input.GetMouseButtonDown(0)) {
-					GridManager.Instance.ChangeState(GridManager.BuildingState.Building);
-					_onFloatingBlockClicked?.Invoke(this);
-				}
-			}
 
-            if (GridManager.Instance.State == GridManager.BuildingState.Building && _isDestroying == false)
-            {
-                if (Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButtonDown(0))
                 {
-                    _onFloatingBlockClicked?.Invoke(this);
+                    GameObject tempUI = Instantiate(indicatorUI, transform.position, Quaternion.Euler(0,0,0));
+                    tempUI.GetComponentInChildren<TextMeshProUGUI>().text = red + blue + green.ToString();
+                    GridManager.Instance.AddProperty(new PropertyData(red, blue, green, 0));
+                    Destroy(gameObject);
+
                 }
-                else if (Input.GetMouseButtonDown(1)) // Right mouse button is button 1
-                {
-                    _rb.mass = 100;
-                    StartCoroutine(nameof(destroyObject));
-                }
-                else if (Input.GetMouseButtonDown(2)) // Middle mouse button is button 2
-                {
-                    _isMoving = false;
-                    StartFlying();
-                }
-            }
+			
+
         }
 
         private void OnMouseExit()
@@ -93,22 +90,27 @@ namespace TH.Core
         {
             _randomSpeed = UnityEngine.Random.Range(5f, 12f);
         }
+        /*
         private void moveDirection()
         {
             _rb.AddForce(myDirection * _randomSpeed);
         }
+        */
         private void FixedUpdate()
         {
+            
             if (transform.position.y < _destroyYpos)
             {
                 Destroy(gameObject);
             }
+            /*
            if (!_isFlying)
             {
                 moveDirection();
             } else {
 				_rb.velocity = Vector3.zero;
 			}
+            */
         }
         private void StartFlying()
         {
