@@ -27,6 +27,9 @@
 .vs/
 .vscode/
 
+# Rider
+/.idea/
+
 # Gradle cache directory
 .gradle/
 
@@ -72,5 +75,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-#Rider
-/.idea/
+# Sirenix - Odin Inspector
+/[Aa]ssets/[Pp]lugins/[Ss]irenix/[Oo]din Inspector/[Cc]onfig/[Ee]ditor/
+
+# vHierarchy
+/[Aa]ssets/[Pp]lugins/[Vv]Hierarchy/

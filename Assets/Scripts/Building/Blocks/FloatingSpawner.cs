@@ -11,10 +11,9 @@ namespace TH.Core
         #endregion
 
         #region PrivateVariables
-        [SerializeField] private List<BlockData> _blockDataList;
         [SerializeField] private float _spawnInterval;
 
-        private Dictionary<ESourceType, List<BlockData>> _blockDataDict;
+        private Dictionary<ESourceType, List<BlockDataSO>> _blockDataDict;
         private Transform _floatingBlockParentTransform;
         private bool _hasInit = false;
 
@@ -37,12 +36,12 @@ namespace TH.Core
                 return;
             }
 
-            _blockDataDict = new Dictionary<ESourceType, List<BlockData>>();
-            foreach (BlockData blockData in _blockDataList)
+            _blockDataDict = new Dictionary<ESourceType, List<BlockDataSO>>();
+            foreach (BlockDataSO blockData in GridManager.Instance.BlockDataList)
             {
                 if (_blockDataDict.ContainsKey(blockData.SourceType) == false)
                 {
-                    _blockDataDict.Add(blockData.SourceType, new List<BlockData>());
+                    _blockDataDict.Add(blockData.SourceType, new List<BlockDataSO>());
                 }
                 _blockDataDict[blockData.SourceType].Add(blockData);
             }
@@ -72,7 +71,7 @@ namespace TH.Core
                 yield return new WaitForSeconds(_spawnInterval);
                 Vector3 spawnPos;
                 Vector3 spawnDir;
-                BlockData blockData = _blockDataDict[getSpawnTarget()][i];
+                BlockDataSO blockData = _blockDataDict[getSpawnTarget()][i];
                 if(Random.Range(0f, 1f) < _upperSpawnProbability)
                 {
                     spawnPos = _upperTransform.position;

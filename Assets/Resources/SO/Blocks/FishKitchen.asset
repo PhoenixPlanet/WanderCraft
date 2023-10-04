@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
   m_Name: FishKitchen
   m_EditorClassIdentifier: 
+  blockName: "\uD30C\uB791\uCC44\uAD74"
+  description: 
   BuildingType: 1
-  SourceType: 0
+  SourceType: 2
   FloatingPrefab: {fileID: 2892378574252503235, guid: 6241daac8d566a34da0ae125593a41a9,
     type: 3}
   RealPrefab: {fileID: 2892378574252503235, guid: 1451ccde975af884ea51696c26c4078c,
     type: 3}
+  uiSprite: {fileID: 21300000, guid: 6730dd5159bc7d34c834577e901ad86a, type: 3}
   blockPrice:
-    red: 0
+    red: 10
+    green: 20
     blue: 0
-    green: 0
     money: 0
