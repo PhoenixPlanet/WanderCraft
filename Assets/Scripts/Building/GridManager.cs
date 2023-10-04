@@ -369,8 +369,9 @@ public class GridManager : Singleton<GridManager>
 			_resourceIncreaseTimer = 0f;
 			_currentProperty += CalculateProduction();
 		}
-
-		if ((_currentOpenedBuildingLevel-1) * 0.6 < _waterObj.Get().transform.position.y) {
+		
+		// Check Game Over
+		if ((_currentOpenedBuildingLevel-1)/* * 0.6*/ < _waterObj.Get().transform.position.y) {
 			_endGameUI.Get().SetActive(true);
 		}
 	}
