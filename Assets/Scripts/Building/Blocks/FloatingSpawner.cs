@@ -23,9 +23,9 @@ namespace TH.Core
         [SerializeField] private float maxSpawnOffset;
         [SerializeField] float _upperSpawnProbability;
 
-        [SerializeField] float _meatProbability = 0.6f;
-        [SerializeField] float _fishProbability = 0.3f;
-        [SerializeField] float _veggieProbability = 0.1f;
+        [SerializeField] float _RProbability = 0.6f;
+        [SerializeField] float _GProbability = 0.3f;
+        [SerializeField] float _BProbability = 0.1f;
         #endregion
 
         #region PublicMethod
@@ -49,9 +49,15 @@ namespace TH.Core
             GameObject floatingBlockParentObj = new GameObject(Constants.Helper.Organizer.FLOATING_BLOCK_PARENT_NAME);
             _floatingBlockParentTransform = floatingBlockParentObj.transform;
 
-            StartCoroutine(SpawnFloatingBlock());
             _hasInit = true;
         }
+
+
+        public void spawnBlocks(int minSize, int maxSize, float Rprob, float Gprob, float Bprob)
+        {
+            StartCoroutine(SpawnFloatingBlock(minSize, maxSize, Rprob, Gprob, Bprob));
+        }
+
         #endregion
 
         #region PrivateMethod
@@ -63,15 +69,15 @@ namespace TH.Core
             }
         }
 
-        private IEnumerator SpawnFloatingBlock()
+        private IEnumerator SpawnFloatingBlock(int minSize, int maxSize, float Rprob, float Gprob, float Bprob)
         {
-            int i = 0;
-            while (true)
+            int n  = Random.Range(minSize, maxSize);
+            for (int i = 0; i < n; i++)
             {
                 yield return new WaitForSeconds(_spawnInterval);
                 Vector3 spawnPos;
                 Vector3 spawnDir;
-                BlockDataSO blockData = _blockDataDict[getSpawnTarget()][i];
+                BlockDataSO blockData = _blockDataDict[getSpawnTarget(Rprob, Gprob, Bprob)][i];
                 if(Random.Range(0f, 1f) < _upperSpawnProbability)
                 {
                     spawnPos = _upperTransform.position;
@@ -92,16 +98,16 @@ namespace TH.Core
             }
         }
 
-        ESourceType getSpawnTarget ()
+        ESourceType getSpawnTarget (float rProb, float gProb, float bProb)
         {
             float RandomValue = Random.Range(0f, 1f);
-            if(RandomValue < _veggieProbability)
+            if(RandomValue < _BProbability)
             {
                 return ESourceType.Blue;
-            } else if (RandomValue >= _veggieProbability && RandomValue < _fishProbability )  {
+            } else if (RandomValue >= _GProbability && RandomValue < _BProbability )  {
                 return ESourceType.Green;
 
-            } else if (RandomValue >= _meatProbability)
+            } else if (RandomValue >= _RProbability)
             {
                 return ESourceType.Red;
             } else
