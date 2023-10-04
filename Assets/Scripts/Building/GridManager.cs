@@ -158,6 +158,8 @@ public class GridManager : Singleton<GridManager>
 	[SerializeField] private List<PriceDataSO> _priceDataList;
 	[SerializeField] private PriceDataSO _priceDataSO;
 
+	[SerializeField] private GameObject _endingObj;
+
 	private Transform _centerBlockParent;
 
 	private List<BuildingLevel> _buildingLevels;
@@ -197,6 +199,10 @@ public class GridManager : Singleton<GridManager>
 		_centerBlocks.Add(centerBlock);
 
 		//CheckCanOpenLevel();
+
+		if (_currentCenterLevel >= 10) {
+			_endingObj.SetActive(true);
+		}
 	}
 
 	public void ShowGridSelector(int level, Vector2Int _gridPos) {

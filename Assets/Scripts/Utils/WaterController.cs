@@ -42,11 +42,11 @@ public class WaterController : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("Level") == 0)
+        if (PlayerPrefs.GetInt("Level") == 4)
         {
             waveDataSO = zeroWaveDataSO;
         }
-        
+
         _waterGroup = GameObject.FindGameObjectWithTag("Water");
         forecastPanel.InstantiateForecastUI(waveDataSO._waveList, cycleIdx);
         StartCoroutine(IE_totalCycle());
