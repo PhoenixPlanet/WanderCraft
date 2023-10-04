@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: PillarPrice
   m_EditorClassIdentifier: 
   _priceList:
+  - red: 0
+    green: 0
+    blue: 0
+    money: 0
+  - red: 0
+    green: 0
+    blue: 0
+    money: 0
+  - red: 0
+    green: 0
+    blue: 0
+    money: 0
+  - red: 0
+    green: 0
+    blue: 0
+    money: 0
   - red: 100
     green: 0
     blue: 0
@@ -28,4 +44,12 @@ MonoBehaviour:
   - red: 10000
     green: 1000
     blue: 500
+    money: 0
+  - red: 20000
+    green: 2000
+    blue: 1000
+    money: 0
+  - red: 50000
+    green: 4000
+    blue: 2000
     money: 0

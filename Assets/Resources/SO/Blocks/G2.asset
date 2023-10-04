@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 941db4564c0079e4f9b5c4cdec8ecd7c, type: 3}
-  m_Name: PlantDining
+  m_Name: G2
   m_EditorClassIdentifier: 
-  blockName: "\uCD08\uB85D\uBE14\uB85D"
+  blockName: "\uCD08\uB85D\uCC44\uAD74"
   description: 
-  BuildingType: 2
+  BuildingType: 1
   SourceType: 1
-  FloatingPrefab: {fileID: 3294041736429594471, guid: cd8d755054ad65240ba6de770acd5831,
+  FloatingPrefab: {fileID: 6907955255870212705, guid: 3dabd9883398a6740b637f5aa1bf43f9,
     type: 3}
-  RealPrefab: {fileID: 3294041736429594471, guid: 3b18e2cb76eda334f9e4282aa6698692,
+  RealPrefab: {fileID: 6907955255870212705, guid: 4df88bbb4aea15d49a96e72b747266a0,
     type: 3}
-  uiSprite: {fileID: 21300000, guid: 965a3258d33982e41a60fa96344c5ffc, type: 3}
+  uiSprite: {fileID: 21300000, guid: 08fbbefdb0e7a1a47bc06a88b7684fc2, type: 3}
   blockPrice:
-    red: 0
+    red: 100
     green: 0
     blue: 0
     money: 0

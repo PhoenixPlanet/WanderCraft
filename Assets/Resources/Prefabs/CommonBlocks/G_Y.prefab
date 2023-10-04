@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 2367933931897284076}
   - component: {fileID: 2415945484851197782}
   - component: {fileID: 2452519889362095038}
+  - component: {fileID: 1851908560454536381}
   m_Layer: 0
   m_Name: G_Y
   m_TagString: Untagged
@@ -297,7 +298,7 @@ Animator:
   m_GameObject: {fileID: 2366247080143678478}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 851a31a3fd963e149ac9047fa259a742, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5e01045017c2a546b65dd52ef613f85, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -338,6 +339,18 @@ LODGroup:
     - renderer: {fileID: 2342409020392200206}
     - renderer: {fileID: 2343952931997825866}
   m_Enabled: 1
+--- !u!114 &1851908560454536381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366247080143678478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b766d8b3f6efd24c96e334b5bc5dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2366353322411161836
 GameObject:
   m_ObjectHideFlags: 0

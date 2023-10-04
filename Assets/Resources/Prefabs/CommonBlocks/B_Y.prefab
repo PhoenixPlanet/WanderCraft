@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 5074820031558096864}
   - component: {fileID: 5131534211330196826}
   - component: {fileID: 4951971035086354866}
+  - component: {fileID: 256673224858157531}
   m_Layer: 0
   m_Name: B_Y
   m_TagString: Untagged
@@ -505,6 +506,18 @@ LODGroup:
     - renderer: {fileID: 5057575525623507458}
     - renderer: {fileID: 5059392270251149638}
   m_Enabled: 1
+--- !u!114 &256673224858157531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073146228185669122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b766d8b3f6efd24c96e334b5bc5dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5073163217335470134
 GameObject:
   m_ObjectHideFlags: 0
