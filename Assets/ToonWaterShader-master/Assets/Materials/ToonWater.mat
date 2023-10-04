@@ -90,7 +90,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SurfaceDistortionAmount: 1
-    - _SurfaceNoiseCutoff: 0.48
+    - _SurfaceNoiseCutoff: 0.45
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -98,7 +98,7 @@ Material:
     - _DepthGradientDeep: {r: 0.010679938, g: 0.44042543, b: 0.87058824, a: 0.6039216}
     - _DepthGradientShallow: {r: 0.5898006, g: 0.8111944, b: 0.8867924, a: 0.4745098}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 0.68293875, g: 0.8488325, b: 0.9716981, a: 1}
+    - _FoamColor: {r: 0.68293875, g: 0.8488325, b: 0.9716981, a: 0.13333334}
     - _ShorelineColor: {r: 1, g: 1, b: 1, a: 1}
     - _SurfaceNoiseScroll: {r: 0.03, g: 0.03, b: 0, a: 0}
   m_BuildTextureStacks: []
