@@ -615,7 +615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0009782182}
+  m_AnchoredPosition: {x: 0, y: 0.0006424562}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &137128347
@@ -2384,6 +2384,7 @@ MonoBehaviour:
     type: 3}
   waterController: {fileID: 1931991796}
   _currentTimeUI: {fileID: 1165173294}
+  maxInstantiatablePanel: 7
 --- !u!1 &591332248
 GameObject:
   m_ObjectHideFlags: 0
@@ -6386,7 +6387,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 867473653}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999774
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8802,17 +8803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 0.1
-  _currentWaveStatus: 0
   forecastPanel: {fileID: 573075555}
-  _IdleWaveHeight: 1
-  _IdleWaveTime: 15
-  _LowWaveHeight: 3
-  _LowWaveTime: 15
-  _MiddleWaveHeight: 5
-  _MiddleWaveTime: 15
-  _HighWaveHeight: 10
-  _HighWaveTime: 15
-  _timer: 0
+  waveDataSO: {fileID: 11400000, guid: 66875c637a215ee458f4e01738d9dd1e, type: 2}
 --- !u!1 &1938080719
 GameObject:
   m_ObjectHideFlags: 0

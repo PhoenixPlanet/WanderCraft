@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static WaterController;
+using TH.Core;
 
 public class ForecastPanel : MonoBehaviour
 {
@@ -13,40 +14,49 @@ public class ForecastPanel : MonoBehaviour
     public GameObject forecastPanelPrefab;
     public WaterController waterController;
     public TextMeshProUGUI _currentTimeUI;
+    public int maxInstantiatablePanel = 7;
 
     #endregion
 
     #region PrivateVariables
+    private float _timer = 0f;
     #endregion
 
     #region PublicMethod
 
     public void Update()
-    {
-        _currentTimeUI.text = waterController.getStatusName(waterController._currentWaveStatus) + "\n" + waterController._timer + "초";
+    {   
+        _timer += Time.deltaTime;
+        _currentTimeUI.text 
+            = TH.Core.Constants.GameSetting.WaveInfo.WaveHeightInString(waterController.CurrentWaveData.waveLevel) 
+            + "\n" 
+            + (int)_timer + "/" + (int)waterController.CurrentWaveData.waveTime + "초";
     }
 
-    public void InstantiateForecastUI(Queue<WaveStatus> _waveStatusForecast)
+    public void InstantiateForecastUI(List<WaveData> waveDatas, int currentIdx)
     {
-        if (_waveStatusForecast != null)
+        if (waveDatas != null)
         {
-            foreach (var waveStatus in _waveStatusForecast)
-            {
+            for (int i = currentIdx + 1; i < currentIdx + 1 + maxInstantiatablePanel; i++) {
                 GameObject forecastPanel = Instantiate(forecastPanelPrefab, scrollViewContent);
                 TextMeshProUGUI textMeshPro = forecastPanel.GetComponentInChildren<TextMeshProUGUI>();
-                string target = waterController.getStatusName(waveStatus) +"\n높이 : " + waterController.getStatusHeight(waveStatus) + "층";
+                float waveLevel = waveDatas[i % waveDatas.Count].waveLevel;
+                string target 
+                    = TH.Core.Constants.GameSetting.WaveInfo.WaveHeightInString(waveLevel) 
+                    + "\n높이 : " + (int)waveLevel + "층";
                 textMeshPro.text = target;
             }
         }
+        _timer = 0f;
     }
 
-    public void UpdateForecastUI(Queue<WaveStatus> _waveStatusForecast)
+    public void UpdateForecastUI(List<WaveData> waveDatas, int currentIdx)
     {
         foreach (Transform child in scrollViewContent)
         {
             Destroy(child.gameObject);
         }
-        InstantiateForecastUI(_waveStatusForecast);
+        InstantiateForecastUI(waveDatas, currentIdx);
     }
     #endregion
 

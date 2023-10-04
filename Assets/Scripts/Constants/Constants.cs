@@ -94,6 +94,22 @@ namespace TH.Core {
 					{ESourceType.Blue, "Blue"},
 				};
 			}
+
+			public static class WaveInfo {
+				public static string WaveHeightInString(float height) {
+					if (height == 0) {
+						return "기본 파도";
+					}
+					else if (height <= 3 && height > 0) {
+						return "낮은 파도";
+					}
+					else if (height <= 6 && height > 3) {
+						return "중간 파도";
+					} else {
+						return "높은 파도";
+					}
+				}
+			}
 		}
 	}
 
