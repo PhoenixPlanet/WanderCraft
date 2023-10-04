@@ -323,6 +323,10 @@ public class GridManager : Singleton<GridManager>
 		BuildNewCenterBlock();
 	}
 
+	public PropertyData GetCenterBlockPrice() {
+		return _priceDataSO._priceList[_currentCenterLevel];
+	}
+
 	public void ActivateLinkBlocks(List<HashSet<BlockCluster>> blockClusters) {
 		DeactivateAllBlocks();
 

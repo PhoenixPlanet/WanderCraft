@@ -26,21 +26,21 @@ public class PriceShowPanel : MonoBehaviour
 		_bluePrice.Get(gameObject).text = price.GetPropertyValue(ESourceType.Blue).ToString();
 
 		if (price.GetPropertyValue(ESourceType.Red) > 
-			GridManager.Instance.CurrentProperty.GetPropertyValue(ESourceType.Red)) {
+			GridManager.Instance.CurrentProperty.red) {
 			_redPrice.Get(gameObject).color = Color.red;
 		} else {
 			_redPrice.Get(gameObject).color = Color.black;
 		}
 
 		if (price.GetPropertyValue(ESourceType.Green) > 
-			GridManager.Instance.CurrentProperty.GetPropertyValue(ESourceType.Green)) {
+			GridManager.Instance.CurrentProperty.green) {
 			_greenPrice.Get(gameObject).color = Color.red;
 		} else {
 			_greenPrice.Get(gameObject).color = Color.black;
 		}
 
 		if (price.GetPropertyValue(ESourceType.Blue) > 
-			GridManager.Instance.CurrentProperty.GetPropertyValue(ESourceType.Blue)) {
+			GridManager.Instance.CurrentProperty.blue) {
 			_bluePrice.Get(gameObject).color = Color.red;
 		} else {
 			_bluePrice.Get(gameObject).color = Color.black;
