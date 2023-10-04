@@ -88,7 +88,7 @@ public class Block : MonoBehaviour
 		//_meshRenderer.Get(gameObject).material = _transparent;
 		MeshRenderer[] meshRenderers = transform.Find("Renderer").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
-			//meshRenderer.material = _transparent;
+			meshRenderer.material = _normal;
 			Color color = meshRenderer.material.GetColor("_Color");
 			color.a = 0.2f;
 			meshRenderer.material.SetColor("_Color", color);

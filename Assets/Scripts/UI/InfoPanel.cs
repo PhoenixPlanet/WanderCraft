@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ public class InfoPanel : MonoBehaviour
 			infoSelectButton.Init(
 				Constants.GameSetting.SourceName.name[i.scoreData.sourceType], 
 				i.scoreData.thread, 
-				(int) i.scoreData.GetLevelScores().Average(), 
+				(float) Math.Round(i.scoreData.GetLevelScores().Average(), 1), 
 				i.scoreData.totalScore,
 				i.scoreData.sourceType,
 				i);

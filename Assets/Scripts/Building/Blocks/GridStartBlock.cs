@@ -15,14 +15,14 @@ public class GridStartBlock : Block
 	#region PublicMethod
 	public override void ActivateBlockBuildingUI()
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(true);
 		}
 	}
 
 	public override void DeactivateBlockBuildingUI()
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			_blockMouseSensors[i].gameObject.SetActive(false);
 		}
 	}
