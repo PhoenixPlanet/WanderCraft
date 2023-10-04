@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  spike: {fileID: 7381344861697201972}
 --- !u!1001 &408939220948944164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,6 +285,12 @@ PrefabInstance:
 --- !u!4 &7378167196073325714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5074820031558096864, guid: ccfe13c8bf3735548ae4137fd5485c83,
+    type: 3}
+  m_PrefabInstance: {fileID: 2308624874017219442}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7381344861697201972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5072790530953360454, guid: ccfe13c8bf3735548ae4137fd5485c83,
     type: 3}
   m_PrefabInstance: {fileID: 2308624874017219442}
   m_PrefabAsset: {fileID: 0}

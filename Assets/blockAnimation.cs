@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class blockAnimation : MonoBehaviour
 {
-    private float pulseDuration = 3f;
-    private float pulseScaleValue = 0.8f;
-    private Vector3 pulseScale;
+    protected float pulseDuration = 3f;
+    protected float pulseScaleValue = 0.8f;
+    protected Vector3 pulseScale;
     protected Sequence sequence;
-    private Transform targetTransform;
+    protected Transform targetTransform;
 
     #region PublicVariables
 
@@ -28,7 +28,7 @@ public class blockAnimation : MonoBehaviour
     private void Start()
     {
         Init();
-        StartPunchAnimation();
+        //StartPunchAnimation();
     }
 
     public virtual void Init()
@@ -37,7 +37,7 @@ public class blockAnimation : MonoBehaviour
         targetTransform = transform.Find("Renderer");
     }
 
-    protected void StartPunchAnimation()
+    protected virtual void StartPunchAnimation()
     {
         sequence = DOTween.Sequence();
         sequence.Append(targetTransform.DOScale(pulseScale, pulseDuration / 2).SetEase(Ease.InElastic));
