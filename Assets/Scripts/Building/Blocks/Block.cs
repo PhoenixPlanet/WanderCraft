@@ -76,9 +76,9 @@ public class Block : MonoBehaviour
 		MeshRenderer[] meshRenderers = transform.Find("Highlight").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			meshRenderer.material = _normal;
-			Color color = meshRenderer.material.GetColor("_Color");
-			color.a = 1f;
-			meshRenderer.material.SetColor("_Color", color);
+			Color color = meshRenderer.material.GetColor("_BaseColor");
+			color.a = 0.5f;
+			meshRenderer.material.SetColor("_BaseColor", color);
 		}
 
 		_collider.Get(gameObject).enabled = true;
@@ -89,9 +89,9 @@ public class Block : MonoBehaviour
 		MeshRenderer[] meshRenderers = transform.Find("Highlight").GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in meshRenderers) {
 			meshRenderer.material = _normal;
-			Color color = meshRenderer.material.GetColor("_Color");
+			Color color = meshRenderer.material.GetColor("_BaseColor");
 			color.a = 0.2f;
-			meshRenderer.material.SetColor("_Color", color);
+			meshRenderer.material.SetColor("_BaseColor", color);
 		}
 
 		_collider.Get(gameObject).enabled = false;

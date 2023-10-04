@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace TH.Core {
@@ -10,12 +11,12 @@ public class PillarBuyInfo : MonoBehaviour
 	#endregion
 
 	#region PrivateVariables
-	private ComponentGetter<TextMesh> _red =
-		new ComponentGetter<TextMesh>(TypeOfGetter.ChildByName, "Info/Red/text");
-	private ComponentGetter<TextMesh> _green =
-		new ComponentGetter<TextMesh>(TypeOfGetter.ChildByName, "Info/Green/text");
-	private ComponentGetter<TextMesh> _blue =
-		new ComponentGetter<TextMesh>(TypeOfGetter.ChildByName, "Info/Blue/text");
+	private ComponentGetter<TextMeshProUGUI> _red =
+		new ComponentGetter<TextMeshProUGUI>(TypeOfGetter.ChildByName, "Info/Red/text");
+	private ComponentGetter<TextMeshProUGUI> _green =
+		new ComponentGetter<TextMeshProUGUI>(TypeOfGetter.ChildByName, "Info/Green/text");
+	private ComponentGetter<TextMeshProUGUI> _blue =
+		new ComponentGetter<TextMeshProUGUI>(TypeOfGetter.ChildByName, "Info/Blue/text");
 	#endregion
 
 	#region PublicMethod
@@ -27,7 +28,7 @@ public class PillarBuyInfo : MonoBehaviour
 			_red.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().red.ToString("G4");
 		}
 		else {
-			_red.Get(gameObject).text = GridManager.Instance.CurrentProperty.red.ToString();
+			_red.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().red.ToString();
 		}
 
 		if (GridManager.Instance.GetCenterBlockPrice().green.ToString().Length > 4) {
@@ -42,6 +43,27 @@ public class PillarBuyInfo : MonoBehaviour
 		}
 		else {
 			_blue.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().blue.ToString();
+		}
+
+		if (GridManager.Instance.GetCenterBlockPrice().red > 
+			GridManager.Instance.CurrentProperty.red) {
+			_red.Get(gameObject).color = Color.red;
+		} else {
+			_red.Get(gameObject).color = Color.black;
+		}
+
+		if (GridManager.Instance.GetCenterBlockPrice().green > 
+			GridManager.Instance.CurrentProperty.green) {
+			_green.Get(gameObject).color = Color.red;
+		} else {
+			_green.Get(gameObject).color = Color.black;
+		}
+
+		if (GridManager.Instance.GetCenterBlockPrice().blue > 
+			GridManager.Instance.CurrentProperty.blue) {
+			_blue.Get(gameObject).color = Color.red;
+		} else {
+			_blue.Get(gameObject).color = Color.black;
 		}
 	}
 	#endregion
