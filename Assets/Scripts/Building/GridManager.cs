@@ -346,6 +346,11 @@ public class GridManager : Singleton<GridManager>
 		
 		_infoPanel.Get().SetInfoPanel(_blockLinks);
 	}
+
+	public void AddProperty(PropertyData addPrice)
+	{
+		_currentProperty += addPrice;
+	}
 	#endregion
     
 	#region PrivateMethod
