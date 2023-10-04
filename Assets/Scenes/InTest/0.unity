@@ -8751,7 +8751,7 @@ MonoBehaviour:
   _centerBlockHeight: 0.6
   _cellSize: {x: 1, y: 1, z: 0.6}
   _gridSize: {x: 15, y: 15}
-  _priceDataSO: {fileID: 11400000, guid: 8c7b27d6b12bc9844a59fcc836fcc16e, type: 2}
+  _priceDataSO: {fileID: 11400000, guid: aa834b3168dce4649808c1c393bdae2a, type: 2}
 --- !u!4 &1931991794
 Transform:
   m_ObjectHideFlags: 0
