@@ -55,6 +55,15 @@ public class BuildingLevel : MonoBehaviour
 		}
 
 		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
+
+		if (listIndex.x > GridManager.Instance.GridSize.x - 1 || listIndex.x < 0) {
+			return false;
+		}
+
+		if (listIndex.y > GridManager.Instance.GridSize.y - 1 || listIndex.y < 0) {
+			return false;
+		}
+
 		if (_grid[listIndex.x][listIndex.y].Block == null) {
 			return true;
 		} else {
@@ -67,7 +76,19 @@ public class BuildingLevel : MonoBehaviour
 			return false;
 		}
 
+		if (gridPos == Vector2Int.zero) {
+			return false;
+		}
+
 		Vector2Int listIndex = GridManager.Instance.GetListIndex(gridPos);
+
+		if (listIndex.x > GridManager.Instance.GridSize.x - 1 || listIndex.x < 0) {
+			return false;
+		}
+
+		if (listIndex.y > GridManager.Instance.GridSize.y - 1 || listIndex.y < 0) {
+			return false;
+		}
 
 		if (_grid[listIndex.x][listIndex.y].Block == null) {
 			GameObject blockObject 
