@@ -30,21 +30,21 @@ public class PropertyInfo : MonoBehaviour
 
         #region PrivateMethod
     private void Update() {
-		if (GridManager.Instance.CurrentProperty.red.ToString().Length > 4) {
+		if (GridManager.Instance.CurrentProperty.red.ToString().Length > 5) {
 			_red.Get(gameObject).text = GridManager.Instance.CurrentProperty.red.ToString("G4", CultureInfo.InvariantCulture);
 		}
 		else {
 			_red.Get(gameObject).text = GridManager.Instance.CurrentProperty.red.ToString();
 		}
 
-		if (GridManager.Instance.CurrentProperty.green.ToString().Length > 4) {
+		if (GridManager.Instance.CurrentProperty.green.ToString().Length > 5) {
 			_green.Get(gameObject).text = GridManager.Instance.CurrentProperty.green.ToString("G4", CultureInfo.InvariantCulture);
 		}
 		else {
 			_green.Get(gameObject).text = GridManager.Instance.CurrentProperty.green.ToString();
 		}
 
-		if (GridManager.Instance.CurrentProperty.blue.ToString().Length > 4) {
+		if (GridManager.Instance.CurrentProperty.blue.ToString().Length > 5) {
 			_blue.Get(gameObject).text = GridManager.Instance.CurrentProperty.blue.ToString("G4", CultureInfo.InvariantCulture);
 		}
 		else {

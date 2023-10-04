@@ -24,21 +24,21 @@ public class PillarBuyInfo : MonoBehaviour
     
 	#region PrivateMethod
 	private void Update() {
-		if (GridManager.Instance.GetCenterBlockPrice().red.ToString().Length > 4) {
+		if (GridManager.Instance.GetCenterBlockPrice().red.ToString().Length > 5) {
 			_red.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().red.ToString("G4");
 		}
 		else {
 			_red.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().red.ToString();
 		}
 
-		if (GridManager.Instance.GetCenterBlockPrice().green.ToString().Length > 4) {
+		if (GridManager.Instance.GetCenterBlockPrice().green.ToString().Length > 5) {
 			_green.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().green.ToString("G4");
 		}
 		else {
 			_green.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().green.ToString();
 		}
 
-		if (GridManager.Instance.GetCenterBlockPrice().blue.ToString().Length > 4) {
+		if (GridManager.Instance.GetCenterBlockPrice().blue.ToString().Length > 5) {
 			_blue.Get(gameObject).text = GridManager.Instance.GetCenterBlockPrice().blue.ToString("G4");
 		}
 		else {
