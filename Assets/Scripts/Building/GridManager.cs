@@ -520,9 +520,9 @@ public class GridManager : Singleton<GridManager>
 	}
 
 	private void SelectLevel() {
-		if (_buildingState == BuildingState.Normal) {
-			return;
-		}
+		// if (_buildingState == BuildingState.Normal) {
+		// 	return;
+		// }
 		
 		// for (int i = 0; i < _buildingLevels.Count; i++) {
 		// 	_buildingLevels[i].DeactivateBlocks();

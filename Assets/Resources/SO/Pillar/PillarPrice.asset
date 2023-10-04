@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priceList:
   - red: 100
-    blue: 0
     green: 0
+    blue: 0
     money: 0
   - red: 1000
-    blue: 100
-    green: 0
+    green: 100
+    blue: 0
     money: 0
   - red: 5000
-    blue: 500
-    green: 100
+    green: 500
+    blue: 100
     money: 0
   - red: 10000
-    blue: 1000
-    green: 500
+    green: 1000
+    blue: 500
     money: 0

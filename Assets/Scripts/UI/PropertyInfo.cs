@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Globalization;
 
 namespace TH.Core {
 
@@ -26,9 +27,26 @@ public class PropertyInfo : MonoBehaviour
     
 	#region PrivateMethod
 	private void Update() {
-		_red.Get(gameObject).text = $"{GridManager.Instance.CurrentProperty.red}";
-		_green.Get(gameObject).text = $"{GridManager.Instance.CurrentProperty.green}";
-		_blue.Get(gameObject).text = $"{GridManager.Instance.CurrentProperty.blue}";
+		if (GridManager.Instance.CurrentProperty.red.ToString().Length > 4) {
+			_red.Get(gameObject).text = GridManager.Instance.CurrentProperty.red.ToString("G4", CultureInfo.InvariantCulture);
+		}
+		else {
+			_red.Get(gameObject).text = GridManager.Instance.CurrentProperty.red.ToString();
+		}
+
+		if (GridManager.Instance.CurrentProperty.green.ToString().Length > 4) {
+			_green.Get(gameObject).text = GridManager.Instance.CurrentProperty.green.ToString("G4", CultureInfo.InvariantCulture);
+		}
+		else {
+			_green.Get(gameObject).text = GridManager.Instance.CurrentProperty.green.ToString();
+		}
+
+		if (GridManager.Instance.CurrentProperty.blue.ToString().Length > 4) {
+			_blue.Get(gameObject).text = GridManager.Instance.CurrentProperty.blue.ToString("G4", CultureInfo.InvariantCulture);
+		}
+		else {
+			_blue.Get(gameObject).text = GridManager.Instance.CurrentProperty.blue.ToString();
+		}
 	}
 	#endregion
 }
