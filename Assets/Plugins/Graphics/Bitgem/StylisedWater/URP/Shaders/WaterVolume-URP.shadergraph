@@ -8817,7 +8817,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "4673aefd972b6a8ab8dd7edbf36fcf72",
     "m_Guid": {
@@ -18864,7 +18864,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "c6ec7b30e1783e80953830a60a13ad8c",
     "m_Guid": {
@@ -23424,10 +23424,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -814.9998779296875,
-            "y": 205.00003051757813,
-            "width": 108.99999237060547,
-            "height": 33.999996185302737
+            "x": -823.0000610351563,
+            "y": 167.99996948242188,
+            "width": 151.0,
+            "height": 34.00006103515625
         }
     },
     "m_Slots": [
